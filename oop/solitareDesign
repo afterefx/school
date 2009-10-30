@@ -1,0 +1,60 @@
+---------What do we know? -------
+52 cards
+	red hearts ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
+	spades ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
+	red diamonds ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
+	clubs ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
+
+face up / down
+a couple of piles
+the piles will all use inheritance from a pile class
+
+
+====== Classes ======
+Card class
+    Functions
+	constructor
+	flip it
+	move it
+	compare
+	wild card????? ( may use inheritance) 
+	said no to setting the card (only the constructor can do this)
+	get
+		suit
+		number
+		orientation
+	ToString
+
+    State
+		suit
+		rank
+		orientation
+	
+	
+
+    	   /
+Pile class --
+    	   \
+
+   Methods
+	constructor - create an empty pile (the game will put cards into the pile)
+	copy constructor - copy a pile
+	addCards
+	removeCards
+	getTop
+	numCards
+	isEmpty
+	shuffle
+	organize
+	getCard
+    setDisplayStyle
+    getDisplayStyle
+
+   State
+	numCards
+	collection
+    displayStyle
+
+Game class
+
+UserInterface

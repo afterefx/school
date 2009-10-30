@@ -1,0 +1,53 @@
+
+Christopher Carlisle
+COSC 4328 LAB 1
+Hours: 21 hours
+
+Problems: The math held me up for the longest time. After a ton, I mean a 
+	  ton of discussions with various people, including yourself. I 
+	  found that multiplying the length of the line times the cosine
+	  the degree of the line off of the x axis in radians. You then 
+	  add the x value of the previous point. The same holds true for
+	  the y axis. Instead of cosine you use the sine of the radians.
+	  The degree is still based off of the x axis though. After I 
+	  found that formula the program was pretty easy. Just took a bit
+	  of thinking.
+
+Testing: All of my testing was trial and error from the beginning.
+
+Solution: I started with with the Sierpinski gasket and removed the
+	  function that split the triangles. I then changed GL_TRIANGLES
+	  to GL_LINES. Next I send in a line segment, number of degrees
+	  off of the x axis it should be, and the number of iterations
+	  left. Next I find the length of the line, convert degrees into
+	  radians. I convert the degrees for the original line, the line
+	  for the turn -60 degrees and then a turn back another +60 degrees
+	  I then do the math that I described above to find the new x & y
+	  coordinates for each point. Then each line segment is sent
+	  recursively. If m is equal to zero then it sends that line 
+	  segment to be drawn. The extras that I added was some color
+	  to each line. The ability to move the snowflakes using the 
+	  arrow keys or W.A.S.D. keys. To reset the position of the 
+	  snowflakes you press the spacebar.  When you left click 
+	  the mouse it starts/stops the snowflakes spinning on the
+	  x=y axis. Any number key will change the snowflakes to that
+	  number of iterations. If you want to reset to the number of
+	  iterations that you started the program with you can hit 'o' to
+	  do so. You can also use the + or - to increment or decrement 
+	  through each level of the snowflake. 'Q' will quit the program.
+	  Another extra that I added was a right-click menu that will clear
+	  the screen, redraw the screen, or quit the program. There is also
+	  a submenu to start or stop the spinning of the snowflakes. 
+	  Another extra that I did was added a function to allow the window
+	  to be reshaped and not distort the snowflakes. My last extra was
+	  allowing the number of iterations to be entered from the command
+	  line or if they don't enter an argument a default value of 0 will
+	  be used so that there is no segmentation fault. Also, if a 
+	  negative number or a number greater than 9 is used then it will
+	  use 0. I have an upper limit of 9 iterations because there is 
+	  no change visible.
+Sources: I used the skeleton file on the assignment page to learn how to 
+	 spin the snowflakes and how to reshape the window. I used the 
+	 books website to learn how to make the menus. I learned how to do
+	 interaction from the Interaction slides before they were presented
+	 in class.

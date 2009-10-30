@@ -1,0 +1,77 @@
+====  Roman numeral class ====
+Use standard characters
+convert from decimal to roman
+convert roman to decimal
+full set of relational operators
+add and subtract
+fractions not needed
+
+-----Testing-----
+test cases need to be fully automated
+
+We are going to build a method for the conversion part.
+
+=======================================
+|| 		Program 	     ||
+=======================================
+class RomanNumeral
+{
+	public RomanNumeral(int iDec)
+	{
+		throw ArgumentOutOfRangeException
+	}
+	public RomanNumeral(string sRoman)
+	{
+		throw NotValidRomanNumberlException
+	}
+	bool Equals(string sLeft, string sRight)
+	bool Equals(int iLeft, int iRight)
+	bool Equals(RomanNumeral rnLeft, RomanNumeral rnRight)
+	bool operator==(RomanNumeral rnLeft, RomanNumeral rnRight)
+	string Add(string sLeft, string sRight)
+	{
+		throw OutOfRangeException
+	}
+	RomanNumeral Add(RomanNumeral rnLeft, RomanNumeral rnRight)
+	{
+	throw OutOfRangeException
+	}
+	RomanNumeral operator+(RomanNumeral rnLeft, RomanNumeral rnRight)
+	override string ToString() //no parameter involved (returns class state)	
+
+	//===============================
+	//still need getters and setters
+	//===============================
+}
+
+string DecimalToRoman(int iDec)
+{	throws ArgumentOutOfRangeException
+		*   0 or Negative
+		*   Over 3999
+}
+
+int RomanToDecimal(string sRoman)
+{	throw NotValidRomanNumberlException
+}
+	
+
+Parameter Constructor (string RomanNumerals)
+Parameter Constructor (int iDec)
+
+
+=========== Test Cases ============
+
+DR,1,I
+DR,0,Exception
+DR,-10, Exception
+DR,4000, Exception
+DR,1999, ...
+DR,4, IV
+RD,IV, 4
+RD,ZV, Exception
+RD,IVIV, Exception
+RD,XM, Exception
+GEE, XXV, XVI, 0  (>=, num, num, false)
+
+use a switch for codes, parse lines based on commas, use a switch to match out
+different characters, then put code for specific switch statement

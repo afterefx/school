@@ -1,0 +1,105 @@
+static functions cannot access class variables
+greedy algorithms take the biggest value first
+
+
+public static bool operator == (RomanNumeralsClass rnLeft, RomanNumeralsClass
+rnRight)
+{
+	if (rnLeft.iRoman == rnRight.iRoman)
+		return true;
+	else
+		return false;
+}
+
+public overrride bool Equals(Object obj)
+{
+	if(obj.GetType() != this.GetType())
+		return false;
+	RomanNumeralsClass rn = (RomanNumeralsClass)obj;
+	if (this.iRoman == rn.iRoman)
+		return true;
+	else
+		return false;
+}
+
+
+All oop languages have the following concepts
+	classes aka object type, factory object
+	instances aka objects
+	message passing aka method lookup, member function invocation, method binding
+	methods aka member function, method function
+	inheritance aka sub classing
+
+
+Encapsulation - means there are 2 types of views one for the programmer using the function and one for the programmer writing the function
+A Service view - the ability to characterize an object by the ervice it
+provides, without knowing how it performs its task
+
+A implementation view - describes how it does it
+
+Behavior: The actions that an instance can perform in response to a request.
+Implemented by methods.
+
+State: the datat that an object must maintian in order to successfully 
+complete its behavior. Store in instance variables (also known as data 
+members, or data fields
+
+A typical example, class definition in c++
+class PlayingCard
+{
+public:
+	enum Suits {Spade, Diamond, Club, Heart};
+	Suits suit () { return suitValue; }
+	int rank () { return rankValue; }
+private: 
+	Suits suitValue;
+	int rankValue;
+};	
+
+
+Static and final
+===============
+static means that all instance share the same value. One per class. Similar
+meaning in many languages
+final is Java specific and means it will not be reassigned (c++ has const
+keyword that is similar, although not exactly the same).
+
+==============
+|| Example   ||
+==============
+
+bool might be boolean in C#
+
+constructor - used to initialize a newly constructed object
+Accessor - a method that simply returns an internal data value
+	why
+		you can make data field read only
+		it documents the data field
+		it makes it easier to change the access behavior
+		getKeyword();
+setter or mutators - method that is used to change the state of an object
+		this is your chance to do data validation
+
+for the most part languages don't care about the order that methods are declared
+	list important topics first
+	construtors are very important, do them first
+	put public features before private ones
+	break long lists into groups
+	list items in alphabetial order to make it easier to search
+	note; in c++ we have a .h file, there is no equivalent in c#
+
+separation of Definition and implementation
+	we don't have to worry about separate files in c#
+
+public int Rank
+{
+
+	set {
+	rankValue = value;
+	}
+	get {
+		return value;
+	}
+}
+
+Know how different ways to impelment static functions
