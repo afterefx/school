@@ -1,0 +1,60 @@
+
+Christopher Carlisle
+COSC 4328 LAB 2
+Hours: 19 hours
+
+Problems: The problem I ran into was getting the mouse screen coordinates
+	  into world coordinates. This remained a problem for me for a 
+	  couple of days until I was introduced to the unproject function.
+	  I also ran into a problem with my reshape function. After I 
+	  would click and drag a new snowflake. If I reshaped the window
+	  I would receive:
+
+ XIO:  fatal IO error 14 (Bad address) on X server "/tmp/launch-WMxghz/:0"
+      after 163 requests (162 known processed) with 2 events remaining.
+	
+	I decided to remove the code for reshaping because of this.
+	This still did not fix the problem. 
+
+Testing: All of my testing was trial and error from the beginning.
+
+Solution: I started off with my code from lab 1 and added in a function
+	  to my display to draw the location of the mouse. This function
+	  would construct a string and send it to the displayString 
+	  function taken from your site. I used a global variable to
+	  keep track of the mouse. This was set with my passive
+	  mouse function. Once I had the location of the mouse updating. 
+	  I then went after the hertz. I used the code from your site
+	  again and started the timer at the beginning of the display 
+	  function and stopped at the end. I then, within the display 
+	  function send the elapsed time to the function which I used
+	  to display the mouse location. (I added more code to display 
+          hertz) In that function I used a static c string to constantly
+	  display a value. I start off with ??.?? since we aren't able 
+	  to calculate till after about 3 seconds. After it runs the first
+	  time I have it disable itself. From then on, I increment the 
+	  number of frames and keep a sum of the elapsed time until 
+	  it goes past 3000 milliseconds. Then I take then number of frames
+	  divided by the number of milliseconds / 1000, to give me seconds, 
+	  giving me the result of frames per second.  Since strings were
+	  easy enough I decided to add one in to show the number of 
+	  iterations.  For the single mouse click I took the position
+	  of the mouse and made it the top point of the triangle. I then
+	  took that point and calculated the other 2 points with a side
+	  length 1/5 the size of the window. For the dragging of the 
+	  snowflake I took the starting location of the mouse from the
+	  glutMouseFunc and stored it in a global variable. I then 
+	  calculate the position for the points based on the direction
+	  that the user is dragging with the screen coordinates. Once
+	  the appropriate screen coordinates are found I then unprotect
+	  them to world coordinates and store them in my snowflake.
+	  Then a simple glutPostRedisplay and we have a snowflake.
+	  Menus were already done from the previous lab. The +/- keys
+	  were also already done. Arrow keys still work. Hit 'o' to 
+	  return to the original number of iterations and remove the
+	  second snowflake. The spacebar resets the position of both 
+	  snowflakes to where they were before you started messing with 
+	  the arrow keys.  WASD is still available also. Numbers at the 
+	  top will change the number of iterations.
+
+Sources: I used cppreference.com, the code on your site, opengl reference site & glut reference site on opengl.org.
