@@ -8,33 +8,40 @@
 #include <GL/glut.h>
 #endif
 
-typedef float point[4];
-
+/*******************************************
+// RGBColor struct
+// Purpose: holds color values
+******************************************/
 typedef struct {
   GLdouble red, green, blue;
 } 
 RGBColor;
 
-GLfloat mat_specular[]={0.8, 0.1, 0.1, 0.1};
-GLfloat mat_diffuse[]={0.3, 1.0, 0.3, 1.0};
-GLfloat mat_ambient[]={1.0, 1.0, 1.0, 1.0};
-GLfloat mat_shininess={100.0};
-
 int numLights; //keep track of the number of lights
 int numObjs; //number of objects
-int winWidth, winHeight;
+int winWidth, winHeight; //keep track of window width and height
 
+/*******************************************
+// View struct
+// Purpose: holds a size for window and 
+// 	    distiance from origin
+******************************************/
 struct {
     int size;
     float d;
  } 
 view;
 
-#define MAX_LIGHTS  10
-#define MAX_OBJECTS    200
-RGBColor ambient_light;
-RGBColor backgroundColor = {0,0,0};
+#define MAX_LIGHTS  10 //maximum number of lights
+#define MAX_OBJECTS    200 //maximum number of objects
+RGBColor ambient_light; //ambient light for the scene
+RGBColor backgroundColor = {0,0,0}; //background color for the scene
 
+/************************************************
+|| LIGHT struct
+|| Purpose: holds position, color and shininess
+|| 	    for a light
+************************************************/
 typedef struct {
     Vector position;
     RGBColor color;
@@ -42,6 +49,11 @@ typedef struct {
 } 
 LIGHT;
 
+/************************************************
+|| MATERIAL
+|| Purpose: holds diffuse, specular, and shininess
+||  	    for a material
+************************************************/
 typedef struct {
     RGBColor diffuse;
     RGBColor specular;
@@ -49,8 +61,13 @@ typedef struct {
 } 
 MATERIAL;
 
-#define MAX_GROUPS    20
+#define MAX_GROUPS    20  //maximum number of groups
 
+/************************************************
+|| Object strcut
+|| Purpose: holds a material and transform for
+|| 	   an object
+************************************************/
 typedef struct {
     MATERIAL material;
     Transform transform;
@@ -59,19 +76,16 @@ OBJECT;
 
 MATERIAL currentMaterial; //current material
 Transform currentTransform[MAX_GROUPS]; //array of transformations for groups
-Transform tempSave;
-GLdouble loadAMatrix[16];
-int curGroupLevel=0;
+Transform tempSave; //holds a tranform temporarily off to the side
+int curGroupLevel=0; //holds the current group level
 
 OBJECT objects[MAX_OBJECTS]; //array of objects
 LIGHT lightSources[MAX_LIGHTS]; //array of lights
 
 /********************************************
 // loadColor()
-// 
-// receives a RGBColor and puts it into a GLfloat
-// pointer. 
-//
+// Purpose: receives a RGBColor and puts it 
+// into a GLfloat pointer. 
 ********************************************/
 void loadColor(GLfloat *clr, RGBColor iclr) 
 {
@@ -83,37 +97,45 @@ void loadColor(GLfloat *clr, RGBColor iclr)
 
 /*******************************************
 // setmaterial()
-//
-// takes in material struct and breaks it down
-// setting each attribute with glMaterial fv
-//
+// Purpose: takes in material struct and 
+// 	    breaks it down setting each 
+// 	    attribute with glMaterial fv
 *******************************************/
 void setmaterial(MATERIAL mat) 
 {
-    GLfloat clr[4];
-    loadColor(clr, mat.specular);
-//    printf("setting specular to (%lf,%lf,%lf,%lf)\n", clr[0], clr[1], clr[2], clr[3]);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, clr);
-    loadColor(clr, mat.diffuse);
- //   printf("setting diffuse to (%lf,%lf,%lf,%lf)\n", clr[0], clr[1], clr[2], clr[3]);
+    GLfloat clr[4]; //holds values for setting materials temporarily 
+
+    //Specular
+    loadColor(clr, mat.specular); 
+// printf("setting specr to (%lf,%lf,%lf,%lf)\n", clr[0], clr[1], clr[2], clr[3]);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, clr); //set spec
+
+    //Diffuse
+    loadColor(clr, mat.diffuse); 
+ //   printf("setting diff to (%lf,%lf,%lf,%lf)\n", clr[0], clr[1], clr[2], clr[3]);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, clr);
   //  printf("setting shininess to %lf\n", mat.shininess);
 
+    //Shininess
     glMaterialf(GL_FRONT, GL_SHININESS, mat.shininess);
 }
 
 void singleArrayMatrix( Matrix mat, GLdouble *m )
 {
 	int r,c;
-	for(r=0; r < 4; r++)
+	for(r=0; r < 4; r++) //for each row
 	{
-	  for(c=0; c < 4; c++)
+	  for(c=0; c < 4; c++) //for each column
 	  {
-	      m[(r*4)+c] = mat.element[r][c];
+	      m[(r*4)+c] = mat.element[r][c]; //transfer values
 	  }
 	}
 }
 
+/************************************************
+|| display()
+|| Purpose: draw a scene
+************************************************/
 void display(void)
 {
     int i,r,c,e;
@@ -124,29 +146,33 @@ void display(void)
     glLoadIdentity();
     
     glPushMatrix();
-    for (i = 0; i < numObjs; i++) {
+    for (i = 0; i < numObjs; i++) 
+    {
 
-//  What steps do I need to do to make sure the state is correct for this
-// object?  And that it doesn't corrupt the state for others???
-// Draw each object
-	      // Maybe I can store a transform for each object and just load it
+	setmaterial(objects[i].material); //set the material
 
-	 setmaterial(objects[i].material);
-	 singleArrayMatrix( transposeMatrix(objects[i].transform.transformation), m );
-	 //displayMatrix( transposeMatrix(objects[i].transform.transformation ));
-	 //singleArrayMatrix( objects[i].transform.transformation, m );
-	 //displayTransform( objects[i].transform );
-	 glLoadMatrixd( m );      
-	      // Draw the object using glut function or my own sphere code.
+	//Convert transform matrix for object
+ 	singleArrayMatrix( transposeMatrix(objects[i].transform.transformation), m );
+	//displayMatrix( transposeMatrix(objects[i].transform.transformation ));
+	//singleArrayMatrix( objects[i].transform.transformation, m );
+	//displayTransform( objects[i].transform );
+	
+	//Load the matrix for the object
+	glLoadMatrixd( m ); 
+
+	//Draw a solid sphere
 	glutSolidSphere(1,50,50); 
-	      // Hmm, anything else need to be done?
+	      
     }
     glPopMatrix();
     glFlush();
     glutSwapBuffers();
 }
 
-//don't need to fix this
+/************************************************
+|| myReshape()
+|| Purpose: reshape the window
+************************************************/
 void myReshape(int w, int h)
 {
     //glViewport(0, 0, w/2, h); // Maybe I want to use only one half the window...
@@ -160,12 +186,14 @@ void myReshape(int w, int h)
         glFrustum(-view.d, view.d, -view.d * (GLfloat) h / (GLfloat) (w),
             view.d * (GLfloat) h / (GLfloat) (w), 1, 1000);
     else
-        glFrustum(-view.d * (GLfloat) (w) / (GLfloat) h, view.d * (GLfloat) (w) / (GLfloat) h, -view.d,
-            view.d, 1, 1000);
+        glFrustum(-view.d * (GLfloat) (w) / (GLfloat) h, view.d * (GLfloat) (w) / (GLfloat) h, -view.d, view.d, 1, 1000);
     glMatrixMode(GL_MODELVIEW);
 }
 
-
+/************************************************
+|| myinit()
+|| Purpose: initialize the scene and lights
+************************************************/
 void myinit()
 {
     int i;
@@ -176,17 +204,20 @@ void myinit()
 /* set up ambient, diffuse, and specular components for light each light */
 
     //printf("Number of lights: %d\n" ,numLights);
-    for (i=0; i < numLights; i++) {
+    for (i=0; i < numLights; i++) //for each light
+    {
     	//printf(" Setting up light: %d\n" ,i);
         glEnable(GL_LIGHT0+i);  /* enable light i */
-	if(i==0)
+	if(i==0) //for the first light load the ambient color
 	{
-		loadColor(clr, ambient_light);
-		glLightfv(GL_LIGHT0+i, GL_AMBIENT, clr);
+		loadColor(clr, ambient_light); 
+		glLightfv(GL_LIGHT0+i, GL_AMBIENT, clr); 
 	}
        	loadColor(clr, lightSources[i].color);
-	glLightfv(GL_LIGHT0+i, GL_DIFFUSE, clr);
-	glLightfv(GL_LIGHT0+i, GL_SPECULAR, clr);
+	glLightfv(GL_LIGHT0+i, GL_DIFFUSE, clr); //load diffuse
+	glLightfv(GL_LIGHT0+i, GL_SPECULAR, clr); //load same value for spec
+
+	//Set position of light
 	light[0] = lightSources[i].position.x;
 	light[1] = lightSources[i].position.y;
 	light[2] = lightSources[i].position.z;
@@ -199,7 +230,7 @@ void myinit()
     glShadeModel(GL_SMOOTH); /*enable smooth shading */
     glEnable(GL_LIGHTING);   /* enable lighting */
     glEnable(GL_DEPTH_TEST); /* enable z buffer */
-    glEnable(GL_NORMALIZE); // I could have scaling so I'm assuming normals wrong.
+    glEnable(GL_NORMALIZE); 
     glClearColor (backgroundColor.red, backgroundColor.green,
 		    backgroundColor.blue, 1.0);
     glMatrixMode(GL_PROJECTION);
@@ -218,22 +249,28 @@ void readFile(char *fname)
 {
   char filename[1024]; //holds filename
   FILE *SceneFile; //points to the file
-  char cmd[512]; //
+  char cmd[512]; // holds a command
   char Buff[2048];
 
   GLdouble x, y, z, angle, ni;
   char axis;
 	
-  numLights = 0;
+  //Initialize number of lights & objects
+  numLights = 0; 
   numObjs = 0;
 
+  //Start reading scene with identity transform
   loadIdentityTransform(&currentTransform[curGroupLevel]);
+
+  //Open the file
   if ((SceneFile = fopen(fname, "r")) == NULL) 
   {
       printf("Error opening scene file \n");
       exit(1);
   }
   fscanf(SceneFile, "%s", cmd);  //stores first word into cmd
+
+  //Loop to read contents of the file
   while (!feof(SceneFile))
   {
       if (!strcmp(cmd, "view")) //compares string to view
@@ -250,12 +287,11 @@ void readFile(char *fname)
       }
       else if (!strcmp(cmd, "group")) 
       {
-	  // We've got a new group so let's add a new level.
-	  // What should our initial transform be?
-	  // Let's just start with the parents transform!
           ++curGroupLevel;
 	  //printf("Current group level: %d\n", curGroupLevel);
-          currentTransform[curGroupLevel] = currentTransform[curGroupLevel-1]; // get transform for previous group level
+
+	  // get transform for previous group level
+          currentTransform[curGroupLevel] = currentTransform[curGroupLevel-1]; 
       }
       else if (!strcmp(cmd, "groupend")) 
       {
@@ -298,7 +334,6 @@ void readFile(char *fname)
       }
       else if (!strcmp(cmd, "sphere"))
       {
-	  // I've got an object.  Should I set all of it's attributes here?
 	  objects[numObjs].transform = currentTransform[curGroupLevel];
 	  objects[numObjs].material = currentMaterial;
 	  numObjs++;
@@ -322,81 +357,90 @@ void readFile(char *fname)
       }
       else if (!strcmp(cmd, "refraction"))
       {
+	      //needs to be setup later
       }
       else if (!strcmp(cmd, "move"))
       {
-	  fscanf(SceneFile, "%lf", &x);
-	  fscanf(SceneFile, "%lf", &y);
-	  fscanf(SceneFile, "%lf", &z);
+	fscanf(SceneFile, "%lf", &x);
+	fscanf(SceneFile, "%lf", &y);
+	fscanf(SceneFile, "%lf", &z);
 
-	  //save current matrix off to the side
-	  tempSave = currentTransform[curGroupLevel];
-	  //set current matrix to identity (glLoadIdentity b/c we can't send in
-	  //our current matrix)
-	  loadIdentityTransform(&currentTransform[curGroupLevel]);
-	  //apply passed in move to identity. so that it's first (reversing
-	  //order)
-	  applyTransform( translateTransform(x, y, z), &currentTransform[curGroupLevel]);  
-	  //now put save matrix on to transform passed in. (reversing order)
-	  applyTransform( tempSave, &currentTransform[curGroupLevel]); 
+	//save current matrix off to the side
+	tempSave = currentTransform[curGroupLevel];
+
+	//set current matrix to identity (loadIdentityTransoform b/c 
+	// we can't send in our current matrix)
+	loadIdentityTransform(&currentTransform[curGroupLevel]);
+
+	//apply passed in move to identity. so that it's first (reversing
+	//order)
+	applyTransform(translateTransform(x,y,z),&currentTransform[curGroupLevel]);  
+
+	//now put save matrix on to transform passed in. (reversing order)
+	applyTransform( tempSave, &currentTransform[curGroupLevel]); 
       }
       else if (!strcmp(cmd, "scale"))
       {
-	 //printf("Scale\n");
-	  fscanf(SceneFile, "%lf", &x);
-	  fscanf(SceneFile, "%lf", &y);
-	  fscanf(SceneFile, "%lf", &z);
+	//printf("Scale\n");
+	fscanf(SceneFile, "%lf", &x);
+	fscanf(SceneFile, "%lf", &y);
+	fscanf(SceneFile, "%lf", &z);
 
-	  //save current matrix off to the side
-	  tempSave = currentTransform [curGroupLevel];
-	  //set current matrix to identity (glLoadIdentity b/c we can't send in
-	  //our current matrix)
-	  loadIdentityTransform(&currentTransform[curGroupLevel]);
-	  //apply passed in scale to identity. so that it's first (reversing
-	  //order)
-          applyTransform( scaleTransform(x, y, z), &currentTransform[curGroupLevel]); 
-	  //now put save matrix on to transform passed in. (reversing order)
-	  applyTransform( tempSave, &currentTransform[curGroupLevel]);  
+	//save current matrix off to the side
+	tempSave = currentTransform [curGroupLevel];
+
+	//set current matrix to identity (loadIdentTransform b/c we can't send in
+	//our current matrix)
+	loadIdentityTransform(&currentTransform[curGroupLevel]);
+	//apply passed in scale to identity. so that it's first (reversing
+	//order)
+        applyTransform( scaleTransform(x, y, z), &currentTransform[curGroupLevel]); 
+
+	//now put save matrix on to transform passed in. (reversing order)
+	applyTransform( tempSave, &currentTransform[curGroupLevel]);  
       }
       else if (!strcmp(cmd, "rotate"))
       {
-	  fscanf(SceneFile, "%lf", &angle);
-	  fscanf(SceneFile, "%lf", &x);
-	  fscanf(SceneFile, "%lf", &y);
-	  fscanf(SceneFile, "%lf", &z);
+	fscanf(SceneFile, "%lf", &angle);
+	fscanf(SceneFile, "%lf", &x);
+	fscanf(SceneFile, "%lf", &y);
+	fscanf(SceneFile, "%lf", &z);
 
-	  //save current matrix off to the side
-	  tempSave = currentTransform[curGroupLevel];
-	  //set current matrix to identity (glLoadIdentity b/c we can't send in
-	  //our current matrix)
-	  loadIdentityTransform(&currentTransform[curGroupLevel]);
-	  //apply passed in rotate to identity. so that it's first (reversing
-	  //order)
-	  applyTransform( rotateTransform(angle,x,y,z), &currentTransform[curGroupLevel]); 
-	  //now put save matrix on to transform passed in. (reversing order)
-	  applyTransform( tempSave, &currentTransform[curGroupLevel]);  
+	//save current matrix off to the side
+	tempSave = currentTransform[curGroupLevel];
+
+	//set current matrix to identity (loadIdentTransform b/c we can't send in
+	//our current matrix)
+	loadIdentityTransform(&currentTransform[curGroupLevel]);
+
+	//apply passed in rotate to identity. so that it's first (reversing
+	//order)
+	applyTransform(rotateTransform(angle,x,y,z), &currentTransform[curGroupLevel]); 
+	//now put save matrix on to transform passed in. (reversing order)
+	applyTransform( tempSave, &currentTransform[curGroupLevel]);  
       }
       else
       {
 	  fprintf(stderr, "Error: Unknown cmd '%s' in description file\n", cmd);
 	  exit(-1);
       }
-      fscanf(SceneFile, "%s", cmd);
+      fscanf(SceneFile, "%s", cmd); //get next command
   }
 
   fclose(SceneFile); //close the scene file
 }
 		
+
 int main(int argc, char **argv)
 {
     //level=3;
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    readFile(argv[1]);
+    readFile(argv[1]); //read the scene
     //glutInitWindowSize(view.size*2, view.size);
-    glutInitWindowSize(view.size, view.size);
-    glutCreateWindow("ViewScene");
-    myinit();
+    glutInitWindowSize(view.size, view.size); //set the window
+    glutCreateWindow("View Scene");
+    myinit(); //setup lights and window
     glutReshapeFunc(myReshape);
     glutDisplayFunc(display);
     glutKeyboardFunc(kbdCB);
