@@ -13,13 +13,12 @@
 // Purpose: holds color values
 ******************************************/
 typedef struct {
-  GLdouble red, green, blue;
+  double red, green, blue;
 } 
 RGBColor;
 
 int numLights; //keep track of the number of lights
 int numObjs; //number of objects
-int winWidth, winHeight; //keep track of window width and height
 
 /*******************************************
 // View struct
@@ -45,7 +44,7 @@ RGBColor backgroundColor = {0,0,0}; //background color for the scene
 typedef struct {
     Vector position;
     RGBColor color;
-    GLfloat shininess;
+    float shininess;
 } 
 LIGHT;
 
@@ -57,7 +56,7 @@ LIGHT;
 typedef struct {
     RGBColor diffuse;
     RGBColor specular;
-    GLfloat shininess;
+    float shininess;
 } 
 MATERIAL;
 
@@ -82,169 +81,6 @@ int curGroupLevel=0; //holds the current group level
 OBJECT objects[MAX_OBJECTS]; //array of objects
 LIGHT lightSources[MAX_LIGHTS]; //array of lights
 
-/********************************************
-// loadColor()
-// Purpose: receives a RGBColor and puts it 
-// into a GLfloat pointer. 
-********************************************/
-void loadColor(GLfloat *clr, RGBColor iclr) 
-{
-    clr[0] = iclr.red; //red
-    clr[1] = iclr.green; //green
-    clr[2] = iclr.blue; //blue
-    clr[3] = 1.0; //alpha
-}
-
-/*******************************************
-// setmaterial()
-// Purpose: takes in material struct and 
-// 	    breaks it down setting each 
-// 	    attribute with glMaterial fv
-*******************************************/
-void setmaterial(MATERIAL mat) 
-{
-    GLfloat clr[4]; //holds values for setting materials temporarily 
-
-    //Specular
-    loadColor(clr, mat.specular); 
-// printf("setting specr to (%lf,%lf,%lf,%lf)\n", clr[0], clr[1], clr[2], clr[3]);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, clr); //set spec
-
-    //Diffuse
-    loadColor(clr, mat.diffuse); 
- //   printf("setting diff to (%lf,%lf,%lf,%lf)\n", clr[0], clr[1], clr[2], clr[3]);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, clr);
-  //  printf("setting shininess to %lf\n", mat.shininess);
-
-    //Shininess
-    glMaterialf(GL_FRONT, GL_SHININESS, mat.shininess);
-}
-
-void singleArrayMatrix( Matrix mat, GLdouble *m )
-{
-	int r,c;
-	for(r=0; r < 4; r++) //for each row
-	{
-	  for(c=0; c < 4; c++) //for each column
-	  {
-	      m[(r*4)+c] = mat.element[r][c]; //transfer values
-	  }
-	}
-}
-
-/************************************************
-|| display()
-|| Purpose: draw a scene
-************************************************/
-void display(void)
-{
-    int i,r,c,e;
-    GLdouble m[16]; //single array matrix to used to load
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // if (trackballMove) { glRotatef(angle, axis[0], axis[1], axis[2]); }
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-    
-    glPushMatrix();
-    for (i = 0; i < numObjs; i++) 
-    {
-
-	setmaterial(objects[i].material); //set the material
-
-	//Convert transform matrix for object
- 	singleArrayMatrix( transposeMatrix(objects[i].transform.transformation), m );
-	//displayMatrix( transposeMatrix(objects[i].transform.transformation ));
-	//singleArrayMatrix( objects[i].transform.transformation, m );
-	//displayTransform( objects[i].transform );
-	
-	//Load the matrix for the object
-	glLoadMatrixd( m ); 
-
-	//Draw a solid sphere
-	glutSolidSphere(1,50,50); 
-	      
-    }
-    glPopMatrix();
-    glFlush();
-    glutSwapBuffers();
-}
-
-/************************************************
-|| myReshape()
-|| Purpose: reshape the window
-************************************************/
-void myReshape(int w, int h)
-{
-    //glViewport(0, 0, w/2, h); // Maybe I want to use only one half the window...
-    glViewport(0, 0, w, h);
-
-    winWidth = w;
-    winHeight = h;
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    if (w <= h)
-        glFrustum(-view.d, view.d, -view.d * (GLfloat) h / (GLfloat) (w),
-            view.d * (GLfloat) h / (GLfloat) (w), 1, 1000);
-    else
-        glFrustum(-view.d * (GLfloat) (w) / (GLfloat) h, view.d * (GLfloat) (w) / (GLfloat) h, -view.d, view.d, 1, 1000);
-    glMatrixMode(GL_MODELVIEW);
-}
-
-/************************************************
-|| myinit()
-|| Purpose: initialize the scene and lights
-************************************************/
-void myinit()
-{
-    int i;
-    GLfloat clr[4];
-    GLfloat light[4];
-    
-    glMatrixMode(GL_MODELVIEW);
-/* set up ambient, diffuse, and specular components for light each light */
-
-    //printf("Number of lights: %d\n" ,numLights);
-    for (i=0; i < numLights; i++) //for each light
-    {
-    	//printf(" Setting up light: %d\n" ,i);
-        glEnable(GL_LIGHT0+i);  /* enable light i */
-	if(i==0) //for the first light load the ambient color
-	{
-		loadColor(clr, ambient_light); 
-		glLightfv(GL_LIGHT0+i, GL_AMBIENT, clr); 
-	}
-       	loadColor(clr, lightSources[i].color);
-	glLightfv(GL_LIGHT0+i, GL_DIFFUSE, clr); //load diffuse
-	glLightfv(GL_LIGHT0+i, GL_SPECULAR, clr); //load same value for spec
-
-	//Set position of light
-	light[0] = lightSources[i].position.x;
-	light[1] = lightSources[i].position.y;
-	light[2] = lightSources[i].position.z;
-	light[3] = 1.0;
-	glLightfv(GL_LIGHT0+i, GL_POSITION, light);
-    }
-
-/* define material proerties for front face of all polygons */
-
-    glShadeModel(GL_SMOOTH); /*enable smooth shading */
-    glEnable(GL_LIGHTING);   /* enable lighting */
-    glEnable(GL_DEPTH_TEST); /* enable z buffer */
-    glEnable(GL_NORMALIZE); 
-    glClearColor (backgroundColor.red, backgroundColor.green,
-		    backgroundColor.blue, 1.0);
-    glMatrixMode(GL_PROJECTION);
-}
-
-void kbdCB(unsigned char key, int x, int y)
-{
-   switch (key)
-   {
-       case 'q': case 'Q':
-       case 27: exit(0); break;  // Esc
-   }
-}
-
 void readFile(char *fname)
 {
   char filename[1024]; //holds filename
@@ -252,7 +88,7 @@ void readFile(char *fname)
   char cmd[512]; // holds a command
   char Buff[2048];
 
-  GLdouble x, y, z, angle, ni;
+  double x, y, z, angle, ni;
   char axis;
 	
   //Initialize number of lights & objects
@@ -430,20 +266,31 @@ void readFile(char *fname)
   fclose(SceneFile); //close the scene file
 }
 		
+void drawPixels()
+{
+	int winWidth = view.size;
+	int winHeight = view.size;
+	RGBColor Pixel[winWidth][winHeight];
+	FILE *picfile;
+	int j,i;
+	picfile = fopen("out.ppm", "w");
+	fprintf(picfile, "P6\n# %dx%d Raytracer output\n%d %d\n255\n",
+                view.size, view.size, view.size, view.size);
+
+        // For each pixel
+	for (j=view.size; j >= 0; j--)     // Y is flipped!
+	    for (i=0; i < view.size; i++) 
+	    {
+	        fprintf(picfile,
+				"%lf%lf%lf",Pixel[i][j].red,Pixel[i][j].green,Pixel[i][j].blue);
+		    // Remember though that this is a number between 0 and 255
+		    // so might have to convert from 0-1.
+	    }
+}	
 
 int main(int argc, char **argv)
 {
-    //level=3;
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     readFile(argv[1]); //read the scene
-    //glutInitWindowSize(view.size*2, view.size);
-    glutInitWindowSize(view.size, view.size); //set the window
-    glutCreateWindow("View Scene");
-    myinit(); //setup lights and window
-    glutReshapeFunc(myReshape);
-    glutDisplayFunc(display);
-    glutKeyboardFunc(kbdCB);
-    glutMainLoop();
+     drawPixels();
 }
 
