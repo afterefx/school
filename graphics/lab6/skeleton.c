@@ -77,6 +77,7 @@ MATERIAL currentMaterial; //current material
 Transform currentTransform[MAX_GROUPS]; //array of transformations for groups
 Transform tempSave; //holds a tranform temporarily off to the side
 int curGroupLevel=0; //holds the current group level
+RGBColor Pixel[winWidth][winHeight];
 
 OBJECT objects[MAX_OBJECTS]; //array of objects
 LIGHT lightSources[MAX_LIGHTS]; //array of lights
@@ -266,11 +267,52 @@ void readFile(char *fname)
   fclose(SceneFile); //close the scene file
 }
 		
+void findIntersections()
+{
+	int t1,t2,a,b,c,row,col;
+	Vector u,v, curPixel;
+
+	//get u  which is the camera position
+	u.x = 0;
+	u.y = 0;
+	u.z = 1;
+	u.w = 1;
+
+	//find coord for current pixel
+	for(row=0; row < view.d; row++)
+		for(col=0; col < view.d; col++)
+		{
+			curPixel.x = -d + (d/n) + ((2d/n) * col);
+			curPixel.y = d - (d/n) - ((2d/n) * row);
+			curPixel.z = 0;
+			curPixel.w = 1;
+
+
+	
+			//find v
+			v=unit_vector(vector_subtract(curPixel - u));
+
+			//store values for a b c
+			a = dot_product(u, u);
+			b = 2 * dot_product(u,v);
+			c = dot_product(u,u) -1;
+
+			//Ray/Sphere intersection
+			if(b*b > 4*a*c)
+			{
+				if(b >0)
+					t1 = (-b - sqrt(b^2 - 4*a*c))/(2*a);
+				else
+					t1 = (-b + sqrt(b^2 - 4*a*c))/(2*a);
+				t2 = c / (a*t1);
+			}
+		}
+}
+
 void drawPixels()
 {
 	int winWidth = view.size;
 	int winHeight = view.size;
-	RGBColor Pixel[winWidth][winHeight];
 	FILE *picfile;
 	int j,i;
 	picfile = fopen("out.ppm", "w");
@@ -281,8 +323,8 @@ void drawPixels()
 	for (j=view.size; j >= 0; j--)     // Y is flipped!
 	    for (i=0; i < view.size; i++) 
 	    {
-	        fprintf(picfile,
-				"%lf%lf%lf",Pixel[i][j].red,Pixel[i][j].green,Pixel[i][j].blue);
+	        fprintf(picfile, "%lf%lf%lf", 
+				Pixel[i][j].red,Pixel[i][j].green,Pixel[i][j].blue);
 		    // Remember though that this is a number between 0 and 255
 		    // so might have to convert from 0-1.
 	    }
@@ -291,6 +333,7 @@ void drawPixels()
 int main(int argc, char **argv)
 {
     readFile(argv[1]); //read the scene
-     drawPixels();
+    findIntersections(); //find the intersections
+     drawPixels(); //draw the results
 }
 
