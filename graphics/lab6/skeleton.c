@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "Xfm.h"
 
 #ifdef __APPLE__
@@ -71,8 +72,7 @@ typedef struct {
     MATERIAL material;
     Transform transform;
 } 
-OBJECT;
-
+OBJECT; 
 /************************************************
 || Ray strcut
 || Purpose: holds a ray's vectors
@@ -85,7 +85,9 @@ Ray;
 
 typedef struct {
 	int objNumber;
-	Vector intPoint;
+	Vector objPoint;
+	Vector worldPoint;
+	Ray objRay;
 }
 ObjectAttributes;
 	
@@ -304,16 +306,66 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 {
 	RGBColor color; 
 	int iNum;
+	Vector n,L,R;
+	Matrix temp;
 
 	//store the object number
 	iNum = obj.objNumber;
 
+	//find normal
+	obj.objPoint.w = 0;
 
+	temp = (objects[iNum].transform.transformation);
+
+	//Move normal to world space
+	n = matrixTimesVector(temp, obj.objPoint);
 
 	//Color = black
-	color.red = ambient_light.red * objects[iNum].material.diffuse.red;
-	color.green = ambient_light.green * objects[iNum].material.diffuse.green;
-	color.blue = ambient_light.blue * objects[iNum].material.diffuse.blue;
+	color.red = (ambient_light.red * objects[iNum].material.diffuse.red);
+	color.green = (ambient_light.green *
+			objects[iNum].material.diffuse.green);
+	color.blue = (ambient_light.blue * objects[iNum].material.diffuse.blue);
+
+	int i;
+	for(i =0; i < numLights; i++)
+	{
+
+	L = unit_vector(vector_subtract(lightSources[i].position, obj.worldPoint));
+
+	R = vector_subtract(L ,vector_X_n(vector_X_n(n, dot_product(n,L)),2));
+	color.red += lightSources[i].color.red *
+		((objects[iNum].material.diffuse.red * 
+		  dot_product(L, n)) +
+		 (objects[iNum].material.specular.red *
+		  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+	color.green += lightSources[i].color.green *
+		((objects[iNum].material.diffuse.green * 
+		  dot_product(L, n)) +
+		 (objects[iNum].material.specular.green *
+		  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+	color.blue += lightSources[i].color.blue *
+		((objects[iNum].material.diffuse.blue * 
+		  dot_product(L, n)) +
+		 (objects[iNum].material.specular.blue *
+		  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+
+	//color.red += (objects[iNum].material.diffuse.red * 
+		//dot_product(n, L) + objects[iNum].material.specular.red *
+		//dot_product(R, V) )* lightSources[i].color.red;
+	//color.green += objects[iNum].material.diffuse.green * 
+		//dot_product(n, L) * lightSources[i].color.green;
+	//color.blue += objects[iNum].material.diffuse.blue * 
+		//dot_product(n, L) * lightSources[i].color.blue;
+	}
+
+	if(color.red > 255)
+		color.red = 255;
+	if(color.green > 255)
+		color.green = 255;
+	if(color.blue > 255)
+		color.blue = 255;
+
+
 
 	return color;
 
@@ -398,14 +450,17 @@ ObjectAttributes closest_intersection(Ray ray)
 				smallestT = t;
 				printf("Smallest t is: %lf\n", smallestT);
 				obj.objNumber = i;
+				obj.objRay = currRay;
 
 			}
 		}
 
 	}//done with each object
 
-	//Calculate point of intersect
-	obj.intPoint = vector_add(ray.u, vector_X_n(ray.v, smallestT));
+	//Calculate point of intersect in obj space
+	obj.objPoint = vector_add(obj.objRay.u, vector_X_n(obj.objRay.v, smallestT));
+	//Calculate point of intersect in world space
+	obj.worldPoint = vector_add(ray.u, vector_X_n(ray.v, smallestT));
 		
 	//return object attributes
 	return obj;  //obj # with smallest t &  the point
@@ -524,6 +579,7 @@ void display()
        	printf("Casting rays\n");
        	RayCast(); //start finding points
 	printf("Number of Objects: %d\n", numObjs);
+	printf("number of numLights: %d\n", numLights);
        	glutSwapBuffers();
 }
 
