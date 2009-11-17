@@ -423,9 +423,55 @@ int shadow(ObjectAttributes obj, int i)
 	else 
 		return 0;
 }
+
+Ray reflection(ObjectAttributes obj, Ray ray)
+{
+	Vector n,L,R;
+	Matrix temp;
+	int iNum;
+	Ray newRay;
+
+	iNum = obj.objNumber;
+	obj.objPoint.w = 0;
+
+	temp = (objects[iNum].transform.transformation);
+
+	//Intersection point in world space 
+	newRay.u = obj.worldPoint;
+
+	//Direction v-2n(n.v)
+	n = matrixTimesVector(temp, obj.objPoint);
+
+	newRay.v = vector_subtract(ray.v ,vector_X_n(vector_X_n(n, dot_product(n,ray.v)),2));
+	
+	return newRay;
+
+}
+
+RGBColor Shade(ObjectAttributes obj, Ray ray);
+
+//Trace one pixel
+RGBColor trace(Ray ray)
+{
+	ObjectAttributes obj;
+	obj = closest_intersection(ray); //get nearest obj location & #
+
+	//printf("Object # for if is: %d\n", obj.objNumber);
+	if(obj.objNumber != -1)
+	{
+		//printf("Return color");
+		return Shade(obj, ray);
+	}
+	else
+	{
+		//printf("Return BG\n");
+		return backgroundColor;
+	}
+}
+
 RGBColor Shade(ObjectAttributes obj, Ray ray)
 {
-	RGBColor color; 
+	RGBColor color, spec; 
 	int iNum;
 	Vector n,L,R;
 	Matrix temp;
@@ -484,6 +530,18 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 				 (objects[iNum].material.specular.blue *
 				  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
 
+			//Reflections
+			if(objects[iNum].material.specular.red > 0 || 
+			   objects[iNum].material.specular.green > 0 || 
+			   objects[iNum].material.specular.blue > 0)
+			{
+				spec = trace(reflection(obj, ray));
+				color.red += spec.red *  objects[iNum].material.specular.red;
+				color.green += spec.green *  objects[iNum].material.specular.green;
+				color.blue += spec.blue *  objects[iNum].material.specular.blue;
+			}
+				
+
 			//color.red += (objects[iNum].material.diffuse.red * 
 				//dot_product(n, L) + objects[iNum].material.specular.red *
 				//dot_product(R, V) )* lightSources[i].color.red;
@@ -512,29 +570,6 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 
 	return color;
 
-}
-
-
-
-
-
-//Trace one pixel
-RGBColor trace(Ray ray)
-{
-	ObjectAttributes obj;
-	obj = closest_intersection(ray); //get nearest obj location & #
-
-	//printf("Object # for if is: %d\n", obj.objNumber);
-	if(obj.objNumber != -1)
-	{
-		//printf("Return color");
-		return Shade(obj, ray);
-	}
-	else
-	{
-		//printf("Return BG\n");
-		return backgroundColor;
-	}
 }
 
 void drawPixels(RGBColor Pixel[][view.size])
