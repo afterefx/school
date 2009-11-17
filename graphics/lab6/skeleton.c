@@ -33,7 +33,7 @@ struct {
 view;
 
 #define MAX_LIGHTS  10 //maximum number of lights
-#define MAX_OBJECTS    200 //maximum number of objects
+#define MAX_OBJECTS    2000 //maximum number of objects
 RGBColor ambient_light; //ambient light for the scene
 RGBColor backgroundColor = {0,0,0}; //background color for the scene
 
@@ -294,94 +294,14 @@ Ray ray_from_eye_through(Vector curPixel)
 	tempRay.u.z = 1;
 	tempRay.u.w = 1;
 
-	tempRay.v=vector_subtract(curPixel , tempRay.u);
-	//printf("Vector\nX: %f, Y: %f, Z: %f\n", tempRay.v.x, tempRay.v.y, tempRay.v.z);
 	tempRay.v=unit_vector(vector_subtract(curPixel , tempRay.u));
 	//printf("\nUnit Vector\nX: %f, Y: %f, Z: %f\n", tempRay.v.x, tempRay.v.y, tempRay.v.z);
 	//printf("\nX: %f, Y: %f, Z: %f\n", tempRay.v.x, tempRay.v.y, tempRay.v.z);
 	return tempRay;
 }
 
-RGBColor Shade(ObjectAttributes obj, Ray ray)
-{
-	RGBColor color; 
-	int iNum;
-	Vector n,L,R;
-	Matrix temp;
-
-	//store the object number
-	iNum = obj.objNumber;
-
-	//find normal
-	obj.objPoint.w = 0;
-
-	temp = (objects[iNum].transform.transformation);
-
-	//Move normal to world space
-	n = matrixTimesVector(temp, obj.objPoint);
-
-	//Color = black
-	color.red = (ambient_light.red * objects[iNum].material.diffuse.red);
-	color.green = (ambient_light.green *
-			objects[iNum].material.diffuse.green);
-	color.blue = (ambient_light.blue * objects[iNum].material.diffuse.blue);
-
-	int i;
-	for(i =0; i < numLights; i++)
-	{
-
-	L = unit_vector(vector_subtract(lightSources[i].position, obj.worldPoint));
-
-	R = vector_subtract(L ,vector_X_n(vector_X_n(n, dot_product(n,L)),2));
-	color.red += lightSources[i].color.red *
-		((objects[iNum].material.diffuse.red * 
-		  dot_product(L, n)) +
-		 (objects[iNum].material.specular.red *
-		  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
-	color.green += lightSources[i].color.green *
-		((objects[iNum].material.diffuse.green * 
-		  dot_product(L, n)) +
-		 (objects[iNum].material.specular.green *
-		  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
-	color.blue += lightSources[i].color.blue *
-		((objects[iNum].material.diffuse.blue * 
-		  dot_product(L, n)) +
-		 (objects[iNum].material.specular.blue *
-		  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
-
-	//color.red += (objects[iNum].material.diffuse.red * 
-		//dot_product(n, L) + objects[iNum].material.specular.red *
-		//dot_product(R, V) )* lightSources[i].color.red;
-	//color.green += objects[iNum].material.diffuse.green * 
-		//dot_product(n, L) * lightSources[i].color.green;
-	//color.blue += objects[iNum].material.diffuse.blue * 
-		//dot_product(n, L) * lightSources[i].color.blue;
-	}
-
-	if(color.red > 1)
-		color.red = 1;
-	if(color.green > 1)
-		color.green = 1;
-	if(color.blue > 1)
-		color.blue = 1;
-
-	if(color.red < 0)
-		color.red = 0;
-	if(color.green < 0)
-		color.green = 0;
-	if(color.blue < 0)
-		color.blue = 0;
-
-
-
-	return color;
-
-}
-
 Ray moveRay(Ray tempRay, Matrix inverse)
 {
-	//inverse = transposeMatrix(inverse);
-
 	tempRay.u = matrixTimesVector(inverse, tempRay.u);
 	tempRay.v = matrixTimesVector(inverse, tempRay.v);
 
@@ -399,7 +319,8 @@ ObjectAttributes closest_intersection(Ray ray)
 	       t, //smallest t for current obj
 	       t1, //t1 for current obj
 	       t2, //t2 for current obj
-	       smallestT=9000000000;
+	       smallestT=-1;
+	int flag=1;
 
 
 	obj.objNumber = -1;
@@ -444,6 +365,13 @@ ObjectAttributes closest_intersection(Ray ray)
 				t = t2;
 			}
 
+			if(flag && t > 0)
+			{
+				smallestT = t;
+				obj.objNumber = i;
+				obj.objRay = currRay;
+				flag =0;
+			}
 			//printf("t1 is: %lf\n", t1);
 			//printf("t2 is: %lf\n", t2);
 			//printf("t is: %lf\n", t);
@@ -473,6 +401,122 @@ ObjectAttributes closest_intersection(Ray ray)
 	return obj;  //obj # with smallest t &  the point
 
 }
+
+int shadow(ObjectAttributes obj, int i)
+{
+	ObjectAttributes closestObj;
+	Ray ray;
+	
+	//calculate ray to shoot from light to sphere
+	ray.u = lightSources[i].position;
+	ray.u.w = 1;
+
+	ray.v=unit_vector(vector_subtract(obj.worldPoint , ray.u));
+
+	//find the closest intersection
+	closestObj = closest_intersection(ray);
+	
+
+	//See if it's in shadow
+	if(closestObj.objNumber == obj.objNumber)
+		return 1;
+	else 
+		return 0;
+}
+RGBColor Shade(ObjectAttributes obj, Ray ray)
+{
+	RGBColor color; 
+	int iNum;
+	Vector n,L,R;
+	Matrix temp;
+	int notInShadow;
+
+	//store the object number
+	iNum = obj.objNumber;
+
+	//find normal
+	obj.objPoint.w = 0;
+
+	temp = (objects[iNum].transform.transformation);
+
+	//Move normal to world space and normalize
+	n = unit_vector(matrixTimesVector(temp, obj.objPoint));
+
+	//Color = black
+	color.red = (ambient_light.red * objects[iNum].material.diffuse.red);
+	color.green = (ambient_light.green * objects[iNum].material.diffuse.green);
+	color.blue = (ambient_light.blue * objects[iNum].material.diffuse.blue);
+
+	//color.red = ambient_light.red;
+	//color.green = ambient_light.green;
+	//color.blue = ambient_light.blue;
+
+	int i;
+	for(i =0; i < numLights; i++)
+	{
+		//shadows
+		notInShadow = shadow(obj, i);
+
+		if(notInShadow)
+		{
+			printf("Adding stuff\n");
+
+			//Find L
+			L = unit_vector(vector_subtract(lightSources[i].position, obj.worldPoint));
+
+			//Find R
+			R = vector_subtract(L ,vector_X_n(vector_X_n(n, dot_product(n,L)),2));
+
+			//Add in lights
+			color.red += lightSources[i].color.red *
+				((objects[iNum].material.diffuse.red * 
+				  dot_product(L, n)) +
+				 (objects[iNum].material.specular.red *
+				  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+			color.green += lightSources[i].color.green *
+				((objects[iNum].material.diffuse.green * 
+				  dot_product(L, n)) +
+				 (objects[iNum].material.specular.green *
+				  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+			color.blue += lightSources[i].color.blue *
+				((objects[iNum].material.diffuse.blue * 
+				  dot_product(L, n)) +
+				 (objects[iNum].material.specular.blue *
+				  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+
+			//color.red += (objects[iNum].material.diffuse.red * 
+				//dot_product(n, L) + objects[iNum].material.specular.red *
+				//dot_product(R, V) )* lightSources[i].color.red;
+			//color.green += objects[iNum].material.diffuse.green * 
+				//dot_product(n, L) * lightSources[i].color.green;
+			//color.blue += objects[iNum].material.diffuse.blue * 
+				//dot_product(n, L) * lightSources[i].color.blue;
+		}
+	}
+
+	if(color.red > 1)
+		color.red = 1;
+	if(color.green > 1)
+		color.green = 1;
+	if(color.blue > 1)
+		color.blue = 1;
+
+	if(color.red < 0)
+		color.red = 0;
+	if(color.green < 0)
+		color.green = 0;
+	if(color.blue < 0)
+		color.blue = 0;
+
+
+
+	return color;
+
+}
+
+
+
+
 
 //Trace one pixel
 RGBColor trace(Ray ray)
