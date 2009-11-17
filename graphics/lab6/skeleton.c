@@ -295,9 +295,9 @@ Ray ray_from_eye_through(Vector curPixel)
 	tempRay.u.w = 1;
 
 	tempRay.v=vector_subtract(curPixel , tempRay.u);
-	printf("Vector\nX: %f, Y: %f, Z: %f\n", tempRay.v.x, tempRay.v.y, tempRay.v.z);
+	//printf("Vector\nX: %f, Y: %f, Z: %f\n", tempRay.v.x, tempRay.v.y, tempRay.v.z);
 	tempRay.v=unit_vector(vector_subtract(curPixel , tempRay.u));
-	printf("\nUnit Vector\nX: %f, Y: %f, Z: %f\n", tempRay.v.x, tempRay.v.y, tempRay.v.z);
+	//printf("\nUnit Vector\nX: %f, Y: %f, Z: %f\n", tempRay.v.x, tempRay.v.y, tempRay.v.z);
 	//printf("\nX: %f, Y: %f, Z: %f\n", tempRay.v.x, tempRay.v.y, tempRay.v.z);
 	return tempRay;
 }
@@ -358,12 +358,19 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 		//dot_product(n, L) * lightSources[i].color.blue;
 	}
 
-	if(color.red > 255)
-		color.red = 255;
-	if(color.green > 255)
-		color.green = 255;
-	if(color.blue > 255)
-		color.blue = 255;
+	if(color.red > 1)
+		color.red = 1;
+	if(color.green > 1)
+		color.green = 1;
+	if(color.blue > 1)
+		color.blue = 1;
+
+	if(color.red < 0)
+		color.red = 0;
+	if(color.green < 0)
+		color.green = 0;
+	if(color.blue < 0)
+		color.blue = 0;
 
 
 
@@ -392,7 +399,7 @@ ObjectAttributes closest_intersection(Ray ray)
 	       t, //smallest t for current obj
 	       t1, //t1 for current obj
 	       t2, //t2 for current obj
-	       smallestT=9000000.0; //smallest t
+	       smallestT=9000000000;
 
 
 	obj.objNumber = -1;
@@ -409,20 +416,20 @@ ObjectAttributes closest_intersection(Ray ray)
 		b = 2 * dot_product(currRay.u,currRay.v);
 		c = dot_product(currRay.u,currRay.u) - 1;
 
-		printf("A: %lf, B: %lf, C: %lf\n",a,b,c);
+		//printf("A: %lf, B: %lf, C: %lf\n",a,b,c);
 
 		t=0;
 		//Calculate t
 		if(b*b > 4*a*c)
 		{
-			printf("Checking for hit\n");
+			//printf("Checking for hit\n");
 			if(b >0)
 			{
-				printf("Greater than 0\n");
+				//printf("Greater than 0\n");
 				t1 = (-b - sqrt((b*b) - 4*a*c))/(2*a);
 			}
 			else
-				printf("Less than 0\n");
+				//printf("Less than 0\n");
 				t1 = (-b + sqrt((b*b) - 4*a*c))/(2*a);
 
 			t2 = c / (a*t1);
@@ -437,18 +444,18 @@ ObjectAttributes closest_intersection(Ray ray)
 				t = t2;
 			}
 
-			printf("t1 is: %lf\n", t1);
-			printf("t2 is: %lf\n", t2);
-			printf("t is: %lf\n", t);
+			//printf("t1 is: %lf\n", t1);
+			//printf("t2 is: %lf\n", t2);
+			//printf("t is: %lf\n", t);
 
 			//If smallest obj keep track of it
 			if(t < smallestT && t > 0)
 			{
-				printf("Object #: %d\n", i+1);
+				//printf("Object #: %d\n", i+1);
 
 
 				smallestT = t;
-				printf("Smallest t is: %lf\n", smallestT);
+				//printf("Smallest t is: %lf\n", smallestT);
 				obj.objNumber = i;
 				obj.objRay = currRay;
 
@@ -473,15 +480,15 @@ RGBColor trace(Ray ray)
 	ObjectAttributes obj;
 	obj = closest_intersection(ray); //get nearest obj location & #
 
-	printf("Object # for if is: %d\n", obj.objNumber);
+	//printf("Object # for if is: %d\n", obj.objNumber);
 	if(obj.objNumber != -1)
 	{
-		printf("Return color");
+		//printf("Return color");
 		return Shade(obj, ray);
 	}
 	else
 	{
-		printf("Return BG\n");
+		//printf("Return BG\n");
 		return backgroundColor;
 	}
 }
@@ -497,8 +504,8 @@ void drawPixels(RGBColor Pixel[][view.size])
 	for (j=view.size; j >= 0; j--)     // Y is flipped!
 	    for (i=0; i < view.size; i++) {
 	        fprintf(picfile, "%c%c%c", 
-				(int) Pixel[i][j].red*255,(int)
-				Pixel[i][j].green*255,(int) Pixel[i][j].blue*255);
+				(int) (Pixel[i][j].red*255),
+				(int) (Pixel[i][j].green*255), (int) (Pixel[i][j].blue*255));
 		    // Remember though that this is a number between 0 and 255
 		    // so might have to convert from 0-1.
 	    }
@@ -507,11 +514,11 @@ void drawPixels(RGBColor Pixel[][view.size])
 
 	for (j=view.size; j >= 0; j--)     // Y is flipped!
 	{
-		printf("Row %d\n",i);
+		//printf("Row %d\n",i);
 	    for (i=0; i < view.size; i++) {
-		printf("Col %d\n",j);
-	        printf("Red: %lf, Green: %lf, Blue: %lf\n", 
-				Pixel[i][j].red,Pixel[i][j].green,Pixel[i][j].blue);
+		//printf("Col %d\n",j);
+	        //printf("Red: %lf, Green: %lf, Blue: %lf\n", 
+				//Pixel[i][j].red,Pixel[i][j].green,Pixel[i][j].blue);
 
 		  glBegin(GL_POINTS);
 		  glColor3f(Pixel[i][j].red, Pixel[i][j].green, Pixel[i][j].blue);
@@ -538,26 +545,26 @@ void RayCast()
 	n = view.size; //number of pixels
 	
 	//For each pixel
-    	printf("Entering pixel rows\n");
+    	//printf("Entering pixel rows\n");
 	for(row=0; row < view.size; row++)
 	{
-		printf("\n\nEntering row %d\n", row);
+		//printf("\n\nEntering row %d\n", row);
 		for(col=0; col < view.size; col++)
 		{
-    			printf("\nEntering col %d\n", col);
+    			//printf("\nEntering col %d\n", col);
 
 			//Finding the center of the current pixel
-    			printf("Finding x ");
+    			//printf("Finding x ");
 			curPixel.x = -d + (d/n) + (((2*d)/n) * row);
-    			printf("Finding y ");
+    			//printf("Finding y ");
 			curPixel.y = - d + (d/n) + (((2*d)/n) * col);
-    			printf("Placing z ");
+    			//printf("Placing z ");
 			curPixel.z = 0;
-    			printf("Placing w ");
+    			//printf("Placing w ");
 			curPixel.w = 1;
 
 			//Find color and store it
-    			printf("Entering trace\n");
+    			//printf("Entering trace\n");
 			color=	trace(ray_from_eye_through(curPixel));
 
 			Pixel[row][col].red = color.red;
@@ -576,10 +583,10 @@ void display()
        	glFlush();
        	glColor3f(0,0,0);
 
-       	printf("Casting rays\n");
+       	//printf("Casting rays\n");
        	RayCast(); //start finding points
-	printf("Number of Objects: %d\n", numObjs);
-	printf("number of numLights: %d\n", numLights);
+	//printf("Number of Objects: %d\n", numObjs);
+	//printf("number of numLights: %d\n", numLights);
        	glutSwapBuffers();
 }
 
@@ -596,7 +603,7 @@ void myinit()
 int main(int argc, char **argv)
 {
 	//Read file in
-	printf("Reading file\n");
+	//printf("Reading file\n");
        	readFile(argv[1]); //read the scene
 
 	//Get openGL display of results ready
