@@ -9,17 +9,20 @@
 #include <GL/glut.h>
 #endif
 
+//Definitions
+#define MAX_LIGHTS  10 //maximum number of lights
+#define MAX_OBJECTS    66500 //maximum number of objects
+#define MAX_GROUPS    20  //maximum number of groups
+
+//==========Structs========
 /*******************************************
 // RGBColor struct
 // Purpose: holds color values
 ******************************************/
 typedef struct {
-  double red, green, blue;
+  GLdouble red, green, blue;
 } 
 RGBColor;
-
-int numLights; //keep track of the number of lights
-int numObjs; //number of objects
 
 /*******************************************
 // View struct
@@ -31,11 +34,6 @@ struct {
     GLdouble d;
  } 
 view;
-
-#define MAX_LIGHTS  10 //maximum number of lights
-#define MAX_OBJECTS    2000 //maximum number of objects
-RGBColor ambient_light; //ambient light for the scene
-RGBColor backgroundColor = {0,0,0}; //background color for the scene
 
 /************************************************
 || LIGHT struct
@@ -61,8 +59,6 @@ typedef struct {
 } 
 MATERIAL;
 
-#define MAX_GROUPS    20  //maximum number of groups
-
 /************************************************
 || Object strcut
 || Purpose: holds a material and transform for
@@ -73,6 +69,7 @@ typedef struct {
     Transform transform;
 } 
 OBJECT; 
+
 /************************************************
 || Ray strcut
 || Purpose: holds a ray's vectors
@@ -91,14 +88,30 @@ typedef struct {
 }
 ObjectAttributes;
 	
+//=======Function prototypes=========
+Ray ray_from_eye_through(Vector curPixel);
+Ray moveRay(Ray tempRay, Matrix inverse);
+ObjectAttributes closest_intersection(Ray ray);
+int shadow(ObjectAttributes obj, int i);
+Ray reflection(ObjectAttributes obj, Ray ray);
+RGBColor trace(Ray ray);
+RGBColor Shade(ObjectAttributes obj, Ray ray);
+void drawPixels(RGBColor Pixel[][view.size]);
+void RayCast();
+
+//=========Global Variables==========
+int numLights; //keep track of the number of lights
+int numObjs; //number of objects
+RGBColor ambient_light; //ambient light for the scene
+RGBColor backgroundColor = {0,0,0}; //background color for the scene
 MATERIAL currentMaterial; //current material
 Transform currentTransform[MAX_GROUPS]; //array of transformations for groups
 Transform tempSave; //holds a tranform temporarily off to the side
 int curGroupLevel=0; //holds the current group level
-
 OBJECT objects[MAX_OBJECTS]; //array of objects
 LIGHT lightSources[MAX_LIGHTS]; //array of lights
 
+//==========Functions=============
 void readFile(char *fname)
 {
   char filename[1024]; //holds filename
@@ -106,7 +119,7 @@ void readFile(char *fname)
   char cmd[512]; // holds a command
   char Buff[2048];
 
-  double x, y, z, angle, ni;
+  GLdouble x, y, z, angle, ni;
   char axis;
 	
   //Initialize number of lights & objects
@@ -313,7 +326,7 @@ ObjectAttributes closest_intersection(Ray ray)
 	int i, smallestObj;
 	Ray currRay;
 	ObjectAttributes obj; //object to return values
-	double a, //a for quad equation
+	GLdouble a, //a for quad equation
 	       b, //b for quad equation
 	       c, //c for quad equation
 	       t, //smallest t for current obj
@@ -448,9 +461,7 @@ Ray reflection(ObjectAttributes obj, Ray ray)
 
 }
 
-RGBColor Shade(ObjectAttributes obj, Ray ray);
-
-//Trace one pixel
+//Trace one pixel add recursion here for
 RGBColor trace(Ray ray)
 {
 	ObjectAttributes obj;
@@ -476,6 +487,7 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 	Vector n,L,R;
 	Matrix temp;
 	int notInShadow;
+	GLdouble dotOfR;
 
 	//store the object number
 	iNum = obj.objNumber;
@@ -500,7 +512,7 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 	int i;
 	for(i =0; i < numLights; i++)
 	{
-		//shadows
+		//find if object is in shdaow 
 		notInShadow = shadow(obj, i);
 
 		if(notInShadow)
@@ -513,42 +525,42 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 			//Find R
 			R = vector_subtract(L ,vector_X_n(vector_X_n(n, dot_product(n,L)),2));
 
+			dotOfR = dot_product(R,ray.v);
+
 			//Add in lights
 			color.red += lightSources[i].color.red *
-				((objects[iNum].material.diffuse.red * 
-				  dot_product(L, n)) +
-				 (objects[iNum].material.specular.red *
-				  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+				 (objects[iNum].material.diffuse.red * 
+				  dot_product(L, n));
 			color.green += lightSources[i].color.green *
-				((objects[iNum].material.diffuse.green * 
-				  dot_product(L, n)) +
-				 (objects[iNum].material.specular.green *
-				  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+				 (objects[iNum].material.diffuse.green * 
+				  dot_product(L, n));
 			color.blue += lightSources[i].color.blue *
-				((objects[iNum].material.diffuse.blue * 
-				  dot_product(L, n)) +
-				 (objects[iNum].material.specular.blue *
-				  pow(dot_product(R,ray.v),objects[iNum].material.shininess)));
+				 (objects[iNum].material.diffuse.blue * 
+				  dot_product(L, n));
+
+			if(dotOfR > 0) //checks for negative light
+			{
+				color.red += lightSources[i].color.red * 
+					(objects[iNum].material.specular.red * 
+					 pow(dotOfR,objects[iNum].material.shininess)) ;
+				color.green += lightSources[i].color.green * 
+					(objects[iNum].material.specular.green * 
+					 pow(dotOfR,objects[iNum].material.shininess)) ;
+				color.blue += lightSources[i].color.blue * 
+					(objects[iNum].material.specular.blue * 
+					 pow(dotOfR,objects[iNum].material.shininess)) ;
+			}
 
 			//Reflections
 			if(objects[iNum].material.specular.red > 0 || 
 			   objects[iNum].material.specular.green > 0 || 
 			   objects[iNum].material.specular.blue > 0)
 			{
-				spec = trace(reflection(obj, ray));
-				color.red += spec.red *  objects[iNum].material.specular.red;
-				color.green += spec.green *  objects[iNum].material.specular.green;
-				color.blue += spec.blue *  objects[iNum].material.specular.blue;
+				//spec = trace(reflection(obj, ray));
+				//color.red += spec.red *  objects[iNum].material.specular.red;
+				//color.green += spec.green *  objects[iNum].material.specular.green;
+				//color.blue += spec.blue *  objects[iNum].material.specular.blue;
 			}
-				
-
-			//color.red += (objects[iNum].material.diffuse.red * 
-				//dot_product(n, L) + objects[iNum].material.specular.red *
-				//dot_product(R, V) )* lightSources[i].color.red;
-			//color.green += objects[iNum].material.diffuse.green * 
-				//dot_product(n, L) * lightSources[i].color.green;
-			//color.blue += objects[iNum].material.diffuse.blue * 
-				//dot_product(n, L) * lightSources[i].color.blue;
 		}
 	}
 
@@ -608,7 +620,6 @@ void drawPixels(RGBColor Pixel[][view.size])
 	
 
 }	
-
 
 void RayCast()
 {
