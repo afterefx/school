@@ -1,3 +1,8 @@
+/***********************************************
+|| Name: Christopher Carlisle
+|| Class: Ray tracer
+|| Lab: 6
+************************************************/
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -80,6 +85,13 @@ typedef struct {
 }
 Ray;
 
+/************************************************
+|| ObjectAttributes strcut
+|| Purpose: struct used to return attributes 
+|| 	    of an object that had the closest t
+|| 	    in intersection function. May also
+||          be used in other places
+************************************************/
 typedef struct {
 	int objNumber;
 	Vector objPoint;
@@ -118,6 +130,7 @@ void readFile(char *fname)
   FILE *SceneFile; //points to the file
   char cmd[512]; // holds a command
   char Buff[2048];
+  int line=1; //keep track of line #s
 
   GLdouble x, y, z, angle, ni;
   char axis;
@@ -182,6 +195,7 @@ void readFile(char *fname)
 	  if (numLights>=MAX_LIGHTS)
 	  {
 	      fprintf(stderr, "Error: max number of lights exceeded in description file\n");
+	      fprintf(stderr, "Line %d\n", line);
 	      exit(-1);
 	  }
 	  fscanf(SceneFile,"%lf", &lightSources[numLights].color.red);
@@ -207,6 +221,7 @@ void readFile(char *fname)
 	  if (numObjs>MAX_OBJECTS)
 	  {
 	      fprintf(stderr, "Error: max number of objects exceeded in description file\n");
+	      fprintf(stderr, "Line %d\n", line);
 	      exit(-1);
 	  }
       }
@@ -289,14 +304,20 @@ void readFile(char *fname)
       else
       {
 	  fprintf(stderr, "Error: Unknown cmd '%s' in description file\n", cmd);
+	  fprintf(stderr, "Line %d\n", line);
 	  exit(-1);
       }
       fscanf(SceneFile, "%s", cmd); //get next command
+      line++;
   }
 
   fclose(SceneFile); //close the scene file
 }
 
+/************************************************
+|| ray_from_eye_throug()
+|| Purpose: calculate a ray for the current pixel
+************************************************/
 Ray ray_from_eye_through(Vector curPixel)
 {
 	Ray tempRay;
@@ -313,6 +334,11 @@ Ray ray_from_eye_through(Vector curPixel)
 	return tempRay;
 }
 
+/************************************************
+|| moveRay()
+|| Purpose: takes a ray and applies the matrix to 
+|| 	    it.
+************************************************/
 Ray moveRay(Ray tempRay, Matrix inverse)
 {
 	tempRay.u = matrixTimesVector(inverse, tempRay.u);
@@ -321,6 +347,12 @@ Ray moveRay(Ray tempRay, Matrix inverse)
 	return tempRay;
 }
 
+/************************************************
+|| closest_intersection()
+|| Purpose: loops through all objects and finds 
+|| 	   the closest t, then finds the world 
+||  	   point and local point. 
+************************************************/
 ObjectAttributes closest_intersection(Ray ray)
 {
 	int i, smallestObj;
@@ -415,6 +447,12 @@ ObjectAttributes closest_intersection(Ray ray)
 
 }
 
+/************************************************
+|| shadow()
+|| Purpose: find if an object is in shadow or not
+|| 	   by comparing the object # of the closest
+|| 	   object
+************************************************/
 int shadow(ObjectAttributes obj, int i)
 {
 	ObjectAttributes closestObj;
@@ -432,11 +470,17 @@ int shadow(ObjectAttributes obj, int i)
 
 	//See if it's in shadow
 	if(closestObj.objNumber == obj.objNumber)
-		return 1;
+		return 1; //true
 	else 
-		return 0;
+		return 0; //false
 }
 
+/************************************************
+|| reflection()
+|| Purpose: this is supposed to calculate reflections
+||  	    but it does not. this is never called
+|| 	    in the current version
+************************************************/
 Ray reflection(ObjectAttributes obj, Ray ray)
 {
 	Vector n,L,R;
@@ -461,7 +505,12 @@ Ray reflection(ObjectAttributes obj, Ray ray)
 
 }
 
-//Trace one pixel add recursion here for
+/************************************************
+|| trace()
+|| Purpose: get color of closest intersection 
+||  	    or return a background color
+||
+************************************************/
 RGBColor trace(Ray ray)
 {
 	ObjectAttributes obj;
@@ -471,15 +520,23 @@ RGBColor trace(Ray ray)
 	if(obj.objNumber != -1)
 	{
 		//printf("Return color");
-		return Shade(obj, ray);
+
+		//return an rgbcolor after determining if its in shadow
+		return Shade(obj, ray); 
 	}
-	else
+	else //if nothing hit in shadow
 	{
 		//printf("Return BG\n");
 		return backgroundColor;
 	}
 }
 
+/************************************************
+|| Shade()
+|| Purpose: checks for shadow and actually calculates
+|| 	    the color of the pixel.
+||
+************************************************/
 RGBColor Shade(ObjectAttributes obj, Ray ray)
 {
 	RGBColor color, spec; 
@@ -517,7 +574,7 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 
 		if(notInShadow)
 		{
-			printf("Adding stuff\n");
+			//printf("Adding stuff\n");
 
 			//Find L
 			L = unit_vector(vector_subtract(lightSources[i].position, obj.worldPoint));
@@ -584,6 +641,12 @@ RGBColor Shade(ObjectAttributes obj, Ray ray)
 
 }
 
+/************************************************
+|| drawPixels()
+|| Purpose: Goes through each pixel in the ppm file
+|| 	    and in opengl and draws each pixel one
+|| 	    by one.
+************************************************/
 void drawPixels(RGBColor Pixel[][view.size])
 {
 	FILE *picfile;
@@ -621,6 +684,13 @@ void drawPixels(RGBColor Pixel[][view.size])
 
 }	
 
+/************************************************
+|| RayCast()
+|| Purpose: calculates the pixel position and then
+|| 	    calls the trace function and then 
+|| 	    the draw pixel function. 
+|| 	    This is what starts all the ray tracing.
+************************************************/
 void RayCast()
 {
     	RGBColor Pixel[view.size][view.size]; //keep track of colors
@@ -665,6 +735,10 @@ void RayCast()
      drawPixels(Pixel); //draw the results
 }
 
+/************************************************
+|| display()
+|| Purpose: display function for opengl 
+************************************************/
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -680,6 +754,10 @@ void display()
        	glutSwapBuffers();
 }
 
+/************************************************
+|| myinit()
+|| Purpose: initialize settings for opengl
+************************************************/
 void myinit()
 {
 	glMatrixMode(GL_PROJECTION);
@@ -690,6 +768,10 @@ void myinit()
 
 }
 
+/************************************************
+|| main()
+|| Purpose: main function to start program
+************************************************/
 int main(int argc, char **argv)
 {
 	//Read file in

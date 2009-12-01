@@ -1,0 +1,35 @@
+view 350 .5
+ambient .2 .2 .2
+background 0.0 0.0 0.0
+light 1.0 1.0 1.0  50.0 5.0 30.0
+light 1.0 1.0 1.0 -50.0 5.0 30.0
+move 0 0 -5 
+#################
+group
+rotate 40 0 0 1
+#scale 3 3 3
+#material dr  dg  db  sr sb  sg   p
+material 0.3 0.3 0.3 1.0 0.0 0.0 5.0
+# grey sphere with red lights
+sphere 
+groupend
+##################
+#top left ear
+##################
+group
+#material dr  dg  db  sr sb  sg   p
+material 0.3 0.3 0.3 0.0 0.0 0.0 5.0
+scale .85 .85 .85
+move -1.2 1.2 0
+sphere
+groupend
+##################
+#top right ear
+##################
+group
+#material dr  dg  db  sr sb  sg   p
+material 0.3 0.3 0.3 0.0 0.0 0.0 1.0
+scale .85 .85 .85
+move 1.2 1.2 0
+sphere
+groupend

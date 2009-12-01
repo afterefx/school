@@ -1,6 +1,7 @@
 /*
  * Author:  Iain Hewson   (2000)
  * Updated: Raymond Scurr (2001)
+ * Edited: Christopher Carlisle (2009)
  *
  */
 
