@@ -1,9 +1,8 @@
-/* Particles in a box */
-
 #define MAX_NUM_PARTICLES 1000
 #define INITIAL_NUM_PARTICLES 25
 #define INITIAL_POINT_SIZE 5.0
 #define INITIAL_SPEED 1.0
+#define DEBUG
 
 typedef int bool;
 #define TRUE 1
@@ -18,21 +17,19 @@ typedef int bool;
 #include <GL/glut.h>
 #endif
 
+//function prototype
 void myDisplay();
 void myIdle();
 void myReshape(int, int);
 void main_menu(int);
 void collision(int);
 float forces(int, int);
-
 void myinit();
 
-/* globals */
+//global vars
+int num_particles; // number of particles 
 
-int num_particles; /* number of particles */
-
-/* particle struct */
-
+// ======= particle struct ==========
 typedef struct particle
 { 
      int color;
@@ -41,22 +38,21 @@ typedef struct particle
      float mass;
 } particle;
 
-particle particles[MAX_NUM_PARTICLES]; /* particle system */
+particle particles[MAX_NUM_PARTICLES]; //particle system 
 
-/* initial state of particle system */
-
+// initial state of particle system 
 int present_time;
 int last_time;
 int num_particles = INITIAL_NUM_PARTICLES;
 float point_size = INITIAL_POINT_SIZE;
 float speed = INITIAL_SPEED;
-bool gravity = FALSE; /* gravity off */
-bool elastic = FALSE; /* restitution off */
-bool repulsion = FALSE; /* repulsion off */
-float coef = 1.0; /* perfectly elastic collisions */
-float d2[MAX_NUM_PARTICLES][MAX_NUM_PARTICLES]; /* array for interparticle distances */
+bool gravity = FALSE; // gravity off 
+bool elastic = FALSE; // restitution off
+bool repulsion = FALSE; // repulsion off 
+float coef = 1.0; // perfectly elastic collisions 
+float d2[MAX_NUM_PARTICLES][MAX_NUM_PARTICLES]; // array for interparticle distances 
 
-GLsizei wh = 500, ww = 500; /* initial window size */
+GLsizei wh = 500, ww = 500; // initial window size 
 
 GLfloat colors[8][3]={{0.0, 0.0, 0.0}, {1.0, 0.0, 0.0},{0.0, 1.0, 0.0},
     {0.0, 0.0, 1.0}, {0.0, 1.0, 1.0}, {1.0, 0.0, 1.0}, {1.0, 1.0, 0.0},
@@ -92,12 +88,13 @@ void myinit()
 {
         int  i, j;
 
- /* set up particles with random locations and velocities */
-
+ 	//set up particles with random locations and velocities 
         for(i=0; i<num_particles; i++) 
         {
             particles[i].mass = 1.0;
-            particles[i].color = i%8;
+            particles[i].color = i%8; //circular rotation of colors
+
+	    //random position and random velocity
             for(j=0; j<3; j++)
             {
                 particles[i].position[j] = 2.0*((float) rand()/RAND_MAX)-1.0;
@@ -107,8 +104,7 @@ void myinit()
         glPointSize(point_size);
 
 
-/* set clear color to grey */
-
+	/* set clear color to grey */ 
         glClearColor(0.5, 0.5, 0.5, 1.0);
 }
 
@@ -152,10 +148,8 @@ float forces(int i, int j)
 }
 
 void collision(int n)
-
-/* tests for collisions against cube and reflect particles if necessary */
-
 {
+/* tests for collisions against cube and reflect particles if necessary */
      int i;
      for (i=0; i<3; i++) 
      {
@@ -241,23 +235,30 @@ void main_menu(int index)
    }
 }
 
-void myDisplay()
+/************************************************
+|| display()
+|| Purpose: places verticies in initial position
+************************************************/
+void display()
 {
     int i;
 
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_POINTS); /* render all particles */
+
+    //for each particle 
     for(i=0; i<num_particles; i++)
     {
-       glColor3fv(colors[particles[i].color]);
-       glVertex3fv(particles[i].position);
+       glColor3fv(colors[particles[i].color]); //change the color
+       glVertex3fv(particles[i].position); //place a vertex
     }
+    
     glEnd();
-    glColor3f(0.0,0.0,0.0);
-    glutWireCube(2.2);  /* outline of box */
+
+    glColor3f(0.0,0.0,0.0); 
+    glutWireCube(2.2); //change the size of the cube (does not bound points)
     glutSwapBuffers();
 }
-
 
 int main(int argc, char** argv)
 {
@@ -265,9 +266,10 @@ int main(int argc, char** argv)
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(500, 500);
     glutCreateWindow("particle system");
-    glutDisplayFunc(myDisplay);
-    myinit ();
+    myinit();
+    glutDisplayFunc(display);
 
+    //menus
     glutCreateMenu(main_menu);
     glutAddMenuEntry("more particles", 1);
     glutAddMenuEntry("fewer particles", 2);
