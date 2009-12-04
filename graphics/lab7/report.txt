@@ -1,0 +1,15 @@
+Name: Christopher Carlisle
+Hours: 8 hours
+Problems: no problems
+Testing: trial and error by playing the game. I would implement one
+	thing at a time and test it as I put it in.
+Solution: I started off with Edward Angels paritcle program and removed
+	 all but one particles. I also reorganized and a couple of 
+	 other things I then resized it and put 2 more cubes in
+	 on the left and right side. Fixed the glLookAt so that it had the 
+	 perspective that I wanted and then started working on collision 
+	 detection. I have one function for the left paddle and one for the
+	 right. These return bools. Once I had it bouncing and collisions
+	 working I then added in keys to rotate and reset the game.
+Sources: Edward Angels particle.c
+
