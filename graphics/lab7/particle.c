@@ -1,8 +1,7 @@
+//Christopher Carlisle
 #define MAX_NUM_PARTICLES 1
 #define INITIAL_NUM_PARTICLES 1
-#define INITIAL_POINT_SIZE 5.0
-#define INITIAL_SPEED 1.2
-#define DEBUG
+#define INITIAL_SPEED 1.8
 
 typedef int bool;
 #define TRUE 1
@@ -19,7 +18,7 @@ typedef int bool;
 
 //function prototype
 void myDisplay();
-void myIdle();
+void timer(int);
 void myReshape(int, int);
 void main_menu(int);
 void collision(int);
@@ -28,6 +27,9 @@ void myinit();
 
 //global vars
 int num_particles; // number of particles 
+GLfloat leftPaddlePOS=0.0;
+GLfloat rightPaddlePOS=0.0;
+
 
 // ======= particle struct ==========
 typedef struct particle
@@ -44,10 +46,9 @@ particle particles[MAX_NUM_PARTICLES]; //particle system
 int present_time;
 int last_time;
 int num_particles = INITIAL_NUM_PARTICLES;
-float point_size = INITIAL_POINT_SIZE;
 float speed = INITIAL_SPEED;
 bool gravity = FALSE; // gravity off 
-bool elastic = FALSE; // restitution off
+bool elastic = TRUE; // restitution off
 bool repulsion = FALSE; // repulsion off 
 float coef = 1.0; // perfectly elastic collisions 
 float d2[MAX_NUM_PARTICLES][MAX_NUM_PARTICLES]; // array for interparticle distances 
@@ -60,33 +61,18 @@ GLfloat colors[8][3]={{0.0, 0.0, 0.0}, {1.0, 0.0, 0.0},{0.0, 1.0, 0.0},
 
 /* rehaping routine called whenever window is resized or moved */
 
-void myReshape(int w, int h)
+void myinit()
 {
-
-/* adjust clipping box */
-
+        int  i, j;
+	
+	/* adjust clipping box */
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity(); 
         glOrtho(-2.0, 2.0, -2.0, 2.0, -4.0, 4.0);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity(); 
-        gluLookAt(1.5,1.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0);
+        gluLookAt(1.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0);
 
-/* adjust viewport and  clear */
-
-        if(w<h) glViewport(0,0,w,w);
-        else glViewport(0,0,h,h);
-
-
-/* set global size for use by drawing routine */
-
-        ww = w;
-        wh = h; 
-}
-
-void myinit()
-{
-        int  i, j;
 
  	//set up particles with random locations and velocities 
         for(i=0; i<num_particles; i++) 
@@ -101,14 +87,13 @@ void myinit()
                 particles[i].velocity[j] = speed*2.0*((float) rand()/RAND_MAX)-1.0;
             }
         }
-        glPointSize(point_size);
-
 
 	/* set clear color to grey */ 
-        glClearColor(0.5, 0.5, 0.5, 1.0);
+        glClearColor(0.0, 0.0, 0.0, 1.0);
 }
 
-void myIdle()
+//timer functoin to perform animation
+void timer(int foo)
 {
     int i, j, k;
     float dt;
@@ -133,8 +118,14 @@ void myIdle()
     }
     last_time = present_time;
     glutPostRedisplay();
+    glutTimerFunc(50, timer, 1 );
+    
 }
 
+/************************************************
+|| forces()
+|| Purpose: applies gravity and repulsion
+************************************************/
 float forces(int i, int j)
 {
    int k;
@@ -147,97 +138,103 @@ float forces(int i, int j)
    return(force);
 }
 
-void collision(int n)
+/************************************************
+|| leftPadCollision()
+|| Purpose: checks for collesion with left paddle
+************************************************/
+bool leftPadCollision()
 {
-/* tests for collisions against cube and reflect particles if necessary */
-     int i;
-     for (i=0; i<3; i++) 
-     {
-           if(particles[n].position[i]>=1.0) 
-           {
-                particles[n].velocity[i] = -coef*particles[n].velocity[i];
-                particles[n].position[i] = 1.0-coef*(particles[n].position[i]-1.0);
-           }
-           if(particles[n].position[i]<=-1.0) 
-           {
-                particles[n].velocity[i] = -coef*particles[n].velocity[i];
-                particles[n].position[i] = -1.0-coef*(particles[n].position[i]+1.0);
-           }
-     }
+	//variables
+	GLfloat distance;
+	GLfloat paddleTop;
+	GLfloat paddleBottom;
+	GLfloat cubePOS = particles[0].position[2];
+
+	//Calculations
+	distance = 1.0 - cubePOS;
+	paddleTop = leftPaddlePOS + 0.2;
+	paddleBottom = leftPaddlePOS - 0.2;
+
+	//Decide what to do
+	if(distance < 0.55 && particles[0].position[1] < paddleTop && particles[0].position[1] > paddleBottom && cubePOS < 1.0 && cubePOS > -1.0)
+		return TRUE; //bounce
+	return FALSE; //keep going
 }
 
-void main_menu(int index)
+/************************************************
+|| rightPadCollision()
+|| Purpose: checks for collesion with right paddle
+************************************************/
+bool rightPadCollision()
 {
-   switch(index)
-   {
-      case(1):
-	{
-                num_particles = 2*num_particles;
-                myinit();
-                break;
-     	}
-	case(2):
-	{
-                num_particles = num_particles/2;
-                myinit();
-		break;
-	}
-	case(3):
-	{
-                speed = 2.0*speed;
-                myinit();
-		break;
-	}
-        case(4):
-        {
-                speed = speed/2.0;
-                myinit();
-                break;
-        }
-        case(5):
-        {
-                point_size = 2.0*point_size;
-                myinit();
-                break;
-        }
-        case(6):
-        {
-                point_size = point_size/2.0;
-                if(point_size<1.0) point_size = 1.0;
-                myinit();
-                break;
-        }
-        case(7):
-        {
-                gravity = !gravity;
-                myinit();
-                break;
-        }
-        case(8):
-        {
-                elastic = !elastic;
-                if(elastic) coef = 0.9;
-                  else coef = 1.0;
-                myinit();
-                break;
-        }
-        case(9):
-        {
-                repulsion = !repulsion;
-                myinit();
-                break;
-        }
-	case(10):
-	{
-		exit(0);
-		break;
-	}
-   }
+	//variables
+	GLfloat distance;
+	GLfloat paddleTop;
+	GLfloat paddleBottom;
+	GLfloat cubePOS = particles[0].position[2];
+
+	//Calculations
+	distance = cubePOS + 1.0;
+	paddleTop = rightPaddlePOS + 0.2;
+	paddleBottom = rightPaddlePOS - 0.2;
+
+	//Decide what to do
+	if(distance < 0.55 && particles[0].position[1] < paddleTop && particles[0].position[1] > paddleBottom && cubePOS < 1.0 && cubePOS > -1.0)
+		return TRUE; //bounce
+	return FALSE; //keep going
+}
+
+/************************************************
+|| collision()
+|| Purpose: checks for collisions with walls & 
+|| 	    paddles
+************************************************/
+void collision(int n)
+{
+/* tests for collisions against cube and reflect cubes if necessary */
+     int i;
+
+     for (i=0; i<3; i++) 
+     {
+	     //x&y
+	     if(i != 2 ) 
+	     { 
+		     if(particles[n].position[i]>=0.95) 
+		     {
+			     particles[n].velocity[i] = -coef*particles[n].velocity[i];
+			     particles[n].position[i] = 0.95-coef*(particles[n].position[i]-0.95);
+		     }
+		     if(particles[n].position[i]<=-0.95) 
+		     {
+			     particles[n].velocity[i] = -coef*particles[n].velocity[i];
+			     particles[n].position[i] = -0.95-coef*(particles[n].position[i]+0.95);
+		     }
+	     }
+
+	     //z
+	     else
+	     {
+		     //paddle collision
+		     if(leftPadCollision() || rightPadCollision())
+		     {		     
+			     if(particles[n].position[i]>=0.85) 
+			     {
+				     particles[n].velocity[i] = -coef*particles[n].velocity[i];
+				     particles[n].position[i] = 0.85-coef*(particles[n].position[i]-0.85);
+			     }
+			     if(particles[n].position[i]<=-0.85) 
+			     {
+				     particles[n].velocity[i] = -coef*particles[n].velocity[i];
+				     particles[n].position[i] = -0.85-coef*(particles[n].position[i]+0.85);
+			     }
+		     }
+	     }
+     }
 }
 
 /************************************************
 || display()
-|| Purpose: places verticies in initial position
+|| Purpose: places cubes
 ************************************************/
 void display()
 {
@@ -245,46 +242,141 @@ void display()
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    //for each particle 
-    for(i=0; i<num_particles; i++)
-    {
-       glColor3fv(colors[particles[i].color]); //change the color
-	glPushMatrix();
-       	glTranslatef(particles[i].position[0],particles[i].position[1],particles[i].position[2]); //place a cube
-	glutSolidCube(.5);
-	glPopMatrix();
-    }
-    
+    //ball
+    glColor3f(1.0,1.0,1.0); //change the color
+    glPushMatrix();
+    glTranslatef(particles[0].position[0],particles[0].position[1],particles[0].position[2]); //place a cube
+    glutSolidCube(.1);
+    glPopMatrix();
 
-    glColor3f(0.0,0.0,0.0); 
-    glutWireCube(2.2); //change the size of the cube (does not bound points)
+    //left paddle
+    glPushMatrix();
+    glTranslatef(0.0,leftPaddlePOS,1.0);
+    glScalef(4, 0.8, 0.5);
+    glutSolidCube(.5);
+    glPopMatrix();
+
+    //right paddle
+    glPushMatrix();
+    glTranslatef(0.0,rightPaddlePOS,-1.0);
+    glScalef(4, 0.8, 0.5);
+    glutSolidCube(.5);
+    glPopMatrix();
+
+    //outline
+    glPushMatrix();
+    glScalef(1, 1, 2.5);
+    glutWireCube(2); 
+    glPopMatrix();
     glutSwapBuffers();
 }
+
+/*********************************************
+||myKey() function
+||Purpose:  Q will close the window
+|| 	    Spacebar will restart the game
+|| 	    w,a can be used to move the left
+|| 	        up and down
+|| 	    r,t rotate the view of the game
+*********************************************/
+void myKey(unsigned char key, int x, int y)
+{
+
+	if( key == 'Q' | key == 'q')
+		exit(0); //Quit the program
+
+	if( key == 'R' | key == 'r')
+	{
+		glPushMatrix();
+        	glRotatef(5,0,0,1);
+		glutPostRedisplay();
+		
+	}
+	if( key == 'T' | key == 't')
+	{
+		glPushMatrix();
+        	glRotatef(5,0,1,0);
+		glutPostRedisplay();
+		
+	}
+
+	if( key == 'U' | key == 'u')
+	{
+		glPopMatrix(); //undo rotates
+		glutPostRedisplay();
+	}
+
+	if( key == ' ' )
+	{
+		//reset game
+		if( particles[0].position[2] > 1.0 || particles[0].position[2] < -1.0)
+		{
+			particles[0].position[1] = 0.0;
+			particles[0].position[2] = 0.0;
+			glutPostRedisplay();
+		}
+
+	}
+
+	if(key == 'w' | key == 'W') //left paddle up
+	{
+
+		if(leftPaddlePOS < 0.8)
+		{
+			leftPaddlePOS += 0.1;
+			glutPostRedisplay();
+		}
+	}
+
+	if(key ==  's' | key == 'S') //left paddle down
+	{
+		if(leftPaddlePOS > -0.8)
+		{
+			leftPaddlePOS -= 0.1;
+			glutPostRedisplay();
+		}
+	}
+
+
+}
+
+/*********************************************
+||specialKeys() function
+||Purpose: Allows you to use the arrow keys to move
+|| 	   the right paddle up and down
+*********************************************/
+void specialKeys(int key, int x, int y) 
+{
+		if(key == GLUT_KEY_UP)
+		{
+			if(rightPaddlePOS < 0.8)
+			{
+				rightPaddlePOS += 0.1;
+				glutPostRedisplay();
+			}
+		}
+
+		if(key ==  GLUT_KEY_DOWN)
+		{
+			if(rightPaddlePOS > -0.8)
+			{
+				rightPaddlePOS -= 0.1;
+				glutPostRedisplay();
+			}
+		}
+
+} 
 
 int main(int argc, char** argv)
 {
     glutInit(&argc,argv);
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(500, 500);
-    glutCreateWindow("particle system");
+    glutCreateWindow("Pong");
     myinit();
     glutDisplayFunc(display);
-
-    //menus
-    glutCreateMenu(main_menu);
-    glutAddMenuEntry("more particles", 1);
-    glutAddMenuEntry("fewer particles", 2);
-    glutAddMenuEntry("faster", 3);
-    glutAddMenuEntry("slower", 4);
-    glutAddMenuEntry("larger particles", 5);
-    glutAddMenuEntry("smaller particles", 6);
-    glutAddMenuEntry("toggle gravity",7);
-    glutAddMenuEntry("toggle restitution",8);
-    glutAddMenuEntry("toggle repulsion",9);
-    glutAddMenuEntry("quit",10);
-    glutAttachMenu(GLUT_MIDDLE_BUTTON);
-
-    glutIdleFunc(myIdle);
-    glutReshapeFunc (myReshape); 
+    glutTimerFunc(50, timer, 1 );
+    glutKeyboardFunc(myKey); //Keyboard events
+    glutSpecialFunc(specialKeys); //Special keyboard events
     glutMainLoop();
 }
