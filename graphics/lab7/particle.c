@@ -1,7 +1,7 @@
-#define MAX_NUM_PARTICLES 1000
-#define INITIAL_NUM_PARTICLES 25
+#define MAX_NUM_PARTICLES 1
+#define INITIAL_NUM_PARTICLES 1
 #define INITIAL_POINT_SIZE 5.0
-#define INITIAL_SPEED 1.0
+#define INITIAL_SPEED 1.2
 #define DEBUG
 
 typedef int bool;
@@ -244,16 +244,17 @@ void display()
     int i;
 
     glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_POINTS); /* render all particles */
 
     //for each particle 
     for(i=0; i<num_particles; i++)
     {
        glColor3fv(colors[particles[i].color]); //change the color
-       glVertex3fv(particles[i].position); //place a vertex
+	glPushMatrix();
+       	glTranslatef(particles[i].position[0],particles[i].position[1],particles[i].position[2]); //place a cube
+	glutSolidCube(.5);
+	glPopMatrix();
     }
     
-    glEnd();
 
     glColor3f(0.0,0.0,0.0); 
     glutWireCube(2.2); //change the size of the cube (does not bound points)
