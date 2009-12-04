@@ -1,0 +1,8 @@
+#Ignore object files
+*.o
+
+#Ignore vi swap files
+*.swp
+
+#Ignore apple files
+.DS_Store
