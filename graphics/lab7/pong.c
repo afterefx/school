@@ -253,14 +253,14 @@ void display()
     glPushMatrix();
     glTranslatef(0.0,leftPaddlePOS,1.0);
     glScalef(4, 0.8, 0.5);
-    glutSolidCube(.5);
+    glutWireCube(.5);
     glPopMatrix();
 
     //right paddle
     glPushMatrix();
     glTranslatef(0.0,rightPaddlePOS,-1.0);
     glScalef(4, 0.8, 0.5);
-    glutSolidCube(.5);
+    glutWireCube(.5);
     glPopMatrix();
 
     //outline
