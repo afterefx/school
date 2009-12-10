@@ -1,4 +1,14 @@
-//Christopher Carlisle
+/********************************************************************
+//
+// Christopher Carlisle
+// Operating Systems
+// Programming Project #3: Process Synchronization Using Pthreads: 
+// 			   The Producer / Consumer Problem With 
+// 			   Prime Number Detector 
+// November 23, 2009
+// Instructor: Dr. Ajay K. Katangur
+//
+********************************************************************/
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -13,11 +23,11 @@ using namespace std;
 //Structs
 struct ARGS //struct to hold args from command line
 {
-	int simLength;
-	int maxThreadSleep;
-	int numProducers;
-	int numConsumers;
-	bool outputBufferSnapshots;
+	int simLength; //simulation length
+	int maxThreadSleep; //maximum sleep time for thread
+	int numProducers; //number of producers
+	int numConsumers; //number of consumers
+	bool outputBufferSnapshots; //true/false output buffer snapeshots
 };
 
 //Global args
@@ -67,6 +77,7 @@ int main( int argc, char *argv[] )
 	sleep(global_args.simLength);
 
 	//Signal Threads to quit
+	//cout << "simulation stopping\n\n";
 	runSim = false;
 
 	//Used to accept array from threads
@@ -74,8 +85,10 @@ int main( int argc, char *argv[] )
 
   	//Join Threads
 	//cout << "Seg fault here may be caused by no mutex/semaphore\n"; //debug statement here
+		//cout << "join producers\n\n";
 	for(int i=0; i < global_args.numProducers; i++)
 	{
+		//cout << "join producer #" << i << " \n\n";
 		//Store stats for each thread
   		tempStats = (int*) pthread_join( tidP[i], NULL );
 
@@ -83,6 +96,8 @@ int main( int argc, char *argv[] )
 		simulationStats.numTimesBufferFull += tempStats[1];
 
 	}
+		//cout << "done join producers\n\n";
+		//cout << "join consumers\n\n";
 	for(int i=0; i < global_args.numConsumers; i++)
 	{
 		//Store stats for each thread
@@ -91,6 +106,7 @@ int main( int argc, char *argv[] )
 		simulationStats.totalThreadNumConsumed[i] = tempStats[0];
 		simulationStats.numTimesBufferEmpty += tempStats[1];
 	}
+		//cout << "done join consumers\n\n";
 	
 	//Grab number of items remaining in buffer
 	simulationStats.numItemsRemaining = bufferCount;
@@ -102,11 +118,34 @@ int main( int argc, char *argv[] )
 	return 0;
 }
 
+/********************************************************************
+//
+// Arguments function
+//
+// This function takes in the command line arguments and 
+// places them into a struct.
+//
+// Return Value
+// ------------
+// void
+//
+// Value Parameters
+// ----------------
+// argc		int		Number of arguments in argv
+//
+// Reference Parameters
+// --------------------
+// argv 	char 		Array of char arrays. Provides command line args
+//
+*******************************************************************/
 void arguments(int argc, char  *argv[])
 {
 	if(argc < 6)
 	{
-		cerr << "5 arguments are needed. The arguments should be in the following order:\n  simulation length\n  max thread sleep\n  number of producers\n  number of consumers\n yes or no for outputting buffer snapshots\n";
+		cerr << "5 arguments are needed. The arguments should be ";
+		cerr << "in the following order:\n  simulation length\n  ";
+		cerr << "max thread sleep\n  number of producers\n  number ";
+		cerr << "of consumers\n yes or no for outputting buffer snapshots\n";
 		exit(-1);
 	}
 
@@ -128,6 +167,26 @@ void arguments(int argc, char  *argv[])
 
 }
 
+/********************************************************************
+//
+// Check Prime Function
+//
+// This function determines if a number is prime
+//
+// Return Value
+// ------------
+// bool                         True/False if numer is prime
+//
+// Value Parameters
+// ----------------
+// in 		buffer_item	The value
+//
+// Local Variables
+// ---------------
+// lim		int		Limit to go to checking for a prime number
+// result	int		Temporary result of mod operation
+//
+*******************************************************************/
 bool checkPrime(buffer_item in)
 {
 	int lim = in/2;
@@ -144,6 +203,27 @@ bool checkPrime(buffer_item in)
 
 }
 
+/********************************************************************
+//
+// Producer function
+//
+// Producer function to produce numbers and put them into the buffer
+//
+// Return Value
+// ------------
+// void
+//
+// Reference Parameters
+// --------------------
+// void
+// thread returns stats value
+//
+// Local Variables
+// ---------------
+// stats 	int 		holds stats for # of times buffer is full
+//  				& number of items produced.
+//
+*******************************************************************/
 void *producer(void * param)
 {
 	//Variables
@@ -163,15 +243,16 @@ void *producer(void * param)
 
 		//Generate a random number
 		bItem = random();
+		bItem %= 9999;
 		//bItem = bItem % 99;
-		cout << "Producer item: " << bItem << endl;
+		//cout << "Producer item: " << bItem << endl << endl;
 
 		//Check to see if buffer is full
 		if(bufferCount == BUFFER_SIZE)
 		{
 			cout << "All buffers full.  Producer " << pthread_self();
-			cout << " waits.\n";
-			stats[1]++;
+			cout << " waits.\n\n";
+			stats[1]=(stats[1] + 1);
 		}
 
 		//Wait
@@ -186,7 +267,7 @@ void *producer(void * param)
 			cout << "Producer " << pthread_self() << " writes ";
 			cout << bItem << endl;
 
-			stats[0]++; //add # of items produced
+			stats[0]= (stats[0] + 1); //add # of items produced
 
 			if(global_args.outputBufferSnapshots) //if snapshots enabled
 				buffer_print(); //print snapshots
@@ -203,6 +284,27 @@ void *producer(void * param)
 	pthread_exit( (void*)stats ); //return stats array
 }	
 
+/********************************************************************
+//
+// Consumer function
+//
+// Consumer function to consume numbers and remove them from the buffer
+//
+// Return Value
+// ------------
+// void
+//
+// Reference Parameters
+// --------------------
+// void
+// thread returns stats value
+//
+// Local Variables
+// ---------------
+// stats 	int 		holds stats for # of times buffer is empty
+//  				& number of items consumed.
+//
+*******************************************************************/
 void *consumer(void * param)
 {
 	//Variables
@@ -224,9 +326,9 @@ void *consumer(void * param)
 		{
 			cout << "All buffers empty.  Consumer ";
 			cout << pthread_self();
-			cout << " waits.\n";
+			cout << " waits.\n\n";
 
-			stats[1]++; //add one time buffer was empty
+			stats[1]= (stats[1] + 1); //add one time buffer was empty
 		}
 
 		//Check semaphore
@@ -242,7 +344,7 @@ void *consumer(void * param)
 			cout << "Consumer " << pthread_self() << " reads ";
 			cout << bItem; 
 
-			stats[0]++; //increase # of items consumed
+			stats[0] = (stats[0]+1); //increase # of items consumed
 
 			if(checkPrime(bItem)) //find if # was prime
 				cout << "   * * * PRIME * * *";
@@ -252,7 +354,6 @@ void *consumer(void * param)
 			if(global_args.outputBufferSnapshots)
 				buffer_print();
 		}
-
 
 		//Unlock
 		pthread_mutex_unlock( &mutex );

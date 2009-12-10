@@ -1,4 +1,14 @@
-//Christopher Carlisle
+/********************************************************************
+//
+// Christopher Carlisle
+// Operating Systems
+// Programming Project #3: Process Synchronization Using Pthreads: 
+// 			   The Producer / Consumer Problem With 
+// 			   Prime Number Detector 
+// November 23, 2009
+// Instructor: Dr. Ajay K. Katangur
+//
+********************************************************************/
 #ifndef _BUFFER_H_DEFINED_
 #define _BUFFER_H_DEFINED_
 
@@ -25,20 +35,47 @@ void buffer_initialize();
 //Semphores and mutexs
 sem_t bufferEmpty;
 sem_t bufferFull;
-//sem_init(&bufferEmpty, 0, BUFFER_SIZE ); //<---------- PROBLEM LINE
-//sem_init( &bufferFull, 0, 0 ); //<-------------PROBLEM LINE
 pthread_mutex_t mutex;
-//pthread_mutex_init( &mutex, NULL ); //<-------------PROBLEM LINE
 
-
+/********************************************************************
+//
+// Buffer Initialize
+//
+// This function initializes the semaphores, mutexs and buffer 
+// positions to -1
+//
+// Return Value
+// ------------
+// void
+//
+*******************************************************************/
 void buffer_initialize()
 {
+	sem_init(&bufferEmpty, 0, BUFFER_SIZE ); 
+	sem_init( &bufferFull, 0, 0 ); 
+	pthread_mutex_init( &mutex, NULL ); 
 	for(int i=0 ; i < BUFFER_SIZE; i++)
 	{
 		global_buffer[i] = -1;  //sets all buffer positions to -1
 	}
 }
 
+/********************************************************************
+//
+// Buffer Insert Item Function
+//
+// This function inserts an item into the buffer moves
+// the buffer index and adds one to the count of the buffer
+//
+// Return Value
+// ------------
+// bool                         True that function succeeded
+//
+// Value Parameters
+// ----------------
+// item		buffer_item	Value to place into buffer
+//
+*******************************************************************/
 bool buffer_insert_item( buffer_item item )
 {
 	cout << "Item: " << (int) item << endl; //debug print statement
@@ -56,6 +93,22 @@ bool buffer_insert_item( buffer_item item )
 	return true;
 }
 
+/********************************************************************
+//
+// Buffer Remove Item Function
+//
+// This function removes an item from the buffer, moves
+// the buffer index, and subtracts one from the count of the buffer
+//
+// Return Value
+// ------------
+// bool                         True that function succeeded
+//
+// Reference Parameters
+// ----------------
+// item		buffer_item	Value to remove from buffer
+//
+*******************************************************************/
 bool buffer_remove_item( buffer_item *item )
 {
 	//Grab item from buffer
@@ -70,6 +123,19 @@ bool buffer_remove_item( buffer_item *item )
 	return true;
 }
 
+/********************************************************************
+//
+// Linear Search Function
+//
+// This function prints out the number of buffers occupied
+// The buffers contents. And it also prints the position of 
+// the in and out indexes.
+//
+// Return Value
+// ------------
+// void
+//
+*******************************************************************/
 void buffer_print()
 {
 	//line 1
@@ -86,7 +152,7 @@ void buffer_print()
 	// Third line of output. puts dashes under numbers
 	cout << "        ";
 	for(int i=0; i < BUFFER_SIZE; i++)
-		cout << " ----";
+		cout << "  ----";
 	cout << endl;
 
 	// Fourth line of output. Shows position of in & out indexes
@@ -111,7 +177,7 @@ void buffer_print()
 		else
 			cout << "    ";
 	}
-	cout << endl;
+	cout << endl << endl;
 
 
 }

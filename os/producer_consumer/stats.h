@@ -1,10 +1,19 @@
-//Christopher Carlisle
+/********************************************************************
+//
+// Christopher Carlisle
+// Operating Systems
+// Programming Project #3: Process Synchronization Using Pthreads: 
+// 			   The Producer / Consumer Problem With 
+// 			   Prime Number Detector 
+// November 23, 2009
+// Instructor: Dr. Ajay K. Katangur
+//
+********************************************************************/
 #ifndef STATS_H
 #define STATS_H
 
 #include <iostream>
 using namespace std;
-
 
 class Stats
 {
@@ -32,6 +41,26 @@ class Stats
 		~Stats(); //destructor that gets rid of dynamic elements
 };
 
+/********************************************************************
+//
+// Stats Constructor Function
+//
+// This function initializes all of the values passed in by the
+// command line arguments
+//
+// Return Value
+// ------------
+// none
+//
+// Value Parameters
+// ----------------
+// _simTime 		int 	simulation time
+// _maxSleep 		int 	maximum sleep time
+// _numProducerThreads 	int 	number of producer threads
+// _numConsumerThreads 	int 	number of consumer threads
+// _bufferSize 		int 	size of buffer
+//
+*******************************************************************/
 Stats::Stats(int _simTime, int _maxSleep, int _numProducerThreads, int _numConsumerThreads, int _bufferSize)
 {
 	//Vars
@@ -47,12 +76,35 @@ Stats::Stats(int _simTime, int _maxSleep, int _numProducerThreads, int _numConsu
 
 }
 
+/********************************************************************
+//
+// ~Stats Function
+//
+// This function deletes pointers
+//
+// Return Value
+// ------------
+// none
+//
+*******************************************************************/
 Stats::~Stats()
 {
 	delete [] totalThreadNumProduced;
 	delete [] totalThreadNumConsumed;
 }
 
+/********************************************************************
+//
+// Print Function
+//
+// This function prints out a summary of stats at the end of
+// the program
+//
+// Return Value
+// ------------
+// void
+//
+*******************************************************************/
 void Stats::print()
 {
 
