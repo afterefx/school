@@ -167,11 +167,12 @@ bool leftPadCollision()
 ************************************************/
 bool rightPadCollision()
 {
-	//variables
-	GLfloat distance;
-	GLfloat paddleTop;
-	GLfloat paddleBottom;
-	GLfloat cubePOS = particles[0].position[2];
+   //variables 
+   GLfloat distance;
+   GLfloat paddleTop;
+   GLfloat paddleBottom;
+
+   GLfloat cubePOS = particles[0].position[2];
 
 	//Calculations
 	distance = cubePOS + 1.0;
