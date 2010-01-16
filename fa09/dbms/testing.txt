@@ -1,0 +1,36 @@
+t/f 24points * 1 = 24points
+m.c. 20*2 = 40 points
+questions 8*4 = 36 points
+----ch. 5----------------------
+normalization
+know how to convert from 1nf to 2nd to 3rd then do the bcnf
+know the normal forms table
+-------ch. 6-------------
+know how to draw an extended er diagram
+look at figure 6.2
+look at table 6.3 and know it
+-------ch. 10-----------
+most of the question for problem solving come from these slides
+know the definitions
+concurrency
+locks for the tables
+2 phase locking (growing phase and shrinking phase)
+slide 20 on conditional expressions
+-------ch. 12----------
+pros and cons of ddbms
+mostly focused on slide 10
+distribution transparency ( how to locate data)
+	fragmentation transparency
+	location transparency
+	local mapping transparency
+data fragmentation
+	horizontal
+	vertical
+	combination of the 2
+-----ch. 14 -----
+don't spend much time on this ( maybe 10 minutes of studying)
+know figure 14.8
+
+
+
+focus on first 5 chapters

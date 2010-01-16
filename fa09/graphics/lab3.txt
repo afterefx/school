@@ -1,0 +1,584 @@
+
+/* Rotating cube demo with trackball*/
+
+#include <math.h>
+#include <stdlib.h>
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+#define bool int
+#define false 0
+#define true 1
+
+#ifndef M_PI
+#define M_PI 3.14159
+#endif
+
+
+int 	winWidth, winHeight;
+int 	toggle=0;
+
+float 	angle = 0.0, axis[3], trans[3];
+bool 	trackingMouse = false;
+bool 	redrawContinue = false;
+bool    trackballMove = false;
+bool 	house1= true,
+	drawSphere=false,
+	bRotateXp = false,
+	bRotateXm = false,
+	bRotateYp = false,
+	bRotateYm = false,
+	bScaleP = false,
+	bScaleM = false,
+	firstRun = true;
+double vertwidth=.30;
+
+/*----------------------------------------------------------------------*/
+/*
+** Draw the cube.
+*/
+GLfloat origHouse[][3] = {
+    {-1.25,-1.0,-1.0}, {1.25,-1.0,-1.0}, {1.25,0.65,-1.0}, {-1.25,0.65,-1.0}, 
+    {-1.25,-1.0,1.0}, {1.25,-1.0,1.0}, {1.25,0.65,1.0}, {-1.25,0.65,1.0},
+    {.30,-1.0,1.0}, {.30, 0.0,1.0}, {-.30,0.0,1.0},{-.30, -1.0, 1.0},
+    {.30,0.65,1.0}, {-.30,0.65,1.0},{0.0,1.75,0.0}, {.30,0.0,1.75},{-.30,0.0,1.75},
+    {0.0,0.25,1.375}
+};
+
+GLfloat houseDos[][3] = {
+    {-1.25,-1.0,-1.5}, {1.25,-1.0,-1.5}, {1.25,0.65,-1.5}, {-1.25,0.65,-1.5}, //0123
+    {-1.25,-1.0,1.5}, {1.25,-1.0,1.5}, {1.25,0.65,1.5}, {-1.25,0.65,1.5}, //4567
+    {-1.0,1.0,0.80},{1.0,1.0, 0.80}, {1.0,1.0, -1.2}, {-1.0, 1.0, -1.2}, //89,10,11
+    {-1.0,1.5,0.80},{1.0,1.5, 0.80},{1.0,1.5,-1.2},{-1.0,1.5,-1.2}, //12,13,14,15
+    {0.0, 1.75,0.60},{0.0,1.75,-0.60}, {1.25,-1.0,0.75},{2.6,-1.0,0.75}, //16,17,18,19
+    {2.6,-1.0,-1.5},{1.24,0.65,0.75},{2.6,0.65,0.75},{2.6,0.65,-1.5}, //20,21,22,23
+    {1.92,1.0,-.375}, {2.0,0.65,-1.5},{2.6,0.65,-2.75},{3.2,0.65,-2.75}, //24,25,26,27
+    {2.3,1.0,-1.85},{2.9,1.0,-2.4},{3.7,0.65,-2.75},{3.7,0.65,-3.90}, //28,29,30,31
+    {2.6,0.65,-3.90},{2.6,-1.0,-2.75},{3.7,-1.0,-2.75},{3.7,-1.0,-3.90},//32,33,34,35
+    {2.6,-1.0,-3.90},{3.15,1.0,-3.325} //36,37
+
+};
+
+GLfloat columns[][3] = {
+    {0.30, -1.0, 1.75}, {0.30, -1.0, 1.65}, {0.20, -1.0, 1.65}, {0.20, -1.0, 1.75},
+    {0.30, 0.0, 1.75}, {0.30, 0.0, 1.65}, {0.20, 0.0, 1.65}, {0.20, 0.0, 1.75}
+    
+};
+
+GLfloat base[][3] = {
+    {-1.5,-1.05,1.85}, {1.5,-1.05, 1.85}, {1.5, -1.05, -1.85}, {-1.5, -1.05, -1.85}
+};
+GLfloat colors[][3] = {
+    {0.0,0.0,0.0}, {1.0,0.0,0.0}, {1.0,1.0,0.0}, {0.0,1.0,0.0}, 
+    {0.0,0.0,1.0}, {1.0,0.0,1.0}, {1.0,1.0,1.0}, {0.0,1.0,1.0},
+    {0.0,0.0,1.0}, {1.0,0.0,1.0}, {1.0,1.0,1.0}, {0.0,1.0,1.0},
+    {0.0,0.0,1.0}, {1.0,0.0,1.0}, {1.0,1.0,1.0} 
+};
+
+
+void triangle(int a, int b, int c, GLfloat array[][3])
+{
+  switch (toggle)
+  {
+	  case 0:
+		  glBegin(GL_TRIANGLES);
+		  break;
+	  case 1:
+		  glBegin(GL_POINTS);
+		  break;
+	  case 2:
+		  glBegin(GL_LINE_STRIP);
+		  break;
+	  default:
+		  glBegin(GL_TRIANGLES);
+		  break;
+  }
+  	if(house1)
+		glColor3fv(colors[a]);
+  	glVertex3fv(array[a]); //point a
+  	if(house1)
+		glColor3fv(colors[b]);
+  	glVertex3fv(array[b]); //point b
+  	if(house1)
+		glColor3fv(colors[c]);
+  	glVertex3fv(array[c]); //point c
+  glEnd();
+}
+
+void triangleRoof(int a, int b, int c, GLfloat array[][3])
+{
+  switch (toggle)
+  {
+	  case 0:
+		  glBegin(GL_TRIANGLES);
+		  break;
+	  case 1:
+		  glBegin(GL_POINTS);
+		  break;
+	  case 2:
+		  glBegin(GL_LINE_STRIP);
+		  break;
+	  default:
+		  glBegin(GL_TRIANGLES);
+		  break;
+  }
+  	glColor3f(0.0,0.0,0.0);
+  	glVertex3fv(array[a]); //point a
+  	glVertex3fv(array[b]); //point b
+  	glColor3f(1.0,1.0,1.0);
+  	glVertex3fv(array[c]); //point c
+  glEnd();
+}
+
+void polygon(int a, int b, int c , int d, GLfloat array[][3])
+{
+
+    /* draw a polygon via list of vertices */
+  switch (toggle)
+  {
+	  case 0:
+		  glBegin(GL_POLYGON);
+		  break;
+	  case 1:
+		  glBegin(GL_POINTS);
+		  break;
+	  case 2:
+		  glBegin(GL_LINE_STRIP);
+		  break;
+	  default:
+		  glBegin(GL_POLYGON);
+		  break;
+  }
+    	if(house1)
+  		glColor3fv(colors[a]);
+  	glVertex3fv(array[a]); //point a
+    	if(house1)
+ 		glColor3fv(colors[b]);
+  	glVertex3fv(array[b]); //point b
+    	if(house1)
+  		glColor3fv(colors[c]);
+  	glVertex3fv(array[c]); //point c
+    	if(house1)
+  		glColor3fv(colors[d]);
+  	glVertex3fv(array[d]); //point d
+    glEnd();
+}
+
+void roofPart(int a, int b, int c , int d, GLfloat array[][3])
+{
+
+    /* draw a polygon via list of vertices */
+  switch (toggle)
+  {
+	  case 0:
+		  glBegin(GL_POLYGON);
+		  break;
+	  case 1:
+		  glBegin(GL_POINTS);
+		  break;
+	  case 2:
+		  glBegin(GL_LINE_STRIP);
+		  break;
+	  default:
+		  glBegin(GL_POLYGON);
+		  break;
+  }
+  	glColor3f(0.0,0.0,0.0);
+  	glVertex3fv(array[a]); //point a
+  	glVertex3fv(array[b]); //point b
+  	glColor3f(1.0,1.0,1.0);
+  	glVertex3fv(array[c]); //point c
+  	glVertex3fv(array[d]); //point d
+    glEnd();
+}
+
+void makeColumn()
+{
+	polygon(0,3,2,1, columns); //bottom
+	polygon(0,1,5,4, columns); //right
+	polygon(3,0,4,7, columns); //front
+	polygon(2,3,7,6, columns); //left
+	polygon(1,2,6,5, columns); //back
+}
+
+void modifyView()
+{
+    if(bScaleP)
+    {
+	    glScalef(1.1,1.1,1.1);
+	    bScaleP = false;
+    }
+
+    if(bScaleM)
+    {
+	    glScalef(0.9,0.9,0.9);
+	    bScaleM = false;
+    }
+    
+    if(bRotateXp)
+    {
+	    glRotatef(5, 0.0, 1.0, 0.0);
+	    bRotateXp = false;
+    }
+
+    if(bRotateXm)
+    {
+	    glRotatef(-5, 0.0, 1.0, 0.0);
+	    bRotateXm = false;
+    }
+
+    if(bRotateYp)
+    {
+	    glRotatef(5, 1.0, 0.0, 0.0);
+	    bRotateYp = false;
+    }
+
+    if(bRotateYm)
+    {
+	    glRotatef(-5, 1.0, 0.0, 0.0);
+	    bRotateYm = false;
+    }
+}
+
+
+void colorcube(void)
+{
+    modifyView();
+
+    /* map vertices to faces */
+    if(house1)
+    {
+
+	    //make a base of grass
+	    polygon(0,1,2,3, base); 
+
+	    //draw house
+	    polygon(1,0,3,2,origHouse);//back side
+	    polygon(4,11,13,7,origHouse); //left front
+	    polygon(9,12,13,10,origHouse); //front top middle
+	    polygon(8,5,6,12,origHouse);//right front
+	    polygon(3,7,6,2,origHouse); //top
+	    polygon(7,3,0,4,origHouse); //left side
+	    polygon(2,6,5,1,origHouse); //right side
+	    polygon(5,4,0,1,origHouse); //bottom side
+	    polygon(15,9,10,16,origHouse); //front porch top
+	    triangle(2,3,14,origHouse); //roof starts here
+	    triangle(3,7,14,origHouse);
+	    triangle(7,6,14,origHouse);
+	    triangle(6,2,14,origHouse);
+	    triangle(9,10,17,origHouse); //eave roof starts here
+	    triangle(15,9,17,origHouse);
+	    triangle(16,15,17,origHouse);
+	    triangle(10,16,17,origHouse);
+
+	    //making columns
+	    makeColumn();
+
+	    //making columns
+	    glTranslatef(-.5,0.0,0.0);
+		makeColumn();
+	    glTranslatef(.5,0.0,0.0);
+
+	    
+    }
+    else
+    {
+	    //scale second house down 
+	    //first time it's drawn to 
+	    //prevent clipping
+	    if(firstRun)
+	    {
+		    glScalef(0.7,0.7,0.7);
+		    firstRun=false;
+	    }
+
+	    //Positing to left for a little clipping prevention
+	    glTranslatef(-1.2,0.0,0.7);
+	    //main base
+	    glColor3f(0.6,0.4,0.2);
+	    polygon(1,0,3,2,houseDos); //back side
+	    polygon(3,7,6,2,houseDos); //top
+	    polygon(7,3,0,4,houseDos); //left side
+	    polygon(2,6,5,1,houseDos); //right side
+	    polygon(4,5,6,7,houseDos); //front side
+	    polygon(5,4,0,1,houseDos); //bottom side
+
+	    //partial roof
+	    roofPart(7,6,9,8,houseDos); //front roof part
+	    roofPart(6,2,10,9,houseDos); //right roof part
+	    roofPart(2,3,11,10, houseDos); //back roof part
+	    roofPart(3,7,8,11, houseDos); //left roof part
+
+	    //upper floor
+	    glColor3f(0.6,0.4,0.2);
+	    polygon(8,9,13,12, houseDos); //front 
+	    polygon(9,10,14,13, houseDos); //right
+	    polygon(10,11,15,14, houseDos); //back
+	    polygon(11,8,12,15, houseDos); //left
+	    
+	    //upper roof
+	    triangleRoof(12,13,16, houseDos); //front
+	    roofPart(13,14,17,16, houseDos); //right
+	    roofPart(15,12,16,17, houseDos); //back
+	    triangleRoof(14,15,17, houseDos);//left
+
+	    //wing base
+	    glColor3f(0.6,0.4,0.2);
+	    polygon(19,18,1,20, houseDos); //bottom
+	    polygon(18,19,22,21, houseDos); //front
+	    polygon(19,20,23,22, houseDos); //right
+	    polygon(20,1,2,23, houseDos); //back
+
+	    //wing roof
+	    triangleRoof(21,22,24, houseDos); //front
+	    triangleRoof(22,23,24, houseDos); //right
+	    triangleRoof(23,2,24, houseDos); //back
+	    triangleRoof(2,21,24, houseDos); //left
+
+	    //eave to garage
+	    polygon(23,25,26,27, houseDos); //bottom
+	    triangleRoof(25,23,28, houseDos); //front
+	    roofPart(23, 27, 29, 28, houseDos); //right
+	    triangleRoof(27,26,29, houseDos); //back
+	    roofPart(26,25,28,29, houseDos); //left
+
+	    //base garage
+	    glColor3f(0.6,0.4,0.2);
+	    polygon(34,33,36,35, houseDos); //bottom
+	    polygon(33,34,30,26, houseDos); //front
+	    polygon(34,35,31,30, houseDos); //right
+	    polygon(36,33,26,32, houseDos); //left
+	    polygon(35,36,32,31, houseDos); //back
+
+	    //roof garage
+	    triangleRoof(26,30,37, houseDos); //frront
+	    triangleRoof(30,31,37, houseDos); //right
+	    triangleRoof(32,26,37, houseDos); //left
+	    triangleRoof(31,32,37, houseDos); //back
+
+	    //Keep translate from continuously adding on itself
+	    glTranslatef(1.2,0.0,-0.7);
+
+
+    }
+
+
+}
+
+/*----------------------------------------------------------------------*/
+/* 
+** These functions implement a simple trackball-like motion control.
+*/
+
+float lastPos[3] = {0.0F, 0.0F, 0.0F};
+int curx, cury;
+int startX, startY;
+
+void trackball_ptov(int x, int y, int width, int height, float v[3])
+{
+    float d, a;
+
+    /* project x,y onto a hemi-sphere centered within width, height */
+    v[0] = (2.0F*x - width) / width;
+    v[1] = (height - 2.0F*y) / height;
+    d = (float) sqrt(v[0]*v[0] + v[1]*v[1]);
+    v[2] = (float) cos((M_PI/2.0F) * ((d < 1.0F) ? d : 1.0F));
+    a = 1.0F / (float) sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
+    v[0] *= a;
+    v[1] *= a;
+    v[2] *= a;
+}
+
+void mouseMotion(int x, int y)
+{
+    float curPos[3], dx, dy, dz;
+
+    trackball_ptov(x, y, winWidth, winHeight, curPos);
+	if(trackingMouse)
+	{
+	    dx = curPos[0] - lastPos[0];
+	    dy = curPos[1] - lastPos[1];
+	    dz = curPos[2] - lastPos[2];
+
+	    if (dx || dy || dz) {
+		angle = 90.0F * sqrt(dx*dx + dy*dy + dz*dz);
+
+		axis[0] = lastPos[1]*curPos[2] - lastPos[2]*curPos[1];
+		axis[1] = lastPos[2]*curPos[0] - lastPos[0]*curPos[2];
+		axis[2] = lastPos[0]*curPos[1] - lastPos[1]*curPos[0];
+
+		lastPos[0] = curPos[0];
+		lastPos[1] = curPos[1];
+		lastPos[2] = curPos[2];
+	    }
+	} 
+
+    glutPostRedisplay();
+}
+
+void startMotion(int x, int y)
+{
+    trackingMouse = true;
+    redrawContinue = false;
+    startX = x; startY = y;
+    curx = x; cury = y;
+    trackball_ptov(x, y, winWidth, winHeight, lastPos);
+	trackballMove=true;
+}
+
+void stopMotion(int x, int y)
+{
+    trackingMouse = false;
+
+    if (startX != x || startY != y) 
+    {
+	redrawContinue = true;
+    } 
+    else 
+    {
+	angle = 0.0F;
+	redrawContinue = false;
+	trackballMove = false;
+    }
+	trackballMove = false;
+}
+
+/*----------------------------------------------------------------------*/
+
+void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+    /* view transform */
+
+    if (trackballMove) 
+    {
+	    glRotatef(angle, axis[0], axis[1], axis[2]);
+
+    }
+    colorcube();
+    if(drawSphere)
+    {
+	    glColor3f(0.2,0.2,0.2);
+    	glutWireSphere(1.75,20,20);
+    }
+
+    glutSwapBuffers();
+}
+
+/*----------------------------------------------------------------------*/
+
+void mouseButton(int button, int state, int x, int y)
+{
+	//if(button==GLUT_RIGHT_BUTTON) 
+		//exit(0);
+	if(button==GLUT_LEFT_BUTTON) 
+		switch(state) 
+		{
+		    case GLUT_DOWN:
+			y=winHeight-y;
+			startMotion( x,y);
+			break;
+		    case GLUT_UP:
+			stopMotion( x,y);
+			break;
+		} 
+}
+
+void myReshape(int w, int h)
+{
+    glViewport(0, 0, w, h);
+    winWidth = w;
+    winHeight = h;
+}
+
+void myKey(unsigned char key, int x, int y)
+{
+
+	if( key == 'Q' | key == 'q')
+		exit(0); //Quit the program
+	if( key == 'S' | key == 's')
+	{
+		drawSphere = !drawSphere;
+		glutPostRedisplay();
+	}
+	if( key == '1')
+	{
+		house1 = true;
+		glutPostRedisplay();
+	}
+	if( key == '2')
+	{
+		house1 = false;
+		glutPostRedisplay();
+	}
+	if( key == 'z' || key == 'Z' || key == 'h')
+	{
+		bRotateXm = true;
+		glutPostRedisplay();
+	}
+	if( key == 'x' || key == 'X' || key == 'l')
+	{
+		bRotateXp = true;
+		glutPostRedisplay();
+	}
+	if( key == 'c' || key == 'C' || key == 'k')
+	{
+		bRotateYm = true;
+		glutPostRedisplay();
+	}
+	if( key == 'v' || key == 'V' || key == 'j')
+	{
+		bRotateYp = true;
+		glutPostRedisplay();
+	}
+	if( key == '+' | key == '=')
+	{
+		bScaleP = true;
+		glutPostRedisplay();
+	}
+	if( key == '-' | key == '_')
+	{
+		bScaleM = true;
+		glutPostRedisplay();
+	}
+	if( key =='t'  | key == 'T')
+	{
+		if(toggle < 2)
+			toggle++;
+		else
+			toggle=0;
+		glutPostRedisplay();
+	}
+			
+
+}
+
+void myinit()
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-4.0, 4.0, -4.0, 4.0, -4.0, 4.0);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(500, 500);
+    glutCreateWindow("My House");
+    glutReshapeFunc(myReshape);
+    glutDisplayFunc(display);
+    glutKeyboardFunc(myKey); 
+    glutMouseFunc(mouseButton);
+    glutMotionFunc(mouseMotion);
+    glEnable(GL_DEPTH_TEST); 
+    myinit();
+    glutMainLoop();
+}
+

@@ -1,0 +1,39 @@
+
+Name: Christopher Carlisle
+
+Hours: 25 hours
+
+Problems: One problem I ran into was getting reflections working. Other than
+	  that everything before that went pretty well.
+
+Testing: For this program I used a test scene that I created that looks like a
+	 symbol of a dj that I like to listen to. I also used the scene files from lab6
+	 and lab5. There was also the general one with a sphere in the center.
+
+Solution: When starting this project I took my lab 4 and removed anything that
+	had to deal with drawing in opengl. I then used the pseudo code that you
+	provided in one of the beginning ray tracer slides. After having the ability to
+	draw a simple sphere I then added in transformations quickly. Lighting took a
+	bit of time to figure out the correct math equations and how to execute them.
+	For shadows, I found that shooting a ray from the light and finding the closest
+	object then comparing the closest object number with the object I was checking
+	to see if in shadow was equal was easier. After doing shadows I decided to try
+	and take a hand at reflections. Even though we had an extension on this. I had
+	other projects that I needed to focus on so I was not able to come back and add
+	on to this.
+
+
+Stuff I implemented: * Generate primary rays 
+		     * Intersect with spheres 
+		     * Lighting works 
+		     * Transform spheres with correct lighting 
+		     * Multiple lights 
+		     * Shadows 
+		     * Reflections (turned off but code was worked on)
+		     * Started photon mapping b/c I find if an object is in shadow 
+		       by shooting from the light to the object :)
+
+
+Sources: I used the slides that were provided on ray tracing and talked with
+	  classmates about the math.
+
