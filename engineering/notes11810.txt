@@ -1,0 +1,25 @@
+When considering whether or not to switch from one coding method to another not only must you consider if it's a better language or not but you must also take into consideration the cost of training, consider the impact of introducing a new technology, consider the effect of the new language on maintenance.
+
+Post delivery maintenance takes up 3/4 of your budget
+
+Life-cycle mode
+	(1970)
+	1. Requirements phase
+	2. Analysis (specification) phase
+	3. Design phase
+	4. Implementation phase
+	5. Post delivery maintenance
+	6. Retirement
+
+Post delivery maintenance
+	Corrective maintenance
+	Perfective maintenance
+	Adaptive maintenance
+
+There is no planning phase b/c we do not yet know exactly what is to be built.
+
+----------------------------------------------------------------------------
+
+Class - variables aka attributes
+		functions aka methods
+hw 1.17
