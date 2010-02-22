@@ -1,0 +1,260 @@
+**Chapter 1
+1. What is a point-to-point link? 
+	A link that goes from point a to point b
+2. What is a multiple-access link? How does it differ from a point-to-point link? 
+	A multiple access link is a link where more than two nodes share a
+	phyiscal link They are limited in size, cannot support a large number
+	of nodes 
+3. What are the two most common types of switched networks? 
+	*two or more nodes connected by a link
+	*two or more networks connected by two or more nodes
+4. Distinguish between a circuit-switched network and a packet-switched network. 
+	*Circuit-switched network is a dedicated circuit established across a
+	 sequence of links
+	*Packet-switched network uses a store and forward method. Packets going
+	 from point a to point b can take many different paths.
+5. What is a packet? What is a message? 
+	A discrete block of data. 
+6. Discuss unicast, multicast, and broadcast addressing schemes. 
+	Unicast means a single destination node. 
+	Multicast sends a message to a subset of nodes
+	Broadcast is a message to all nodes on the network
+7. What is multiplexing? 
+	A system resource is shared among multiple users
+8. Distinguish
+	Synchronous time division multiplexing, 
+		divide time into equal-sized quanta and, in a round-robin
+		fashion, give each flow a chance to send its data over the
+		physical link
+       	Frequency division multiplexing, and  
+		transmit each flow over the physical link at a different
+		frequency, much the same way that signals for different TV
+		stations are transmitted at a different frequency on a physical
+		cable TV link.
+	Statistical multiplexing
+		much like STDM, however, data is transmitted from each flow on
+		demand rather than during a predetermined time slot. 
+9. What do we mean by congestion? Where and in which situation does it occurs? 
+	Congestion occurs when a switch is receiving packets faster than it can
+	send them for an extended period of time, runs out of buffer space, and
+	starts dropping packets.
+10. Give at least two examples on “Request/Reply” type applications and one example on “Message Stream” type applications. 
+	Request/Reply
+		file transfer
+		digital library applications
+	Message Stream
+		Video-on-demand
+11. What are the three general classes of failure related to data communications? 
+	bit errors (1 turned into a 0)
+	packet - (packet is dropped b/c of an uncorrectable bit error)
+	node and link level - (a physical link is cut or computer connected crashes)
+12. Define: 
+	bandwidth - given by the number of bitst aht can be transmitted over the network
+		in a certain period of time
+	latency - how long it takes a message to travel from one end of a network to the other
+	roundtrip time - how long it takes a message to travel from one end of a network to the other and back
+	propagation delay - specific amount of time it takes a signal to propagate from one end of a link to another.
+	packet transmission time -
+	throughput  -
+13. Distinguish between “transfer time” and “transmission time”. 
+14. What are the seven layers of the OSI network architecture? 
+	Application
+	Presentation
+	Session
+	Transport
+	Network
+	Data Link
+	Physical
+15. What are the four layers of the Internet architecture? 
+	Application
+	TCP/UDP
+	IP
+	Network
+16. What each of the following acronyms stands for?
+	TCP/IP, Transmission control protocol and internet protocol
+       	IP, internet protocol
+       	FTP, file transfer protocol
+       	HTTP, hyper text transfer protocol
+       	UDP, user datagram protocol
+       	SMTP, simple mail transfer protocol
+       	FDDI, fiber distributed data interface
+       	FDM, frequency division multiplexing
+       	LAN, local area network
+       	WAN , wide area network
+17. What is a protocol? 
+	abstract objects that make up the layers of a network system
+18. Explain the significance of “delay × bandwidth” product. 
+	it gives the maximum number of bits that could be in transit through the pipe at any given instant
+19. What is a router? 
+	What does it do? A router is a node that is connected to two or more networks and forwards messages from one network to another.
+20. What is an internet?
+	a set of independent networks are interconnected 
+
+**Chapter 2
+Hardware Building Blocks
+1. What is a node? Give some examples of nodes. 
+	Often general-purpose computers, desktop workstations, a multiprocessor, or a PC
+2. What is a link? Give some examples of links. 
+	A physical medium that is used to propagate signals (electromagnetic waves traveling at the speed
+	of light). E.g. twisted pair, coaxial, optical fiber, and space
+3. What is a network adaptor? What is its primary function? 
+	A bus interface that understands how to communicate with the host and a
+	link interface that understands how to use the link. While there is also
+	a communication path between these two components, over which incoming and outgoing data is passed
+4. In which situation, a leased line will be a suitable solution (cost-effective) to connect networks? 
+	When you have two nodes that you want to connect over a long distance,
+	like a town or the country.
+5. What common services are available to connect your home computers? 
+	
+6. The data transmission rate over an ADSL link is not guaranteed or fixed. Why? 
+	B/c it is an existing phone line
+7. Why ADSL is called as Asymmetric DSL? 
+	Because it has a faster up speed then down
+8. Give some examples of radiated media?
+	Microwaves, radio, infrared, 
+
+Encoding
+1. What are the problems associated with the NRZ encoding scheme? 
+	Baseline wander - consecutive 1's or 0's affects the average of the
+	signal, this makes it hard for the receiver to differentiate between 1's
+	and 0's
+2. In what respect, NRZI is better than NRZ? 
+	You only change the signal when it is a one. This solves the problem of
+	consecutive ones.
+3. In what respects, the Manchester encoding is better than NRZ or NRZI? 
+	Transmit a XOR of the NRZ encoded data and the clock. It detects the
+	change in voltage and assigns a 1 or zero based on the direction the
+	voltage changes. low to high is 0 
+4. Why the Manchester encoding is inefficient? What is its efficiency?
+	Because the bit rate is half of the baud rate. The baud rate is the rate
+	at which the signal changes.
+
+Framing
+1. Which networking device carries out the job of frame transmission? 
+	Network adaptor
+2. Explain the technique of character stuffing. What character is used for character stuffing? 
+	Character stuffing is used to distinguish between the bit sequence that
+	denotes the beginning and the end of a frame in the HDLC protocol. 
+3. What bit sequence is used to denote the beginning and the end of frame in HDLC protocol? 
+	01111110
+4. Explain the technique of bit stuffing in the context of HDLC protocol?
+	After a sequence of 5 1's has been transmitted the sender will insert a
+	0 before transmitting the next bit. On the receiving side, should 5
+	consecutive ones arrive the receiver makes a decision based on the next
+	bit that it receives. If it's a 0 then it is a stuffed bit and it is
+	discarded. If it is a 1 then one of two things is true. Either there is
+	an error and the frame is discarded or this is the end of the frame. It
+	looks at the next bit to make this decision. If it's a 1 it's an error
+	otherwise it's the end of frame marker.
+
+Error Detection
+1. What kind of arithmetic is used in the Internet checksum algorithm? 
+	Addition and ones complement
+2. What is the size of the checksum in the Internet checksum algorithm? 
+	16 bits	
+3. What the word CRC stands for? Explain the CRC algorithm in general terms. 
+	cyclic redundancy check - the crc algorithm can detect bit errors in
+	messages that are thousands of bytes long b/c it uses finite fields. 
+4. If there are n bits in the CRC divisor bit sequence, then how many bits will be in a corresponding CRC code?
+
+Reliable Transmission
+1. Explain the stop-and-wait ARQ algorithm. What is its primary advantage? 
+	After transmitting one frame the sender waits for acknowledgement before
+	transmitting the next one. If there is no acknowledgement after a
+	certain period of time then the sender times out and retransmits the
+	original frame.
+2. Why the stop-and-wait algorithm is not good for data delivery over a long link? 
+	B/c the sender may not receive an acknowledgement from the receiver
+	before the sender times out. The sender may retransmit the frame and the
+	receiver would receive duplicate copies. This would cause a problem if
+	this happened multiple times.
+3. How does the sliding window algorithm improve utilization of a link over the stop- and-wait algorithm? 
+	The sliding window sends a certain number of packets at a time. Once the
+	package is acknowledge it sends another one. This is better than waiting
+	for one acknowledgement per packet before sending the next one.
+4. What happens if the receiving window size is smaller than the sending window size?
+	???
+
+Ethernet
+1. What CSMA/CD stands for? 
+	Carrier Sense Multiple Access/ Collision Detection
+2. What is the meaning of Carrier Sense? Multiple Access? Collision Detection? 
+	*Carrier sense means that all the nodes can distinguish between an idle
+	 and busy link
+	*Multiple access means that a set of nodes send and receive frames over
+	 a shared link
+	*Collision detect means that a node listens as it transmits and can
+	 therefore detect when a frame it is transmitting has interfered with a
+	 frame transmitted by another node.
+3. Who first developed the Ethernet technology? 
+	Xerox Palo Alto Research Center
+4. What is the IEEE standard for Ethernet? 
+	802.3
+5. What is the data transmission rate of a typical Ethernet? Fast Ethernet? Gigabit Ethernet? 
+	10-Mbps, 100-Mbps, 1,000-Mbps
+6. How many repeaters at most can be used to extend an Ethernet implemented with coaxial cable? 
+	4
+7. What is the maximum allowable length of an Ethernet segment implemented using 10Base5 cable? 
+	500 meters
+8. With which type of medium, hubs are used to build Ethernet? What is the technical name of the medium? 
+	10baseT, Twitsted pair
+9. Explain the role of a hub on an Ethernet. 
+	Multiway repeater
+10. How many bits are in an Ethernet address? 
+	48 bits, 6 bytes
+11. What happens to an Ethernet frame that contains all 1’s in its destination address field? 
+	Treated as a broadcast
+12. How many bits are in a jamming sequence?
+	32 bits
+13. What is the minimum size of an Ethernet frame format? 
+	46 byes
+14. What is the maximum size of an Ethernet frame format? 
+	1500 bytes
+15. What is the maximum limit on the number of hosts on Ethernet? 
+	1024
+16. “Ethernets perform well under lightly loaded condition.” Explain.
+	A heavy load causes too many collisions
+
+Token rings
+1. Who first developed the token ring technology? 
+	IBM
+2. What is the corresponding IEEE standard for token rings? 
+	802.5
+3. What is a token? What is its role on a ring network? 
+	A sequence of bits that circulates around the ring. It determines who is
+	allowed to send data
+4. Explain the mechanism of frame transmission on a token ring. 
+	The node that will receive the token next takes it off of the ring.
+	Inserts it's packets. All of the following nodes that receive the packet
+	forward it. The receiver takes a copy of the message. Then continues
+	forwarding it. The sender waits to receive the message back then strips
+	it off the ring and forwards the token.
+5. Under normal operating condition, which station removes a circulating data frame? 
+	The sender
+6. How the sender knows whether the receiver accepted the transmitted frame or not? 
+	
+7. What is the use of multistation access units (MSAU) in an IBM token ring network? 
+8. What is the limit on the number of hosts set by IEEE 802.5 standard? 
+9. How many bits are in the IEEE 802.5 token? 
+11. Explain the operation of “token seizing” by a station. 
+12. Distinguish between “early release” and “delayed release” of the token. 
+13. What is an orphaned frame? 
+14. Which station removes an orphaned or a corrupted frame? 
+15. How does a ring network recover from the loss of a token? 
+16. What is a “claim token”? Who releases a claim token on the ring? Why? 
+17. Which data encoding scheme is used for IEEE 802.5 token rings? 18. Compare and contrast a token ring network with an Ethernet.
+
+Chapter 3
+1. What is a bridge? What are its functions on a local area network? 
+2. How does a bridge differ from a hub? At which layer of ISO-OSI protocol layers a bridge operate? 
+3. What are the advantages of a bridge over a hub? 
+4. How does a bridge learn about hosts on a LAN? 
+5. What type of frames a bridge always forward? 
+6. What happens when there is a cycle in a bridged LAN? 
+7. How the cycle problem in a bridged network is solved? 
+8. Describe distributed spanning tree algorithm. 
+9. What happens when the root bridge in the spanning tree fails? 
+10. List some limitations of bridges 
+11. Why a bridged network is not a good solution for a large network? 
+12. Exercise problems 1, 2, 3, 4, 13, 14, 15, 16, 17.
+
