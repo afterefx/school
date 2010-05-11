@@ -25,15 +25,15 @@ public class FileServer
 
 	public static void upload () throws IOException
 	{
-		String _path;
+		String _path; //holds path for image to uplaod
 		
 		Log.i(TAG, "making string...........");
 		_path = String.format("%s%s", Environment.getExternalStorageDirectory(), "/images/AirPicTest.jpg");
 		
 		Log.i(TAG, "opening file...........");
-		File file=new File(_path.toString());
+		File file=new File(_path.toString()); //open file
 		
-		Socket sock = new Socket("afterpeanuts.com", 13267);
+		Socket sock = new Socket("afterpeanuts.com", 13267); //create socket
 		Log.i(TAG, "Connecting...........");
 		
 		byte[] buffer = new byte[35000];
@@ -42,15 +42,15 @@ public class FileServer
 		int size = 0;
 		long start = System.currentTimeMillis();
 		System.err.println("UploadSender.send: Opened port "+13267+" to server.");
-		BufferedInputStream fIn = null;
+		BufferedInputStream fIn = null; 
 		try 
 		{
-			fIn = new BufferedInputStream(new FileInputStream(file));
+			fIn = new BufferedInputStream(new FileInputStream(file)); //reads file
 			int n = -1;
-			while ( (n=fIn.read(buffer)) != -1 ) 
+			while ( (n=fIn.read(buffer)) != -1 ) //read 1 byte
 			{
 				size += n;
-				toServer.write(buffer, 0, n);
+				toServer.write(buffer, 0, n); //write to buffer
 				toServer.flush();
 			}
 		} 

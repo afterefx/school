@@ -12,14 +12,14 @@
 		<item value="0" key="DIALOG_Y_ORIGIN"/>
 		<item value="203" key="DIALOG_X_ORIGIN"/>
 	</section>
+	<section name="NewWizardAction">
+	</section>
 	<section name="InstallationDialogSettings">
 		<item value="702" key="DIALOG_WIDTH"/>
 		<item value="0" key="DIALOG_Y_ORIGIN"/>
-		<item value="654" key="DIALOG_HEIGHT"/>
 		<item value="43" key="DIALOG_X_ORIGIN"/>
+		<item value="654" key="DIALOG_HEIGHT"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
-	</section>
-	<section name="NewWizardAction">
 	</section>
 	<section name="ImportExportAction">
 		<item value="org.eclipse.jst.j2ee.internal.wizard.AppClientComponentImportWizard" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
