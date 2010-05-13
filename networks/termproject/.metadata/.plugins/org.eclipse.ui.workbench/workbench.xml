@@ -14,17 +14,17 @@
 <coolItem id="adt.actionSet.wizards" itemType="typeToolBarContribution" x="76" y="22"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="100" y="22"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="84" y="22"/>
 <coolItem id="org.eclipse.jdt.ui.PropertiesFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jst.j2ee.J2eeMainActionSet" itemType="typeToolBarContribution" x="70" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="84" y="22"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="120" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="54" y="22"/>
 <coolItem id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet" itemType="typeToolBarContribution" x="32" y="22"/>
 <coolItem id="org.eclipse.wst.ws.explorer.explorer" itemType="typeToolBarContribution" x="32" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="104" y="22"/>
 <coolItem id="net.sourceforge.vrapper.toolbar" itemType="typeToolBarContribution" x="32" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="152" y="22"/>
@@ -41,8 +41,6 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
-<part id="3"/>
-<part id="4"/>
 </presentation>
 </folder>
 </info>
@@ -53,16 +51,8 @@
 <editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="camera.xml" partName="camera.xml" path="/Users/chris/repos/school/networks/termproject/Airpic/res/layout/camera.xml" title="camera.xml" tooltip="Airpic/res/layout/camera.xml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Airpic/res/layout/camera.xml"/>
 </editor>
-<editor id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="strings.xml" partName="strings.xml" path="/Users/chris/repos/school/networks/termproject/Airpic/res/values/strings.xml" title="strings.xml" tooltip="Airpic/res/values/strings.xml" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="strings.xml" partName="strings.xml" path="/Users/chris/repos/school/networks/termproject/Airpic/res/values/strings.xml" title="strings.xml" tooltip="Airpic/res/values/strings.xml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Airpic/res/values/strings.xml"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Airpic.java" partName="Airpic.java" path="/Users/chris/repos/school/networks/termproject/Airpic/src/com/android/airpic/Airpic.java" title="Airpic.java" tooltip="Airpic/src/com/android/airpic/Airpic.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Airpic/src/com/android/airpic/Airpic.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1438" selectionTopPixel="52"/>
-</editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FileServer.java" partName="FileServer.java" path="/Users/chris/repos/school/networks/termproject/Airpic/src/com/android/airpic/FileServer.java" title="FileServer.java" tooltip="Airpic/src/com/android/airpic/FileServer.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Airpic/src/com/android/airpic/FileServer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1665" selectionTopPixel="525"/>
 </editor>
 </editors>
 <views>
@@ -189,7 +179,7 @@
 </view>
 <view id="org.eclipse.wst.server.ui.ServersView" partName="Servers"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="com.android.ide.eclipse.editors.resources.ResourcesEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jst.j2ee.internal.perspective.J2EEPerspective" id="org.eclipse.jst.j2ee.J2EEPerspective" label="Java EE"/>
 <alwaysOnActionSet id="org.eclipse.jst.servlet.ui.internal.actions.ConvertToWebModuleTypeActionSet"/>
@@ -649,8 +639,6 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Airpic/src/com/android/airpic/Airpic.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/Airpic/AndroidManifest.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Airpic/src/com/android/airpic/Airpic.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/Airpic/AndroidManifest.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Airpic/src/com/android/airpic/Airpic.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Airpic/src/com/android/airpic/Airpic.java"/>
 <editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=Airpic/\/Developer\/android\/platforms\/android-2.1\/android.jar&lt;android.net(Uri.class"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/Airpic/AndroidManifest.xml"/>
@@ -661,127 +649,128 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" path="/Airpic/res/values/strings.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Airpic/src/com/android/airpic/FileServer.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Airpic/src/com/android/airpic/Airpic.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Airpic/src/com/android/airpic/Airpic.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/Airpic/AndroidManifest.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" path="/Airpic/res/values/strings.xml"/>
 </editors>
 <item historyLabel="Airpic.java" index="0">
-<position info="not_deleted" x="3280" y="0"/>
+<position info="not_deleted" x="4" y="0"/>
 </item>
 <item historyLabel="Airpic.java" index="0">
-<position info="not_deleted" x="3787" y="0"/>
+<position info="not_deleted" x="11606" y="0"/>
 </item>
+<item historyLabel="Airpic Manifest" index="1"/>
 <item historyLabel="Airpic.java" index="0">
-<position info="not_deleted" x="3780" y="0"/>
-</item>
-<item historyLabel="Airpic.java" index="0">
-<position info="not_deleted" x="3583" y="0"/>
+<position info="not_deleted" x="11606" y="0"/>
 </item>
 <item historyLabel="Airpic Manifest" index="1"/>
 <item historyLabel="Airpic.java" index="2">
 <position info="not_deleted" x="4" y="0"/>
 </item>
 <item historyLabel="Airpic.java" index="2">
-<position info="not_deleted" x="11606" y="0"/>
-</item>
-<item historyLabel="Airpic Manifest" index="3"/>
-<item historyLabel="Airpic.java" index="2">
-<position info="not_deleted" x="11606" y="0"/>
-</item>
-<item historyLabel="Airpic Manifest" index="3"/>
-<item historyLabel="Airpic.java" index="4">
-<position info="not_deleted" x="4" y="0"/>
-</item>
-<item historyLabel="Airpic.java" index="4">
 <position info="not_deleted" x="1327" y="0"/>
 </item>
-<item historyLabel="Airpic Manifest" index="3"/>
-<item historyLabel="Airpic.java" index="5">
+<item historyLabel="Airpic Manifest" index="1"/>
+<item historyLabel="Airpic.java" index="3">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="5">
+<item historyLabel="Airpic.java" index="3">
 <position info="not_deleted" x="5101" y="0"/>
 </item>
-<item historyLabel="Uri.class" index="6">
+<item historyLabel="Uri.class" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="5">
+<item historyLabel="Airpic.java" index="3">
 <position info="not_deleted" x="5101" y="0"/>
 </item>
-<item historyLabel="Airpic Manifest" index="7"/>
-<item historyLabel="main.xml" index="8"/>
-<item historyLabel="Airpic Manifest" index="7"/>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic Manifest" index="5"/>
+<item historyLabel="main.xml" index="6"/>
+<item historyLabel="Airpic Manifest" index="5"/>
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="403" y="0"/>
 </item>
-<item historyLabel="FileServer.java" index="10">
+<item historyLabel="FileServer.java" index="8">
 <position info="not_deleted" x="408" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="7243" y="0"/>
 </item>
-<item historyLabel="FileServer.java" index="10">
+<item historyLabel="FileServer.java" index="8">
 <position info="not_deleted" x="408" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="7243" y="0"/>
 </item>
-<item historyLabel="FileServer.java" index="10">
+<item historyLabel="FileServer.java" index="8">
 <position info="not_deleted" x="1729" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="2195" y="0"/>
 </item>
-<item historyLabel="Airpic Manifest" index="7"/>
-<item historyLabel="main.xml" index="11"/>
-<item historyLabel="Airpic Manifest" index="7"/>
-<item historyLabel="FileServer.java" index="10">
+<item historyLabel="Airpic Manifest" index="5"/>
+<item historyLabel="main.xml" index="9"/>
+<item historyLabel="Airpic Manifest" index="5"/>
+<item historyLabel="FileServer.java" index="8">
 <position info="not_deleted" x="1729" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="0" y="406"/>
 </item>
-<item historyLabel="FileServer.java" index="10">
+<item historyLabel="FileServer.java" index="8">
 <position info="not_deleted" x="1729" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="0" y="406"/>
 </item>
-<item historyLabel="FileServer.java" index="10">
+<item historyLabel="FileServer.java" index="8">
 <position info="not_deleted" x="407" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="0" y="406"/>
 </item>
-<item historyLabel="Airpic Manifest" index="7"/>
-<item historyLabel="strings.xml" index="12"/>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic Manifest" index="5"/>
+<item historyLabel="strings.xml" index="10"/>
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="1438" y="0"/>
 </item>
-<item historyLabel="strings.xml" index="12"/>
-<item historyLabel="FileServer.java" index="10">
+<item historyLabel="strings.xml" index="10"/>
+<item historyLabel="FileServer.java" index="8">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="1438" y="0"/>
 </item>
-<item historyLabel="FileServer.java" index="10">
+<item historyLabel="FileServer.java" index="8">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="strings.xml" index="12"/>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="strings.xml" index="10"/>
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="1438" y="0"/>
 </item>
-<item historyLabel="strings.xml" index="12"/>
-<item historyLabel="Airpic.java" index="9">
+<item historyLabel="strings.xml" index="10"/>
+<item historyLabel="Airpic.java" index="7">
 <position info="not_deleted" x="1438" y="0"/>
 </item>
-<item historyLabel="FileServer.java" index="13">
+<item historyLabel="FileServer.java" index="11">
 <position info="not_deleted" x="4" y="0"/>
 </item>
-<item historyLabel="Airpic.java" index="14">
+<item historyLabel="Airpic.java" index="12">
 <position info="not_deleted" x="1438" y="0"/>
 </item>
-<item active="true" historyLabel="FileServer.java" index="13">
+<item historyLabel="FileServer.java" index="11">
+<position info="not_deleted" x="1665" y="0"/>
+</item>
+<item historyLabel="Airpic.java" index="13">
 <position info="not_deleted" x="4" y="0"/>
 </item>
+<item historyLabel="Airpic.java" index="13">
+<position info="not_deleted" x="3880" y="0"/>
+</item>
+<item historyLabel="FileServer.java" index="11">
+<position info="not_deleted" x="1665" y="0"/>
+</item>
+<item historyLabel="Airpic Manifest" index="14"/>
+<item active="true" historyLabel="strings.xml" index="15"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
