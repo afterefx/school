@@ -1,0 +1,76 @@
+!/bin/sh
+-echo-
+-= assignment w/NO spacing-
+-read-
+-$ required before a variable when using a variable-
+-{}-
+-touch-
+-\-
+-for-
+-do-
+-done-
+
+====example====
+for i in 1 2 3 4 5
+do
+    echo "Looping number $i"
+done
+
+output:
+Looping number 1
+Looping number 2
+Looping number 3
+Looping number 4
+Looping number 5
+
+====example====
+for i in hello 1 * 2 goodbye
+do
+    echo "Looping i is set to $i"
+done
+
+output:
+Looping i is set to hello
+Looping i is set to 1
+Looping i is set to Applications
+Looping i is set to Deadmau5.mp3
+Looping i is set to Desktop
+Looping i is set to Documents
+Looping i is set to Downloads
+Looping i is set to Dropbox
+Looping i is set to Library
+Looping i is set to Mail
+Looping i is set to Movies
+Looping i is set to Music
+Looping i is set to Pictures
+Looping i is set to Public
+Looping i is set to Sites
+Looping i is set to chris
+Looping i is set to repos
+Looping i is set to goodbye
+
+-while-
+while read f
+do
+ case $f in
+    ...
+ esac
+done
+
+-[]-
+treated as test case
+
+-if-
+if
+    then
+fi
+
+-;-
+will join 2 lines
+
+-\-
+previous line is continued
+
+
+
+
