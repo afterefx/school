@@ -48,7 +48,7 @@
 6. Make errors in your script: see what happens if you misspell commands, if you leave out the first line or put something unintelligible there, or if you misspell shell variable names or write them in lower case characters after they have been declared in capitals. Check what the debug comments say about this.
 
 !!!!!!!!!!!!!! PRINT SHELL SCRIPT AND TURN IN WITH HW @ LOCATION BELOW !!!!!!!!!!!!
-/Users/chris/repos/school/survey/bash/environmentInfo.sh
+~/repos/scripts/environmentInfo
 
 =========
 == 3.8 ==
@@ -65,6 +65,7 @@ echo "$VAR3 is the third variable"
 local
 
 4. Remove VAR3.
+unset VAR3
 
 5. Can you see the two remaining variables in a new terminal window?
 no
@@ -73,18 +74,52 @@ no
    should calculate the surface of a rectangle which has these proportions.  It
    should be aired with comments and generate elegant output.
 
+!!!!!!!!!!!!!! PRINT SHELL SCRIPT AND TURN IN WITH HW @ LOCATION BELOW !!!!!!!!!!!!
+~/repos/scripts/hw1-sec3.sh
+
 
 =========
 == 4.5 ==
 =========
 1. Display a list of all the users on your system who log in with the Bash shell as a default.
 grep bash /etc/passwd
+
 2. From the /etc/group directory, display all lines starting with the string "daemon".
 grep ^daemon /etc/group
+
 3. Print all the lines from the same file that don't contain the string.
+grep -v ^daemon /etc/group
+
 4. Display localhost information from the /etc/hosts file, display the line number(s) matching the search string and count the number of occurrences of the string.
+
+grep -n '\<localhost' /etc/hosts
+grep -c '\<localhost' /etc/hosts
+
 5. Display a list of /usr/share/doc subdirectories containing information about shells.
+grep -r [^A-Za-z]shell /usr/share/doc/
+
 6. How many README files do these subdirectories contain? Don't count anything in the form of "README.a_string".
+grep -r \<README\> /usr/share/doc/ | wc -l
+
 7. Make a list of files in your home directory that were changed less that 10 hours ago, using grep, but leave out directories.
+
 8. Put these commands in a shell script that will generate comprehensible output.
 
+
+=========
+== 7.5 ==
+=========
+1. Use an if/then/elif/else construct that prints information about the current month. The script should print the number of days in this month, and give information about leap years if the current month is February.
+
+
+2. Do the same, using a case statement and an alternative use of the date command.
+##############################################################
+##############################################################
+##############################################################
+                    left off here!!!!!
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+
+5. Write a script called whichdaemon.sh that checks if the httpd and init daemons are running on your system. If an httpd is running, the script should print a message like, "This machine is running a web server." Use ps to check on processes.
