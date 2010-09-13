@@ -47,8 +47,14 @@
 
 6. Make errors in your script: see what happens if you misspell commands, if you leave out the first line or put something unintelligible there, or if you misspell shell variable names or write them in lower case characters after they have been declared in capitals. Check what the debug comments say about this.
 
-!!!!!!!!!!!!!! PRINT SHELL SCRIPT AND TURN IN WITH HW @ LOCATION BELOW !!!!!!!!!!!!
-~/repos/scripts/environmentInfo
+#!/bin/bash
+# This script displays the path to your home directory and the terminal type that
+# you are using. Additionally it shows all the services started up in runlevel 3
+# on your system.
+
+echo "Home directory: $HOME"
+echo "Terminal type: $TERM"
+echo "Services @ runlevel 3: `ls /etc/rc3.d/S*`"
 
 =========
 == 3.8 ==
@@ -74,9 +80,24 @@ no
    should calculate the surface of a rectangle which has these proportions.  It
    should be aired with comments and generate elegant output.
 
-!!!!!!!!!!!!!! PRINT SHELL SCRIPT AND TURN IN WITH HW @ LOCATION BELOW !!!!!!!!!!!!
-~/repos/scripts/hw1-sec3.sh
+#!/bin/bash
+echo "This program will calculate the surface of a rectangle.";
+if [[ $# == 0 || $# == 1 ]]; then
+   echo "Enter the width: ";
+   read RectWidth;
+   echo
+   echo "Enter the height: ";
+   read RectHeight;
+   echo
+else
+    RectWidth=$1;
+    RectHeight=$2;
+echo
+fi
 
+let answer=$RectWidth*$RectHeight;
+echo "Given a width of $RectWidth and a height of $RectHeight the surface is $answer.";
+echo
 
 =========
 == 4.5 ==
@@ -103,6 +124,7 @@ grep -r \<README\> /usr/share/doc/ | wc -l
 
 7. Make a list of files in your home directory that were changed less that 10 hours ago, using grep, but leave out directories.
 
+
 8. Put these commands in a shell script that will generate comprehensible output.
 
 
@@ -111,15 +133,194 @@ grep -r \<README\> /usr/share/doc/ | wc -l
 =========
 1. Use an if/then/elif/else construct that prints information about the current month. The script should print the number of days in this month, and give information about leap years if the current month is February.
 
+#!/bin/bash
+echo "Retrieving current month..."
+abName=`date +%b`
+fullName=`date +%B`
+
+if [[ $abName == "Jan" || $abName == "Mar" || $abName == "May" || $abName == "Jul" || $abName == "Aug" || $abName == "Oct" || $abName == "Dec" ]] ; then
+    numDays=31;
+    leap=0;
+
+elif [[ $abName == "Apr" || $abName == "Jun" || $abName == "Sep" || $abName == "Nov" ]]; then
+    numDays=30;
+    leap=0;
+
+else
+    leap=0;
+    year=`date +%Y`
+    let modulo=$year%400
+    if [[ $modulo == 0 ]]; then
+        leap=1;
+    fi
+    let modulo=$year%100
+    if [[ $modulo == 0 ]]; then
+        leap=1;
+    fi
+    let modulo=$year%4
+    if [[ $modulo == 0 ]]; then
+        leap=1;
+    fi
+
+    if [[ $leap == 1 ]]; then
+       numDays=29;
+    else
+      numDays=28;
+    fi
+
+fi
+
+if [[ $leap == 0 ]]; then
+    echo "The current month is $fullName and there are $numDays days."
+else
+    echo "The current month is $fullName and there are $numDays days because it is a leap year."
+fi
 
 2. Do the same, using a case statement and an alternative use of the date command.
-##############################################################
-##############################################################
-##############################################################
-                    left off here!!!!!
-##############################################################
-##############################################################
-##############################################################
-##############################################################
+
+#!/bin/bash
+echo "Retrieving current month..."
+abName=`date +%b` #find the abbreviated name of the current month
+fullName=`date +%B` #find the full name of the current month
+
+case $abName in
+"Feb") #if feburary find if leap year and assign appropriate number of days.
+    leap=0;
+    year=`date +%Y`
+    let modulo=$year%400
+    if [[ $modulo == 0 ]]; then
+        leap=1;
+    fi
+    let modulo=$year%100
+    if [[ $modulo == 0 ]]; then
+        leap=1;
+    fi
+    let modulo=$year%4
+    if [[ $modulo == 0 ]]; then
+        leap=1;
+    fi
+
+    if [[ $leap == 1 ]]; then
+        numDays=29;
+    else
+        numDays=28;
+    fi
+    ;;
+"Apr" | "Jun" | "Sep" | "Nov") #apply 30 days to the appropriate abbreviated months
+    numDays=30;
+    leap=0;
+    ;;
+*) #all other months are 31 days
+    numDays=31;
+    leap=0;
+    ;;
+esac
+
+if [[ $leap == 0 ]]; then #check for a leap year and display appropriate output
+    echo "The current month is $fullName and there are $numDays days."
+else
+    echo "The current month is $fullName and there are $numDays days because it is a leap year."
+fi
+
+#alternative use of the date command.
+currentTime=`date +%c`
+currentDayNum=`date +%j`
+    echo "The current time is $currentTime and it is the $currentDayNum day of the year.";
 
 5. Write a script called whichdaemon.sh that checks if the httpd and init daemons are running on your system. If an httpd is running, the script should print a message like, "This machine is running a web server." Use ps to check on processes.
+
+#!/bin/bash
+echo "Checking for httpd daemon.";
+httpStatus=`ps aux | grep -c httpd`;
+
+if [[ $httpStatus == 0 ]]; then
+    echo "httpd daemon is not running because it does not exist on this system.";
+else
+    echo "The machine is running a web server.";
+fi
+
+echo "Checking for init daemon.";
+initStatus=`ps aux | grep -c init`;
+if [[ $initStatus == 0 ]]; then
+    echo "init daemon is not running because it does not exist on this system.";
+else
+    echo "The machine is running the upstart process management daemon.";
+fi
+
+
+=========
+== 8.4 ==
+=========
+1. Write a script that asks for the user's age. If it is equal to or higher than
+16, print a message saying that this user is allowed to drink alcohol. If the
+user's age is below 16, print a message telling the user how many years he or
+she has to wait before legally being allowed to drink.
+
+As an extra, calculate how much beer an 18+ user has drunk statistically (100
+        liters/year) and print this information for the user.
+
+
+#!/bin/bash
+echo -n "What is your age? "
+read AGE
+
+if [[ $AGE -ge 16 ]]; then
+    echo "You are allowed to drink alcohol.";
+    echo
+    if [[ $AGE -ge 18 ]]; then
+        let diff=$AGE-18;
+        let beerDrunk=$diff*100;
+        echo "At the age of $AGE you have drank $beerDrunk liters of beer at a rate of 100 liters/year from the age of 18.";
+    fi
+elif [[ $AGE < 16 ]]; then
+    let diff=$AGE-16;
+    echo "At the age of $AGE you have to wait $diff years before you can legally be allowed to drink.";
+else
+    echo "You need to input a number for this program to work correctly.";
+fi
+
+echo
+
+2. Write a script that takes one file as an argument. Use a here document that
+presents the user with a couple of choices for compressing the file. Possible
+choices could be gzip, bzip2, compress and zip.
+
+
+#!/bin/bash
+
+if [[ $# < 1 ]]; then
+    echo -n "Please enter a file name: "
+    read FILENAME
+else
+    FILENAME=$1
+fi
+
+echo "These are the programs that can be used to compress a file."
+
+cat << COMPRESSORS
+gzip
+bzip2
+compress
+zip
+COMPRESSORS
+
+echo -n "Which would you like to use? ";
+read COMPRESS;
+
+echo "Compressing $FILENAME with $COMPRESS...";
+if [[ $COMPRESS == "zip" ]]; then
+   $COMPRESS $FILENAME.zip $FILENAME > /dev/null
+else
+$COMPRESS $FILENAME &
+fi
+
+echo
+
+
+=========
+== 9.9 ==
+=========
+
+==========
+== 10.5 ==
+==========
