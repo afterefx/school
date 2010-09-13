@@ -1,4 +1,6 @@
+=========
 == 1.7 ==
+=========
 1. Where is the bash program located on your system?
     /bin/bash
 2. Use the --version option to find out which version you are running.
@@ -30,7 +32,9 @@
 5. Can you explain why bash does not exit when you type Ctrl+C on the command line?
     The sigint is caught and handled by bash
 
+=========
 == 2.5 ==
+=========
 1. Write a script using your favorite editor. The script should display the path to your homedirectory and the terminal type that you are using. Additionally it shows all the services started up in runlevel 3 on your system. (hint: use HOME, TERM and ls /etc/rc3.d/S*)
 
 2. Add comments in your script.
@@ -42,3 +46,45 @@
 5. Run the script in normal mode and in debug mode. It should run without errors.
 
 6. Make errors in your script: see what happens if you misspell commands, if you leave out the first line or put something unintelligible there, or if you misspell shell variable names or write them in lower case characters after they have been declared in capitals. Check what the debug comments say about this.
+
+!!!!!!!!!!!!!! PRINT SHELL SCRIPT AND TURN IN WITH HW @ LOCATION BELOW !!!!!!!!!!!!
+/Users/chris/repos/school/survey/bash/environmentInfo.sh
+
+=========
+== 3.8 ==
+=========
+1. Create 3 variables, VAR1, VAR2 and VAR3; initialize them to hold the values "thirteen", "13" and "Happy Birthday" respectively.
+VAR1="thirteen"; VAR2="13"; VAR3="Happy Birthday";
+
+2. Display the values of all three variables.
+echo "$VAR1 is the first variable"
+echo "$VAR2 is the second variable"
+echo "$VAR3 is the third variable"
+
+3. Are these local or global variables?
+local
+
+4. Remove VAR3.
+
+5. Can you see the two remaining variables in a new terminal window?
+no
+
+9. Write a script in which you assign two integer values to two variables. The script
+   should calculate the surface of a rectangle which has these proportions.  It
+   should be aired with comments and generate elegant output.
+
+
+=========
+== 4.5 ==
+=========
+1. Display a list of all the users on your system who log in with the Bash shell as a default.
+grep bash /etc/passwd
+2. From the /etc/group directory, display all lines starting with the string "daemon".
+grep ^daemon /etc/group
+3. Print all the lines from the same file that don't contain the string.
+4. Display localhost information from the /etc/hosts file, display the line number(s) matching the search string and count the number of occurrences of the string.
+5. Display a list of /usr/share/doc subdirectories containing information about shells.
+6. How many README files do these subdirectories contain? Don't count anything in the form of "README.a_string".
+7. Make a list of files in your home directory that were changed less that 10 hours ago, using grep, but leave out directories.
+8. Put these commands in a shell script that will generate comprehensible output.
+
