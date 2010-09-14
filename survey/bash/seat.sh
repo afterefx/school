@@ -18,16 +18,16 @@
 ###########################
 displayAvailableSeats(){
     echo
-    echo "   A B C D E F"
+    echo "    A  B  C  D  E  F"
     for (( ROW = 1; ROW < 61; ROW++ ));
     do
         #check if row is 1 or 2 digits and display accordingly
         if [[ ROW -gt 9 ]]; then
-            echo -n "$ROW "
+            echo -n "$ROW  "
             rowDis=$ROW
         else
             rowDis="0$ROW"
-            echo -n "$rowDis "
+            echo -n "$rowDis  "
         fi
         #for each seat on the row check if seat is open
         for SEATLET in A B C D E F
@@ -36,14 +36,17 @@ displayAvailableSeats(){
             AVAILABLE=`grep -c ^$SEAT$ seats`
 
             if [[ AVAILABLE -eq 1 ]]; then
-                echo -n "O ";
+                echo -n "O  ";
             else
-                echo -n "X ";
+                echo -n "X  ";
             fi
         done
-
+        echo;
         echo;
     done
+    echo "    A  B  C  D  E  F"
+    echo; echo "X is occupied";echo "O is available"
+
 }
 header() {
     clear
@@ -75,14 +78,30 @@ reserve() {
         echo "Type q and hit enter to go back to";
         echo "the main menu";
         echo;
-        echo -n "# "; read MENUOPTION
+        echo -n "# "; read Option LastName seatSub
 
-        if [[ $MENUOPTION == "list" ]]; then
+        if [[ $Option == "list" ]]; then
             displayAvailableSeats
             read NULL
-        elif [[ $MENUOPTION != "q" ]]; then
-            #make entry
-            echo -n "made entry"; read NULL
+        elif [[ $Option != "q" ]]; then
+            #let seatSub=`echo $MENUOPTION | awk '{print $3}'`
+            FirstName=$Option
+            if [[ `echo "$FirstName $LastName $seatSub" | grep -c '^\<[a-zA-Z]\+ \<[a-zA-Z]\+ \<[0-9]\{2\}[A-F]$'` == 1 && `grep -c "^$seatSub$" seats` == 1 ]]; then
+                seatRes="$seatSub $FirstName $LastName";
+                cat seats | sed "s/$seatSub/$seatRes/" > tempSeats
+                `cat tempSeats > seats`
+                `rm tempSeats`
+                echo "Seat $seatSub was reserved for $FirstName $LastName.";
+                read NULL
+            else
+                echo  "There was an error with your input. Either ";
+                echo "the seat is already reserved or your input could";
+                echo "not be parsed."
+                echo; echo "Format: FirstName LastName Seat"
+                read NULL
+            fi
+        else
+            MENUOPTION="q"
         fi
     done
 }
