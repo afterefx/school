@@ -69,7 +69,7 @@ reserve() {
     do
         headerText="Make a reservation";
         header
-        echo "Type your seat you would like to reserve"
+        echo "Type the seat you would like to reserve"
         echo "in the format of FirstName LastName Seat"
         echo;
         echo "If you would like to see available seats"
@@ -86,13 +86,28 @@ reserve() {
         elif [[ $Option != "q" ]]; then
             #let seatSub=`echo $MENUOPTION | awk '{print $3}'`
             FirstName=$Option
-            if [[ `echo "$FirstName $LastName $seatSub" | grep -c '^\<[a-zA-Z]\+ \<[a-zA-Z]\+ \<[0-9]\{2\}[A-F]$'` == 1 && `grep -c "^$seatSub$" seats` == 1 ]]; then
-                seatRes="$seatSub $FirstName $LastName";
-                cat seats | sed "s/$seatSub/$seatRes/" > tempSeats
-                `cat tempSeats > seats`
-                `rm tempSeats`
-                echo "Seat $seatSub was reserved for $FirstName $LastName.";
-                read NULL
+            moreSeats='y'
+            nextSeat='72A'
+            if [[ `echo "$FirstName $LastName $seatSub" | grep -c '^\<[a-zA-Z]\+ \<[a-zA-Z]\+ \<\([0-5][0-9]\|60\)[A-F]'` == 1 && `grep -c "^$seatSub$" seats` == 1 ]]; then
+                while [[ $moreSeats == "y" && $nextSeat != "done" ]]
+                do
+                    if [[ `echo "$nextSeat" | grep -c "^\([0-5][0-9]\|60\)[A-F]$"` == 1 ]]; then
+                        seatSub=$nextSeat
+                    fi
+                    seatRes="$seatSub $FirstName $LastName";
+                    cat seats | sed "s/$seatSub/$seatRes/" > tempSeats
+                    `cat tempSeats > seats`
+                    `rm tempSeats`
+                    echo "Seat $seatSub was reserved for $FirstName $LastName.";echo;
+
+                    if [[ `echo "$nextSeat" | grep -c "^\([0-5][0-9]\|60\)[A-F]$"` != 1 ]]; then
+                        echo -n "Would you like to reserve more seats for $FirstName $LastName (y/n): "; read moreSeats
+                    fi
+                    if [[ $moreSeats == 'y' ]]; then
+                        echo "Please enter your next seat to reserve. When finished type 'done' and hit enter"
+                        echo -n "Seat: "; read nextSeat
+                    fi
+                done
             else
                 echo  "There was an error with your input. Either ";
                 echo "the seat is already reserved or your input could";
