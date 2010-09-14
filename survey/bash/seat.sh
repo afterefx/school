@@ -16,12 +16,41 @@
 ###########################
 #        Functions        #
 ###########################
+displayAvailableSeats(){
+    echo
+    echo "   A B C D E F"
+    for (( ROW = 1; ROW < 61; ROW++ ));
+    do
+        #check if row is 1 or 2 digits and display accordingly
+        if [[ ROW -gt 9 ]]; then
+            echo -n "$ROW "
+            rowDis=$ROW
+        else
+            rowDis="0$ROW"
+            echo -n "$rowDis "
+        fi
+        #for each seat on the row check if seat is open
+        for SEATLET in A B C D E F
+        do
+            SEAT="$rowDis$SEATLET"
+            AVAILABLE=`grep -c ^$SEAT$ seats`
+
+            if [[ AVAILABLE -eq 1 ]]; then
+                echo -n "O ";
+            else
+                echo -n "X ";
+            fi
+        done
+
+        echo;
+    done
+}
 header() {
     clear
     echo "=================================== "
     echo "||  $headerText"
     echo "=================================== "
-        echo
+    echo
 }
 mainMenu() {
     echo "1.) Reserve a seat"
@@ -29,12 +58,35 @@ mainMenu() {
     echo "3.) Cancel Reservation"
     echo "4.) Quit"
 
-    echo "Pick an option: "; read MENUOPTION
+    echo -n "Pick an option: "; read MENUOPTION
 }
 reserve() {
-    headerText="Make a reservation";
-    header
+    MENUOPTION=0
+    while [ $MENUOPTION != "q" ]
+    do
+        headerText="Make a reservation";
+        header
+        echo "Type your seat you would like to reserve"
+        echo "in the format of FirstName LastName Seat"
+        echo;
+        echo "If you would like to see available seats"
+        echo "type 'list' and hit enter to see a display";
+        echo
+        echo "Type q and hit enter to go back to";
+        echo "the main menu";
+        echo;
+        echo -n "# "; read MENUOPTION
+
+        if [[ $MENUOPTION == "list" ]]; then
+            displayAvailableSeats
+            read NULL
+        elif [[ $MENUOPTION != "q" ]]; then
+            #make entry
+            echo -n "made entry"; read NULL
+        fi
+    done
 }
+
 edit() {
     headerText="Edit a reservation";
     header
@@ -55,7 +107,6 @@ progSTART() {
                 1) #Reserve a seat
                     clear
                     reserve;
-                    read
                 ;;
                 2) #Edit a reservation
                     clear
