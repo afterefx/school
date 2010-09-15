@@ -1,0 +1,38 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!
+ DONE
+!!!!!!!!!!!!!!!!!!!!!!!!!
+-Seats are 1-60 and then A-F
+-May request seat
+-Add entries (consists of: FirstName LastName Seat)
+-Seat can have multiple entries (1 person reserves 3 seats)
+-Display by row empty or taken
+-Search entries by lastName, by seat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!
+ NEED TO IMPLEMENT
+!!!!!!!!!!!!!!!!!!!!!!!!!
+-May move a seat
+    -May edit entries: name & seat
+-May cancel reservation
+****MUST ALWAYS CONFIRM*****
+****Need a cancel button******
+
+Menu driven
+
