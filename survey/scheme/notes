@@ -1,0 +1,87 @@
+Scheme is functional
+    based on Lisp (list processor)
+    form we are going to use is called: Racket
+    Racket is based on DrScheme
+    DrScheme was developed to teach elementry children how to program
+
+    Free Download
+        http://racket-lang.org
+    Free tutorial
+        http://www.htdp.org
+
+About the syntax
+----------------
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !! EVERYTHING IS A FUNCTION !!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    no if while or for
+    uses recursion instead of loops
+    ;;comment
+    constant definition
+        (define PI 3.14159)
+    (and (> 4 3) (<= 10 100)) ;;evaluate to true or false
+    (and true     true) ;;4>3 && 10<=100
+    true ;; true and true
+    do not assign variables
+    no types are defined
+
+
+Sample program
+----------------
+    (define (area-of-disk r)
+     (* 3.14159 (* rr)))
+
+    ;;invoke function in another place by
+    (area-of-disk 5)
+
+    ;;find area of ring
+    (define (area-of-ring outer inner)
+     (- (area-of-disk outer)
+        (area-of-disk innter) ) )
+
+Sample functions
+----------------
+    (define(is-between-5-6? n)
+      (and (<5 n) (<n 6)))
+
+    (define (is-between-5-6-or-over-10? n)
+      (or (is-between-5-6? n)
+       (>= n 10)))
+
+    ;;if amount <= 1000 then 0.040
+    ;;elif amount <=5000 then 0.045
+    ;;else 0.050
+    (define (interest-reate amount)
+     (cond
+        [ (<=amount 1000) 0.40]
+        [ (<=amount 5000) 0.045]
+        [else 0.05]))
+
+Structure: posn (are confusing)
+----------------
+    (define (distance-to-0 aposn) ;;define
+      (sqrt
+        (+ (sqr (posn-x aposn))
+           (sqr (posn-y aposn)))))
+
+    (distance-to-0 (make-posn 3 4)) ;;invoke
+
+    ;;define a struct
+    (define-struct star(last first instrument sales)) ;;define struct gives us the make-star, star-last, star-first, star-instrument, star-sales
+
+    (define(increment-sales a-star)
+     (make-star (star-last a-star)
+                (star-first a-star)
+                (star-instrument a-star)
+                (+ (star-sales a-star) 20000)))
+-------------
+    (define (perimeter a-Shape)
+        (cond
+            [(circle? a-shape)
+                (*(*2(circle-radius a-shape))PI)]
+            [(square? a-shape)
+                (*(square-length a-Shape)4)]))
+
+==Questions
+    does white space matter?
+    reserved words
