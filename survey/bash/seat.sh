@@ -1,4 +1,7 @@
 #!/bin/bash
+#Written by: Christopher Carlisle
+#Date: 9/15/10
+
 ######################################################
 ######################################################
 #                     Functions                      #
@@ -39,9 +42,9 @@ displayAvailableSeats(){
 
 header() {
     clear
-    echo "=================================== "
+    echo "=============================================== "
     echo "||  $headerText"
-    echo "=================================== "
+    echo "=============================================== "
     echo
 }
 
@@ -81,7 +84,8 @@ reserve() {
             nextSeat='72A'
 
             #input validation and check that seat is available
-            if [[ `echo "$FirstName $LastName $seatSub" | grep -c '^\<[a-zA-Z]\+ \<[a-zA-Z]\+ \<\([0-5][0-9]\|60\)[A-F]'` == 1 && `grep -c "^$seatSub$" seats` == 1 ]]; then
+            if [[ `echo "$FirstName $LastName $seatSub" |
+                grep -c '^\<[a-zA-Z]\+ \<[a-zA-Z]\+ \<\([0-5][0-9]\|60\)[A-F]'` == 1 && `grep -c "^$seatSub$" seats` == 1 ]]; then
                 #allow multiple seats to be input till user is done
                 while [[ $moreSeats == "y" && $nextSeat != "done" ]]
                 do
@@ -105,12 +109,28 @@ reserve() {
                             echo -n "Would you like to reserve more seats for $FirstName $LastName (y/n): "; read moreSeats
                         fi
                         if [[ $moreSeats == 'y' ]]; then #if user wants to reserve more seats give them the ability to
-                            echo "Please enter your next seat to reserve. When finished type 'done' and hit enter"
-                            echo -n "Seat: "; read nextSeat
+                            badSeat=2 #allows us to get into the while loop
+                            while [[ badSeat -gt 0 ]] #check each new seat entered to see if it is bad
+                            do
+                                if [[ badSeat == 1 ]]; then #if previous seat was bad
+                                    badSeat=0 #reset badSeat to a good seat
+                                    echo "That seat $nextSeat is taken or does not exist"; #show user what was wrong
+                                fi
+                                echo "Please enter your next seat to reserve. When finished type 'done' and hit enter"
+                                echo -n "Seat: "; read nextSeat
+
+                                #validate input
+                                if [[  $nextSeat != "done" && (`echo $nextSeat | grep -c "^\([0-5][0-9]\|60\)[A-F]"` != 1 || `grep -c "^$nextSeat$" seats` != 1) ]]; then
+                                    echo "$nextSeat is an invalid seat";
+                                    badSeat=1
+                                else
+                                    badSeat=0
+                                fi
+                            done
                         fi
-                    else #Cancel reservation
+                    else #Abort reservation
                         nextSeat="done"
-                        echo "Reservation was cancelled"; read
+                        echo "Reservation was aborted"; read
                     fi
                 done
             else #Error handling
@@ -181,8 +201,12 @@ searchLastName() {
         #if name searched for has the letters a-z or A-Z
         if [[ `echo $searchName | grep -c '^[a-zA-Z]\+$'` == 1 ]]; then
             #make sure results only show matches with the lastname (exclude firstname matches)
+        if [[ `grep "$searchName" seats | grep -c "^.\{3\} \<[a-zA-Z]\+ \<$searchName"` -ge 1 ]]; then
             grep "$searchName" seats | grep "^.\{3\} \<[a-zA-Z]\+ \<$searchName"
             read
+        else
+            echo "No reservations for $searchName exist"
+        fi
         elif [[ $searchName == "1" ]]; then #Exit search
             MENUOPTION="q"
         else #Error handling
@@ -217,12 +241,11 @@ searchSeat() {
         elif [[ $searchSeat == "1" ]]; then #Exit search
             MENUOPTION="q"
         else #Error handling
-            echo "Imporperly formatted seat. There are rows 1-60 and seats A-F on each row."
+            echo "Improperly formatted seat. There are rows 1-60 and seats A-F on each row."
             read
         fi
     done
     MENUOPTION="0"
-
 }
 
 search() {
@@ -270,16 +293,171 @@ search() {
     MENUOPTION="0"
 }
 
+editNameSeat(){
+    while [[ $MENUOPTION != "q" ]]
+    do
+        headerText="Edit the name associated with a seat";
+        header
+        echo "Type '1' to go back to the edit menu";echo
+        echo -n "Seat number to edit: "; read seatNum
+        if [[ $seatNum == "1" ]]; then #check to see if they want to quit
+            MENUOPTION="q"
+        elif [[ `echo $seatNum | grep -c '^\([0-5][0-9]\|60\)[A-F]'` == 1 ]]; then #check to see if it's an actual seat
+            if [[ `grep -c "^$seatNum$" seats` == 1 ]]; then
+                echo "That seat is empty and therefore cannot be edited"; read
+            else
+                name=`grep "^$seatNum" seats | sed "s/$seatNum //"`
+                echo "Seat $seatNum is reserved for $name";
+                echo
+                echo "What would you like to change the name to?";
+                echo -n "Format for new name is Firstname Lastname: "; read newFName newLName
+                if [[ `echo $newFName | grep -c "[a-zA-Z]\?"` == 1 && `echo $newLName | grep -c "[a-zA-Z]\?"` == 1 ]]; then
+                    newName="$newFName $newLName"
+                    echo -n "Are you sure that you want to change seat $seatNum from $name to $newName (y/n): "; read approval
+                    if [[ $approval == "y" ]]; then
+                        `cat seats | sed "s/$seatNum $name/$seatNum $newName/" > tempSeats`
+                        `cat tempSeats > seats`
+                        `rm tempSeats`
+                        echo "Seat $seatNum was changed from $name to $newName"; read
+                    else
+                        echo "Modification to $seatNum was aborted"; read
+                    fi
+                else
+                    echo "Please use only characters A-Z";
+                fi
+
+            fi
+
+        else
+            echo "That seat does not exist"; read
+        fi
+    done
+    MENUOPTION=0
+}
+
+moveSeat(){
+    MENUOPTION=0
+    while [[ $MENUOPTION != "q" ]]
+    do
+        headerText="Move a seat"
+        header
+        echo "To go back to the edit menu type '1' and hit enter";echo
+        echo -n "Enter a seat to move: "; read seatNum
+        if [[ `echo $seatNum | grep -c "\([0-5][0-9]\|60\)[A-F]"` == 1 ]]; then
+            if [[ `grep -c "$seatNum [a-zA-Z]*.*" seats` == 1 ]]; then
+                name=`grep "^$seatNum" seats | sed "s/$seatNum //"`
+                echo "$name is located at seat $seatNum"
+                echo -n "Where would you like to move this reservation to? "; read newSeat
+                if [[ `echo "$newSeat" | grep -c "\([0-5][0-9]\|60\)[A-F]"` == 1 ]]; then
+                    if [[ `grep -c "^$newSeat$"` == 1 ]]; then
+                        echo -n "Are you sure that you want to move $name from $seatNum to $newSeat (y/n): "; read approval
+                        if [[ $approval == "y" ]]; then
+                            `cat seats | sed "s/$seatNum $name/$seatNum/" | sed "s/$newSeat/$newSeat $name" > tempSeats`
+                            `cat tempSeats > seats`
+                            `rm tempSeats`
+                            echo "$name was move from $seatNum to $newSeat"; read
+                        else
+                            echo "Seat move for $name was aborted"; read
+                        fi
+                    else
+                        echo "$newSeat is not an empty Seat"; read
+                    fi
+                else
+                    echo "$newSeat is an invalid seat"; read
+                fi
+
+            else
+                echo "That is an empty seat and cannot be moved"; read
+            fi
+        elif [[ $seatNum == "1" ]]; then
+            MENUOPTION="q"
+        else
+            echo "That seat does not exist"; read
+        fi
+    done
+    MENUOPTION=0
+}
+
 edit() {
-    headerText="Edit a reservation";
-    header
-    read
+    MENUOPTION=0
+        while [[ $MENUOPTION != "q" ]]
+        do
+            headerText="Edit a reservation";
+            header
+            echo "1.) Edit a name by seat"
+            echo "2.) Move a reservation"
+            echo "3.) Go back to main menu"
+            echo
+            echo -n "# "; read Option
+
+            case $Option in
+                "1")
+                    editNameSeat
+                    ;;
+                "2")
+                    moveSeat
+                    ;;
+                "3")
+                    MENUOPTION="q"
+                    ;;
+                *)
+                    ;;
+            esac
+        done
+    MENUOPTION=0
 }
 
 delete() {
     headerText="Cancel a reservation";
     header
-    read
+        #cancel by reservation name
+        echo "To quit type '1'";echo
+        echo -n "Please type in a last name to cancel the reservation: "; read searchName
+
+        while [[ $searchName != "1" ]]
+        do
+            if [[ `echo "$searchName" | grep -c "\<[a-zA-Z]"` == 1 && `grep -c "$searchName$" seats` -gt 0 ]]; then
+                #perform search of seats and display which ones may be deleted
+                grep "$searchName$" seats; echo;
+                echo "Enter the seat number you would like to cancel or"
+                echo -n "type 'all' if you would like to cancel all of seats matching $searchName: "; read seatNum; echo
+                if [[ $seatNum != "all" ]]; then #delete by seat number
+                    if [[ `echo $seatNum | grep -c '^\([0-5][0-9]\|60\)[A-F]$'` == 1 ]]; then #validate input
+                        removedName=`grep "$seatNum" seats | sed "s/$seatNum //"`
+                        echo -n "Are you sure that you want to cancel $seatNum for $removedName (y/n) "; read approval
+                        if [[ $approval == "y" ]]; then
+                            `cat seats | sed "s/$seatNum $removedName/$seatNum/" > tempSeats`
+                            `cat tempSeats > seats`
+                            `rm tempSeats`
+                            echo "Reservation for $removedName has been cancelled";read
+                        else
+                            echo "No reservations for $searchName were cancelled";read
+                        fi
+                    else #input error handling
+                        echo "$seatNum is an invalid seat";read
+                    fi
+                else #delete all entries
+                    echo "The seats: "
+                    grep "$searchName$" seats | sed "s/\<[a-zA-Z]\+//"
+                    echo "for $searchName will be cancelled"
+                    echo;echo -n "Would you like to continue(y/n): "; read approval
+                    if [[ $approval == "y" ]]; then
+                        `cat seats | sed "s/ [a-zA-Z][a-zA-Z]* $searchName//" > tempSeats`
+                        `cat tempSeats > seats`
+                        `rm tempSeats`
+                        echo "Reservations for $searchName have been cancelled";read
+                    else
+                        echo "No reservations for $searchName were cancelled";read
+                    fi
+
+                fi
+            else #Error handling
+                echo "ERROR!"
+                echo "There must be only one last name using the letters a-z or no reservations with that name exist"
+            fi
+            echo "To quit type '1'";echo
+            echo -n "Please type in a last name to cancel the reservation: "; read searchName
+        done
 }
 
 progSTART() {
