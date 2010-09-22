@@ -1,7 +1,7 @@
 TEST Review
 ===========
 Questions from the tutorial and the project
-    give number of days in each month including leap years 
+    give number of days in each month including leap years
 
 4 categories by paradigm with example
     imperative
@@ -13,8 +13,13 @@ Questions from the tutorial and the project
     oop
         java
 
-3 categories w/sample language
-    comes from the wiki
+3 categories w/sample language - comes from the wiki
+    interactive mode languages
+        perl
+    concurrent
+        java
+    compiled
+        c++
 
 Brief history of programming languages(paragraph)
     how they started off (binary)
