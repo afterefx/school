@@ -1,0 +1,78 @@
+poisson distribution
+
+dpois(x, lambda)
+    formula - let x be a randome variable that is discrete
+    x=0,1,2,....
+    P(x) = (lambda^x * e^-lambda)/x! where e=2.718.... lambda is normally > 0
+    x is defined as the number of occurrences in an interval
+    requirements:
+        1) occurrences are random
+        2) occurrences are independent
+        3) occurrences are uniformily distributed over the interval
+    example:
+        number of defects in a computer screen
+        Texas @ 2008 ALCOHOL IMPAIRED FATAILITIES: 1269
+            Assumming a year = 365 days
+            What are the number of fatailities per day? (1269/365)=3.48
+        What is the probability that on any given day there are more than 2
+        alochol impaired deaths?
+
+        P(x > 2) or P(x >= 3)
+        = 1 - [ P(x=0) + P(x=1) + P(x=2) ]
+        P(x) = (lambda^x * e^-lambda)/x!
+        lambda=3.48
+        P(x=0) = (lambda^0 * e^-3.48) / 0! = 0.0308                     0!=1
+        P(x=1) = (lambda^1 * e^-3.48) / 1! = 0.1072
+        P(x=2) = (lambda^2 * e^-3.48) / 2! = 0.1865
+        1 - [ P(x=0) + P(x=1) + P(x=2) ] = 0.6755 about 68%
+
+Von Bortkienicks (1898)
+    10 army corps over 20 years recorded number of deats due to horse kick in
+    the head
+    => 200 corps years
+    x=deaths
+
+      x | corp years with x deaths |    number of deaths
+--------|--------------------------|----------------------
+      0 |             109          |            0
+      1 |              65          |           65
+      2 |              22          |           44
+      3 |              3           |            9
+      4 |              1           |            4
+--------|--------------------------|-----------------------
+Total:  |             200          |          122
+
+ what is lambda
+
+ lambda= 122/200=0.61
+
+ P(x=0)=(0.61^0*e^-0.61) / 0!
+ p(x=1)=0.331
+      x | corp years with x deaths |  P(x)
+--------|--------------------------|----------------------
+      0 |            109           | 0.543
+      1 |             65           | 0.331
+      2 |             22           | 0.101
+      3 |             3            | 0.121
+      4 |             1            | 0.0031
+
+
+========================================================================
+                            == ch4 ==
+========================================================================
+ one rule of thumb
+ if:
+     1) n > 100
+     2) n*p <= 10 use pressent to approx
+     P(x)
+    with lambda=n.p.
+-------------------------------------------
+x is a continuous random variable if:
+
+
+ <----|---|---|---|---|---|---|---|---|---|----->
+-oo  -5  -4  -3  -2  -1   0   1   2   3   4   oo
+
+A in [0,1]   x in A segment
+x in A U B U C U ....
+
