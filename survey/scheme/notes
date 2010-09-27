@@ -17,6 +17,10 @@ About the syntax
     no if while or for
     uses recursion instead of loops
     ;;comment
+#| this is a
+    multi-line
+    block comment. |#
+
     constant definition
         (define PI 3.14159)
     (and (> 4 3) (<= 10 100)) ;;evaluate to true or false
