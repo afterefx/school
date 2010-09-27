@@ -1,0 +1,67 @@
+Chapter 4 - Continuous probabilty distributions
+
+x is a continuous random value if x is in A where A is an interval of R or the
+union of internals in R.
+
+So what? x = measurement of interest e.g. weight/temperature/energy/area/volume
+
+
+if x is a random variable and continuous => it's PDF(probability density
+        function)
+    P( a <= x <= b ) = integral from a to be f(x) dx
+
+    1) f(x) >= 0 in all of x
+    2) integral from - infinity to infinity f(x) dx = 1
+
+     CDF = cumlative density function
+     F(x)    F(x)=P(X <= x) = integral of f(y) dy from negative infinity to x
+
+     Prop: let x be a random variable =>
+        for all a P(x>a)=1-F(a)
+
+    P( a <= x <= b ) = F(b) - F(a)
+
+----------------------------
+ _ means sub next term
+----------------------------
+
+    u_x= E(x) =  integrate x f(x) dx from negative infinity to infinity
+    V(x) = o_x^2 = (x-u)^2f(x) dx from negative infinity to infinity
+    V(x) = E(x^2) - [E(x)]^2
+
+------------------------------------------------
+Normal distribution ***page 144***
+
+x random variable continuous pdf normal:
+    P( a <= x <= b ) = integral ( 1 / (.........
+
+!!!!!!! Shortcut !!!!!!! - called the 'Standard normal distribution'
+
+  Z is random variable for standard normal distribution
+   Z ~ N (0, 1)
+
+   ***page 668 table 8-3 has a standard normal curve areas***
+
+
+   Unlikely is 5% probably to happen
+   1% or less to happen is highly unlikely
+
+   Z _ alpha
+
+Ex: Why do doorways have a height of 6'8" = 80" ?
+mean value of = 69"
+std dev = 2.8"
+P( x >= 80) = ? = area
+Z _ 80 = (80-69)/2.8  = (x-u/o) = 3.93
+P(z>=3.93)=P(x>=80)
+    P(Z>=3.43) = 1-P(Z<3.93)
+    P(Z>=3.93) < 1 - 0.9998
+    P(Z>=3.93) < 2x10^-4
+    P(x>=80") < 0.0002
+
+
+    TI-8x
+        normal(cdf(left, right , mean, dev)
+
+Z scores != areas
+
