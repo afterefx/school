@@ -1,0 +1,85 @@
+============
+== 12.4.1 ==
+============
+Formulate the data definition for lists of words. 
+Systematically make up examples of words and lists of words
+
+A list-of-words is either
+
+    1. the empty list, empty, or
+    2. (cons text low) where text is a word ('red, 'edr, 
+        ..., 'der) and low is a list of words
+
+============
+== 14.1.4 ==
+============
+Develop the function average-age. It consumes a family tree 
+node and the current year. It produces the average age of all 
+people in the family tree. 
+
+;; count-age : ftn  ->  number
+;; finds the number of people in a family tree
+(define (count-age a-ftree)
+ (cond
+  [(empty? a-ftree) 0]
+  [else (+  1 (count-age (child-father a-ftree)) 
+         (count-age (child-mother a-ftree)))]
+  ))
+
+;; sum-age : ftn  ->  number
+;; finds the sum of all the ages in a family tree
+(define (sum-age a-ftree)
+  (cond
+    [(empty? a-ftree) 0 ]
+    [else 
+    (+ (- 2010 (child-date a-ftree) ) 
+       (sum-age (child-father a-ftree))
+       (sum-age (child-mother a-ftree))
+            )]))
+
+;; average-age : ftn  ->  number
+;; to find the average age of all people 
+;;   in the family tree
+(define (average-age a-ftree)
+ (/ (sum-age a-ftree) (count-age)))
+
+============
+== 15.1.4 ==
+============
+Develop the function eye-colors, which consumes 
+a parent and produces a list of all eye colors in 
+the tree. An eye color may occur more than 
+once in the list.
+
+;; average-age : a-parent  ->  loe
+;; receives a-parent and returns a list of 
+;;     eye-colors for that parent and it's children
+(define (eye-colors a-parent)
+ (cond
+  [(empty? a-parent) (cons empty)]
+  [else (cons 
+      (parent-eyes a-parent) 
+      (eye-colors (parent-children a-parent))
+      )]
+ ))
+
+
+============
+== 16.3.4 ==
+============
+Develop the function find?, which consumes a dir and 
+a file name and determines whether or not a file 
+with this name occurs in the directory tree.  
+
+(define (find? dir filename)
+ (cond
+  [(empty? dir) 0]
+  [(symbol=? dir filename) 1]
+  [else (or (find? (first dir) filename) 
+            (find? (rest dir) filename))]
+ ))
+
+============
+== 17.8.8 ==
+============
+
