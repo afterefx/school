@@ -126,16 +126,13 @@ reserve() {
             nextSeat='72A'
 
             #input validation and check that seat is available
-            if [[ `echo "$FirstName $LastName $seatSub" |
-                grep -c '^\<[a-zA-Z]\+ \<[a-zA-Z]\+ \<\([0-5][0-9]\|60\)[A-F]'` == 1
-                    && `grep -c "^$seatSub$" seats` == 1 ]]; then
+            if [[ `echo "$FirstName $LastName $seatSub" | grep -c '^\<[a-zA-Z]\+ \<[a-zA-Z]\+ \<\([0-5][0-9]\|60\)[A-F]'` == 1 && `grep -c "^$seatSub$" seats` == 1 ]]; then
                 #allow multiple seats to be input till user is done
                 while [[ $moreSeats == "y" && $nextSeat != "done" ]]
                 do
                     #if $nextSeat is set to an actual seat set $seatsub to its
                     #value to be made into reservation
-                    if [[ `echo "$nextSeat" | grep -c "^\([0-5][0-9]\|60\)[A-F]$"` 
-                        == 1 ]]; then
+                    if [[ `echo "$nextSeat" | grep -c "^\([0-5][0-9]\|60\)[A-F]$"` == 1 ]]; then
                             seatSub=$nextSeat
                     fi
 
@@ -156,11 +153,8 @@ reserve() {
                         echo; #show result
 
                         #check if user needs to be prompted to enter more seats
-                        if [[ `echo "$nextSeat" | 
-                            grep -c "^\([0-5][0-9]\|60\)[A-F]$"` 
-                            != 1 ]]; then
-                            echo -n "Would you like to reserve more seats for 
-                            $FirstName $LastName (y/n): "; 
+                        if [[ `echo "$nextSeat" | grep -c "^\([0-5][0-9]\|60\)[A-F]$"` != 1 ]]; then
+                            echo -n "Would you like to reserve more seats for $FirstName $LastName (y/n): "; 
                             read moreSeats
                         fi
                         #if user wants to reserve more seats give them ability to
@@ -236,8 +230,7 @@ displayOccupiedRows() {
             for (( num2 = 0; num2 < 10; num2++ )); do #and second digit 0-9
                 occupiedNum="$num$num2"
                 #if row is occupied display it
-                if [[ `grep -c "^$occupiedNum[A-F]$" seats` == 0 && occupiedNum 
-                    -lt 61 ]]; then 
+                if [[ `grep -c "^$occupiedNum[A-F]$" seats` == 0 && occupiedNum -lt 61 ]]; then
                     if [[ $occupiedNum != "00" ]]; then #filter out 00 from results
                         echo -n  "$occupiedNum "
                         count=$[$count+1]
@@ -296,10 +289,8 @@ searchSeat() {
         echo
         echo -n "# "; read searchSeat
         #if name searched for has the letters a-z or A-Z
-        if [[ `echo "$searchSeat" | grep -c '^\([0-5][0-9]\|60\)[A-F]$'` 
-            == 1 ]]; then
-            if [[ `grep -c "$searchSeat \<[a-zA-Z]\+ \<[a-zA-Z]\+$" seats` 
-                == 1 ]]; then
+        if [[ `echo "$searchSeat" | grep -c '^\([0-5][0-9]\|60\)[A-F]$'` == 1 ]]; then
+            if [[ `grep -c "$searchSeat \<[a-zA-Z]\+ \<[a-zA-Z]\+$" seats` == 1 ]]; then
                 #display who has the seat
                 seatName=`grep "$searchSeat" seats | sed "s/$searchSeat //"`
                 echo "$searchSeat is occupied by $seatName"
@@ -373,7 +364,7 @@ editNameSeat(){
         if [[ $seatNum == "1" ]]; then #check to see if they want to quit
             MENUOPTION="q"
         #check to see if it's an actual seat
-        elif [[ `echo $seatNum | grep -c '^\([0-5][0-9]\|60\)[A-F]'` == 1 ]]; then 
+        elif [[ `echo $seatNum | grep -c '^\([0-5][0-9]\|60\)[A-F]'` == 1 ]]; then
             if [[ `grep -c "^$seatNum$" seats` == 1 ]]; then
                 echo "That seat is empty and therefore cannot be edited"; read
             else
@@ -383,9 +374,7 @@ editNameSeat(){
                 echo "What would you like to change the name to?";
                 echo -n "Format for new name is Firstname Lastname: "; read 
                     newFName newLName
-                if [[ `echo $newFName | grep -c "[a-zA-Z]\?"` == 1 
-                        && `echo $newLName 
-                        | grep -c "[a-zA-Z]\?"` == 1 ]]; then
+                if [[ `echo $newFName | grep -c "[a-zA-Z]\?"` == 1 && `echo $newLName | grep -c "[a-zA-Z]\?"` == 1 ]]; then
                     newName="$newFName $newLName"
                     echo -n "Are you sure that you want to change seat $seatNum 
                     from $name to $newName (y/n): "; read approval
@@ -509,8 +498,7 @@ delete() {
                 read seatNum; 
                 echo
                 if [[ $seatNum != "all" ]]; then #delete by seat number
-                    if [[ `echo $seatNum | grep -c '^\([0-5][0-9]\|60\)[A-F]$'` 
-                            == 1 ]]; then #validate input
+                    if [[ `echo $seatNum | grep -c '^\([0-5][0-9]\|60\)[A-F]$'` == 1 ]]; then #validate input
                         removedName=`grep "$seatNum" seats | sed "s/$seatNum //"`
                         echo -n "Are you sure that you want to cancel $seatNum 
                             for $removedName (y/n) "; read approval
