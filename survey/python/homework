@@ -1,0 +1,33 @@
+=========
+==== 11/3
+=========
+* Develop a class for a stack using a list
+    push
+    pop
+    isEmpty
+    top
+    count
+    display
+
+* Develop a class for a queue using a list
+    enqueue
+    dequeue
+    front
+    isEmpty
+    count
+    display
+
+len for length and append are already provided for lists
+
+class ClassName:
+       def __init__(self):
+           self.data=[]
+
+==========
+== Project 11/3
+==========
+write a program
+    to convert from infix to prefix
+    use the stack and queue as needed
+=========
+== Exam 11/8
