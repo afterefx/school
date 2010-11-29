@@ -1,0 +1,126 @@
+Prolog - logic-based language
+homework - Ice Cream Cones http://www.csci.csusb.edu/dick/cs620/lab19.html
+
+!!swiprolog is a free download for all systems
+
+uses modus ponens
+*every paramater must start with a lowercase letter
+*if it starts with a capital letter it is a variable
+
+If p Then q.
+    p
+    Therefore qu
+
+================
+woman(mia)              %
+woman(jody)             %
+woman(yolanda)          % knowledge database
+playsAirGuitar(jody)    %
+
+?- woman(mia)           % a query
+yes   <=======this is whats a returned
+?- playsAirGuitar(mia)      | a query
+no  <=======this is whats a returned
+?- playsAirGuitar(vincent)
+no  <=======this is whats a returned
+?- tatooed(jody)
+no  <=======this is whats a returned
+
+
+====================================
+====================================
+====================================
+====================================
+
+listentsToMusic(mia)                            %these are facts
+happy(yolanda)                           _______%___________________
+playsAirGuitar(mia):-                           %
+    listentsToMusic(mia)                        %
+playsAirGuitar(yolanda):-                       % rules
+    listentsToMusic(yolanda)                    %
+listentsToMusic(yolanda):- happy(yolanda)       %
+
+====================================
+||        How if statements work  ||
+====================================
+|| head :- body
+||
+|| if body              <--- we are used to this
+||      then head
+====================================
+====================================
+====================================
+====================================
+
+                                        and (, means and)
+happy(vincent).                          |
+listentsToMusic(butch).                  V
+playsAirGuitar(vincent):- listentsToMusic,happy(vincent)
+playsAirGuitar(butch):-happy(butch).
+playsAirGuitar(butch):-listentsToMusic(butch).
+
+playsAirGuitar(butch):-happy(butch);listentsToMusic(butch).   % combines the previous 2 lines, also the ; means or
+
+====================================
+====================================
+====================================
+woman(mia).
+woman(jody).
+woman(yolanda).
+loves(vincent,mia).
+loves(marcellus,mia).
+loves(pumpkin,honey-bunny).
+lovs(honey-bunny,pumpkin).
+?- woman(X)
+X=mia
+?- ;
+X=jody
+?- ;
+X=yolanda
+?- ;
+no
+loves(marcellus,X),woman(X). %marcellus loves X and X has to be a woman
+X=mia
+
+
+====================================
+====================================
+====================================
+woman(mia).
+woman(jody).
+woman(yolanda).
+loves(vincent,mia).
+loves(marcellus,mia).
+loves(pumpkin,honey-bunny).
+lovs(honey-bunny,pumpkin).
+jealous(X,Y):-loves(X,Z),loves(Y,Z)
+?-jealous(marcellus,W).
+W=vincent
+
+====================================
+====================================
+====================================
+=(mia, mia). =/2
+yes
+=(mia,vincent).
+no
+2=2.
+mia-mia.
+?- 'mia'=mia.
+yes
+'2'=2.
+no
+
+====================================
+====================================
+====================================
+kill(shoot(gun,Y)=kill(X,stab(knife))
+X=shot(gun)
+y=stab(knife)
+yes
+
+
+
+
+
+
