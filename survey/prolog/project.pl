@@ -83,8 +83,6 @@ nextOldest(W):-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 possibleMurderer(Z):-position(Y),person(Y,_)=Z,not(youngest(Z)).
 
-
-
 % the witness and the one who helped the muderer were not of the same sex
 witnessHelperDiffGender(X, Y):-
     person(_, witness)=X,
@@ -133,28 +131,6 @@ scenario(D):-
 
 isMurderer(X):-
     scenario(M), person(X, murderer)=M.
-
-
-
-test(A,B,C,D):-
-    position(PositionA),
-    position(PositionB),
-    position(PositionC),
-    position(PositionD),
-    PositionA \= PositionB,
-    PositionA \= PositionC,
-    PositionA \= PositionD,
-    PositionB \= PositionC,
-    PositionB \= PositionD,
-    PositionC \= PositionD,
-    person(PositionA,witness)=A,
-    person(PositionB,victim)=B,
-    person(PositionC,helper)=C,
-    person(PositionD,murderer)=D.
-
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%
 %   w h v m

@@ -1,0 +1,52 @@
+statistical analysis
+
+practical to graphical (aka visual) to analytical
+
+practical what is it that you want to answer
+
+give you a visual indication of the answer (can do this in r or any other package)
+
+analytical is to give you a confidence on the answer
+
+do all data manipulation outside of r, like in excel or numbers
+then import into r once the data is formatted correctly
+
+>getwd() %tells you what directory you are in
+
+    Menu->Misc->Change Working directory->'select the one that you want'
+
+> Helo=read.csv(file="HeloDat.csv",header=TRUE,sep=",") %read a csv file with headers and a seperator of a comman
+
+> Helo %will show data
+
+> dotplot(Helo) %will give an error, to create a dotplot you have to use a library called EIPCALC
+
+> library(epicalc) %loads some stuff
+
+> dotplot(Helo$Time) %case sensitive, time is the header of the column you want to use
+
+> dotplot(Helo$Time, by=Helo$Rr)
+
+> hist(Helo$Time)
+
+> hist(Helo$Time,col="gold")
+
+> boxplot(Helo$Time)
+
+> boxplot(Time~Rr,data=Helo,col=c("red","blue","green","gold","cyan","yellow","purple"))
+
+> plot(Helo$Rr,Helo$Time)
+
+> reg=lm((Time=Rr,data=Helo)
+
+> summary(reg)
+
+> abline(reg)
+
+> anv=aov(Time~Rr, data=Teim) %makes error
+
+> anv=aov(Time~Rr,data=Helo)
+
+> summary(anv)
+
+> library(car)
