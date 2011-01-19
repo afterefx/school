@@ -1,0 +1,60 @@
+Good
+1. Pandora - http://www.pandora.com/
+   I find this website to be very good because it does one thing
+   and does it well. You type in an artist, song, or genre for a
+   new radio station and then it plays music. You can then choose
+   favorite songs or ban songs that you don't like.
+
+2. Caller - http://www.caller.com/
+  For the Corpus Christi Caller Times they need a website that
+  can hold a lot of information but still allow an user to find
+  information quickly. I think they have achieved this by using
+  a horizontal menu strip across the top of their website with
+  categories showing the main areas and then sub-categories.
+  This website has a good navigation tool, the horizontal menu
+  strip and it also has search feature. This should make finding
+  any informaiton that you are looking for easy to find quickly
+  and easily.
+
+3. Wikipedia - http://www.wikipedia.org/
+  What makes the website for wikipedia good is that it is fairly
+  easy to navigate. Getting from where you start on a website to
+  finding the information that you are looking for is key. It also
+  should be found quickly and easily. On Wikipedias website they
+  have achieved this by intially presenting you with a page that
+  gives you the choice of ten different languages to view the site
+  in and then a search bar appears below that so that you can query
+  there database for the information that you would like to find.
+  It's simple and doesn't take a lot of thought. You don't have to
+  look at the page very long to figure out what is going on.
+  Simple is good.
+
+Bad
+1. SpaceJam - http://www2.warnerbros.com/spacejam/movie/jam.htm
+    This website was created for a movie called SpaceJam in 1996.
+    The website is still viewable online and for todays standards
+    the design is not vey good when compared with modern movies.
+    I find that the graphics are not very appealing and the use
+    of frames was a bad idea. The navigation of the website always
+    requires you to go back to the main page and the choice of colors
+    on the website are not very good for readability.
+
+2. http://elite.tamucc.edu/
+   The website for the ELITE graduate program has the potential to 
+   be a very good website. However, I believe in the saying that
+   'less is more', espescially when displaying content on a website.
+   The main page has too much going on at one time and I find it very
+   unnecessary. There is an online chat, there are xml feeds, there is
+   a twitter feed coming in, there are surveys. Each page should have a
+   purpose.
+
+3. QSROnline - http://qsronline.com/
+   This is a website for a local company that does advanced restaurant
+   management software for restaurants all over the nation. For being
+   a fairly large company and a software one at that I believe that 
+   they should  have the ability to produce a more professional looking
+   website. When I look at this website I see a bunch of clipart put together.
+   Also, if you are going to bother with performing the translations of your
+   website yourself make sure that everything is translated and not only
+   portions of the website.
+

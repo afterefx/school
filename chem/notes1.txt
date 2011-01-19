@@ -1,0 +1,51 @@
+####### General Chemistry I ########
+
+-Intro-
+What is chemistry? Chemistry is the study of matter
+The thing with chemistry is the vocabulary
+What is matter? Whatever occupies space and has mass
+
+3 states for matter
+    1. Gas - has very high kinetic energy and particles move fast
+    2. Liquid - has more kinetic energy than ice
+    3. Solid - particle has some energy and moves around but has a low kinetic energy.
+
+    kinetic energy
+    solid < liquid < gas
+
+
+SI units are used to find the
+    volume - L, mL, 1000 mL = 1L
+    mass - Kg, g, 1000 g = 1 Kg
+    density - mass/volume
+    length - meter, cm, 100cm = 1m
+    temperature - Kelvin (K), Celsius (C), Farenheit (F)
+        K= C + 273
+        (F - 32) * (5/9) = C
+        (C * (9/5)) + 32 = F  <-- check this it may be wrong
+        0 Kelvin is very hard to reach b/c of 0 Kinetic energy
+        Kelvin does not go negative
+        temperature and heat are 2 different things
+                                                =======================
+Chemical changes and physical changes of matter ||Watch video online ||
+                                                =======================
+
+Measurement - the digits that we record in a measurement are significant figures - sig. fig.
+    any non zero integers are significant figures
+    any zeros between to nonzero digits are significant
+    0.00013 = 2 significant figures
+    0.130 = 3 significant figures
+
+scientific notation modes
+    N x 10^n
+    N is between 1 and 10
+    n is positive or negative whole number
+
+
+
+    4. d
+    7. d
+
+
+
+
