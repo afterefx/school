@@ -1,0 +1,101 @@
+General Chem I Lec 3
+
+        electrons
+atom  protons
+        neutrons
+
+
+electromagnetic radiation
+
+
+e = hV -> frequency(1/s)
+|                  h= plank constant(J*S)
+energy (J)
+
+   ------------
+   |s = second|
+   |J = joule |
+   ------------
+
+
+
+   e=hc--->speed of light
+
+   electrons absorb EM, the move from ground state to the excited state
+
+
+                                          --*--
+                                            .
+                                            .
+                                            .
+                                            .
+   -*-  ---------------EM---------------> ----  -----------omit photon------->  --*---
+   ground state stable                 excited state                          ground state
+                                       is not stable
+
+energy of electron in atom is quantized.
+
+
+electrons spend 90% of their time in orbital
+    
+shells -> principle quantum number (n)
+each row of the periodic table of elements represents one shell
+each shell holds 2n^2 electrons
+
+n=1 2n^2=2
+
+#shell          # electrons
+1                   2
+2                   8
+3                   18
+4                   32
+
+Electron Configuration
+Shells
+subshells
+orbitals - orbitals can hold only 2 electrons
+
+
+n  c orbit subshell
+ 2 8 4 2
+ 3 18 9 3
+ 4 32 16 4
+
+
+ subshells
+ s              P              d                f       g h i
+ O              8 8                                                 <--shapes
+ 1 orbital   3 orbitals   5 orbitals            7      9 11 13
+
+
+ shell subshell name subshell
+ 1      1       1s
+ 2      2       2s,2p
+ 3      3       3s,3p,3d
+ 4      4       4s,4p,4d,4f
+
+
+^
+|
+|--2s ---2p
+|--1s
+*
+energy
+    1s<2s<2p<3s<3p
+----------------------------------
+electron configuration
+H               He
+  1s^1          1s^2
+
+Li 1s^2 2s^1
+Be  1s^2 2s^2
+B 1s^2 2s^2 2p^1
+C 1s^2 2s^2 2p^2
+N 1s2 2s2 2p3
+O 1s2 2s2 2p4
+f 1s2 2s2 2p5
+Ne 1s2 2s2 2p6
+Cl 1s2 2s2 2p6 3s2 3p5
+Na 1s2 2s2 2p6 3s1
+
+

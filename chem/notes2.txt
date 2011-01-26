@@ -1,0 +1,145 @@
+matter 3 types
+element compund mixture
+
+periodic table of element
+element is the simplest type of matter. Each element has a name
+
+S,H,O,Fe,Au,Ag
+
+compound is made of 2 or more elements
+
+mixture, a group of 2 or more (compounds or elements) aka substance
+mixture you can separate
+
+heterogeneous mixture ice cream with oreos
+homogeneous sweet tea
+
+-------------------
+Element gives you atoms when pulled apart
+When you have 2 or more atoms they combine to give you a molecule
+h20 is made up of 3 atoms b/c it's 2 hydrogen and one oxygen
+a bunch of molecules gives you a compound
+
+element-----> atom
+              ||
+              VV 2 or more
+compound<---- molecule
+
+Elements are made of a bunch of atoms
+two or more atoms bind to form a molecule
+-------------------
+Atom
+Atoms consists of electrons, protons, and neutrons
+
+*****************************************************
+* Content from videos is put onto the test          *
+* Everything on blackboard you are expected to know *
+*****************************************************
+
+ electron      proton(+)
+              /
+    *->nucleus - neutron(no charge)
+
+
+
+nucleus is very dense
+located at the center of the atom
+Electrons moving about the nucleus at the relatively large distance from it
+atoms have a lot of empty space
+
+protons and neutrons have rougly the same mass
+which is 1840 times greater than the mass of an electron
+
+A
+ X
+Z
+
+A- atomic mass = #proton + #neutron
+Z - atomic number which is the number of protons
+
+  1                                     16
+   H                                      O
+  1                                      8
+
+  Hydrogen has one proton                  Oxygen
+                                           8 proton
+                                           8 neutrons
+
+Identity of the atom comes from number of protons
+
+How about electrons?
+
+In a neutral atom, the number of protons is equal to the number of electrons
+
+16
+  O
+ 8
+
+ 8 proton
+ 16-8protons = neutrons
+ this is a neutral atom so it is 8 electons
+
+Atoms may lose or gain electrons to form ions
+cations: atom lose elections to form cations (positively charged +)
+anions: atoms gain electrons to form anions (negatively charged -)
+
+anions:
+16 2-            the 2 - means 2 with a negative charge
+  O              8 protons
+ 8               8 neutrons
+                10 electrons
+
+cation:
+7  +
+ Li
+3
+
+                3 protons
+                4 neutrons
+                2 electrons b/c 3 protons = 3 electrons then you do minus one
+                since this is a positive charge and no number in front of +
+
+--------------------
+7               8
+ Li              Li
+3               3
+
+3p              3p
+4n              5n
+3e              3e
+
+Isotopes are atoms of an element with different number of neutrons
+
+Isotopes of an element have dientical chemical behavior
+-------------------------------------------
+Periodic table of elements
+
+elements are organized based on the number of protons
+elements that have the similar properties are in the same column
+in a row the properties change periodically
+--------------------
+12      345678 = A
+||------||||||
+    |
+    V
+transition metals
+
+----------------
+|               |
+----------------
+inner transition metals
+
+IA, alkaline metal
+IIA, alkaline earth metals
+IIIA, Boron
+IVA, Carbon
+VA, Nitrogen
+VIA,Oxygen
+VIIA,Halogens
+VIIIA,noble gases, inert gases
+
+
+metals occupy the left side of the table,they lose electrons to form cations
+non metals occupy the right side and gain electrons to form anions
+metaloids are semimetals lie on a diagonal between metals and non metals
+
