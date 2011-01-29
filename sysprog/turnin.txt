@@ -1,0 +1,120 @@
+===========
+==   1   ==
+===========
+
+-- a --
+macbook:sysprog chris$ grep San hw1_data1.txt
+Jon DeLoach:408-253-3122:123 Park St., San Jose, CA 04086:7/25/53:85100
+Jesse Neal:408-233-8971:45 Rose Terrace, San Francisco, CA 92303:2/3/36:25000
+Jose Santiago:385-898-8357:38 Fife Way, Abilene, TX 39673:1/5/58:95600
+
+-- b --
+macbook:sysprog chris$ egrep '^J' hw1_data1.txt
+Jennifer Cowan:548-834-2348:583 Laurel Ave., Kingsville, TX 83745:10/1/35:58900
+Jon DeLoach:408-253-3122:123 Park St., San Jose, CA 04086:7/25/53:85100
+James Ikeda:834-938-8376:23445 Aster Ave., Allentown, NJ 83745:12/1/38:45000
+Jesse Neal:408-233-8971:45 Rose Terrace, San Francisco, CA 92303:2/3/36:25000
+Jose Santiago:385-898-8357:38 Fife Way, Abilene, TX 39673:1/5/58:95600
+
+-- c --
+macbook:sysprog chris$ egrep '700$' hw1_data1.txt
+Norma Corder:397-857-2735:74 Pine Street, Dearborn, MI 23874:3/28/45:245700
+Ephram Hardy:293-259-5395:235 CarltonLane, Joliet, IL 73858:8/12/20:56700
+
+-- d --
+macbook:sysprog chris$ egrep -v '834' hw1_data1.txt
+Steve Blenheim:238-923-7366:95 Latham Lane, Easton, PA 83755:11/12/56:20300
+Betty Boop:245-836-8357:635 Cutesy Lane, Hollywood, CA 91464:6/23/23:14500
+Igor Chevsky:385-375-8395:3567 Populus Place, Caldwell, NJ 23875:6/18/68:23400
+Norma Corder:397-857-2735:74 Pine Street, Dearborn, MI 23874:3/28/45:245700
+Jon DeLoach:408-253-3122:123 Park St., San Jose, CA 04086:7/25/53:85100
+Karen Evich:284-758-2857:23 Edgecliff Place, Lincoln, NB 92743:7/25/53:85100
+Karen Evich:284-758-2867:23 Edgecliff Place, Lincoln, NB 92743:11/3/35:58200
+Karen Evich:284-758-2867:23 Edgecliff Place, Lincoln, NB 92743:11/3/35:58200
+Fred Fardbarkle:674-843-1385:20 Parak Lane, DeLuth, MN 23850:4/12/23:780900
+Fred Fardbarkle:674-843-1385:20 Parak Lane, DeLuth, MN 23850:4/12/23:780900
+Lori Gortz:327-832-5728:3465 Mirlo Street, Peabody, MA 34756:10/2/65:35200
+Paco Gutierrez:835-365-1284:454 Easy Street, Decatur, IL 75732:2/28/53:123500
+Ephram Hardy:293-259-5395:235 CarltonLane, Joliet, IL 73858:8/12/20:56700
+Barbara Kertz:385-573-8326:832 Ponce Drive, Gary, IN 83756:12/1/46:268500
+Lesley Kirstin:408-456-1234:4 Harvard Square, Boston, MA 02133:4/22/62:52600
+William Kopf:846-836-2837:6937 Ware Road, Milton, PA 93756:9/21/46:43500
+Sir Lancelot:837-835-8257:474 Camelot Boulevard, Bath, WY 28356:5/13/69:24500
+Jesse Neal:408-233-8971:45 Rose Terrace, San Francisco, CA 92303:2/3/36:25000
+Arthur Putie:923-835-8745:23 Wimp Lane, Kensington, DL 38758:8/31/69:126000
+Popeye Sailor:156-454-3322:945 Bluto Street, Anywhere, USA 29358:3/19/35:22350
+Jose Santiago:385-898-8357:38 Fife Way, Abilene, TX 39673:1/5/58:95600
+Tommy Savage:408-724-0140:1222 Oxbow Court, Sunnyvale, CA 94087:5/19/66:34200
+Yukio Takeshida:387-827-1095:13 Uno Lane, Ashville, NC 23556:7/1/29:57000
+Vinh Tranh:438-910-7449:8235 Maple Street, Wilmington, VM 29085:9/23/63:68900
+
+-- e --
+macbook:sysprog chris$ egrep ':12/' hw1_data1.txt
+James Ikeda:834-938-8376:23445 Aster Ave., Allentown, NJ 83745:12/1/38:45000
+Barbara Kertz:385-573-8326:832 Ponce Drive, Gary, IN 83756:12/1/46:268500
+
+-- f --
+macbook:sysprog chris$ egrep ':408-' hw1_data1.txt
+Jon DeLoach:408-253-3122:123 Park St., San Jose, CA 04086:7/25/53:85100
+Lesley Kirstin:408-456-1234:4 Harvard Square, Boston, MA 02133:4/22/62:52600
+Jesse Neal:408-233-8971:45 Rose Terrace, San Francisco, CA 92303:2/3/36:25000
+Tommy Savage:408-724-0140:1222 Oxbow Court, Sunnyvale, CA 94087:5/19/66:34200
+
+-- g --
+macbook:sysprog chris$ egrep '[A-Z][a-z]{4},\ [A-Z]' hw1_data1.txt
+Igor Chevsky:385-375-8395:3567 Populus Place, Caldwell, NJ 23875:6/18/68:23400
+Karen Evich:284-758-2857:23 Edgecliff Place, Lincoln, NB 92743:7/25/53:85100
+Karen Evich:284-758-2867:23 Edgecliff Place, Lincoln, NB 92743:11/3/35:58200
+Karen Evich:284-758-2867:23 Edgecliff Place, Lincoln, NB 92743:11/3/35:58200
+Barbara Kertz:385-573-8326:832 Ponce Drive, Gary, IN 83756:12/1/46:268500
+Tommy Savage:408-724-0140:1222 Oxbow Court, Sunnyvale, CA 94087:5/19/66:34200
+
+-- h --
+macbook:sysprog chris$ egrep '\<[Kk][a-z]*:' hw1_data1.txt
+Barbara Kertz:385-573-8326:832 Ponce Drive, Gary, IN 83756:12/1/46:268500
+Lesley Kirstin:408-456-1234:4 Harvard Square, Boston, MA 02133:4/22/62:52600
+William Kopf:846-836-2837:6937 Ware Road, Milton, PA 93756:9/21/46:43500
+
+-- i --
+macbook:sysprog chris$ egrep ':[0-9]{6}$' hw1_data1.txt
+Norma Corder:397-857-2735:74 Pine Street, Dearborn, MI 23874:3/28/45:245700
+Fred Fardbarkle:674-843-1385:20 Parak Lane, DeLuth, MN 23850:4/12/23:780900
+Fred Fardbarkle:674-843-1385:20 Parak Lane, DeLuth, MN 23850:4/12/23:780900
+Paco Gutierrez:835-365-1284:454 Easy Street, Decatur, IL 75732:2/28/53:123500
+Barbara Kertz:385-573-8326:832 Ponce Drive, Gary, IN 83756:12/1/46:268500
+Arthur Putie:923-835-8745:23 Wimp Lane, Kensington, DL 38758:8/31/69:126000
+
+-- j --
+macbook:sysprog chris$ egrep -i 'lincoln' hw1_data1.txt
+Karen Evich:284-758-2857:23 Edgecliff Place, Lincoln, NB 92743:7/25/53:85100
+Karen Evich:284-758-2867:23 Edgecliff Place, Lincoln, NB 92743:11/3/35:58200
+Karen Evich:284-758-2867:23 Edgecliff Place, Lincoln, NB 92743:11/3/35:58200
+
+===========
+==   2   ==
+===========
+
+-- a --
+macbook:sysprog chris$ ls -a | egrep '^\.'
+.
+..
+.hidden
+turnin.txt.swp
+
+-- b --
+macbook:sysprog chris$ sed '/^$/d' file.txt
+blank line below
+blank line above
+
+-- c --
+ps -aux | egrep '^chris'
+chris      747   4.0  1.6   665312  68200   ??  S    Thu09PM  12:03.29 /Applications/Google Chrome.app/Contents/Versions/8.0.5
+chris      606   1.0  1.2   559140  50324   ??  S    Thu09PM   2:02.89 /Applications/Adium.app/Contents/MacOS/Adium -psn_0_147492
+chris      739   0.9  4.0   835160 165980   ??  S    Thu09PM  25:40.59 /Applications/Google Chrome.app/Contents/MacOS/Google Chr
+chris      545   0.7  0.5  2827124  19760   ??  S    Thu09PM   2:02.82 /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock
+chris      755   0.3  0.3   500188  13120   ??  S    Thu09PM   1:45.90 /Applications/Google Chrome.app/Contents/Versions/8.0.55
+chris     7410   0.2  0.7   429944  29404   ??  S    12:38PM   0:29.39 /Applications/iTerm.app/Contents/MacOS/iTerm -psn_0_1741225
+chris      587   0.1  0.2   410552   9396   ??  R    Thu09PM   1:04.75 /Applications/Flux.app/Contents/MacOS/Flux -psn_0_65552
+chris      599   0.1  0.5 11157712  19640   ??  S    Thu09PM   0:41.64 /Users/chris/Library/PreferencePanes/Clusters.prefPane/C
+
+

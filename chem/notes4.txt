@@ -1,0 +1,145 @@
+General chemistry:
+Electron configuration
+
+S  1s2 2s2 2p6 3s2 3p4
+
+n  subshell   
+1   1          1s
+2   2          2s 2p
+3   3          3s 3p 3d
+
+how the periodic blocks are set
+____
+|1s|         _____
+|2s|         | 2p|
+|3s|_________| 3p|
+|4s|____3d___| 4p|
+|5s|____4d___| 5p|
+|6s|____5d___| 6p|
+|7s|_________|   |
+
+
+Br 2s2 2p6 3s2 3p6 4s2 3d10 4p5
+I 1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p5
+Ti 1s2 2s2 2p6 3s2 3p6 4s2 3d2
+
+F
+1s2 2s2 2p5
+7-  7L 7L 7L
+                    =================================================================
+Electron spin     || 7 is up L is down arrows they should have lines through them in ||
+                  || the middle                                                      ||
+                    =================================================================
+
+p has 3 orbitals
+s has 1 orbital
+
+N 1s2 2s2 2p3
+  7L  7L   7-7-7-
+
+elements are paramagnetic when they have unpaired electrons
+
+Ca
+1s2 2s2  2p6     3s2  3p6    4s2
+7L  7L  7L7L7L   7L  7L7L7L   7L
+
+Diamagnetic elements do not have unparied electrons
+
+Fr = Li
+7-  <--- up arrow
+it has one unpaired electron
+
+C
+1s2 2s2 2p2
+7L  7L  77-
+
+Use noble gas to write configuration
+Cl [Ne] 3s2 3p5
+
+Br [Ar] 4s2 3d10 4p5
+I  [Kr] 5s2 4d10 5p5
+Cr [Ar] 4s2   3d4
+         7L 7-7-7-7---  <--what we would think
+          |---------^   1 electron moves over b/c the energies are similar
+         7- 7-7-7-7-7-  <---actual configuration
+
+Cr has six unpaired eletrons. Atoms ( elements) are happy when their oribtals
+are filled or half field
+
+Cr [Ar] 4s1 3d5
+Cu [Ar] 4s2 3d9  <--wrong
+   [Ar] 4s1 3d10 <--right
+
+
+valence electrons = # of electrons in las shell = group number
+
+Cl
+1s2 2s2 2p6       3s2 3p5
+|__________|     |______|
+     |               |
+     V               V
+core electrons    valence electrons
+
+[Ne 3s2 3p5
+
+Cr [Ar] 4s1 3d5 = ?
+Sc [Ar] 4s2 3d1 = 3
+
+
+Oribtal energy
+ ^                        3d - - - - -
+ |                     4s -
+e|             3p - - -
+n|         3s -
+e|     2p - - -
+r|   2s -
+g|  1s -
+y|  *
+
+energy 4p>3d>4s>3p>3s>2p>2s>1s
+
+
+Ions
+
+Li
+1s2 2s1
+lithium is not happy, it either wants to be like neon or helium
+in order for lithium to become like neon what does it need to do. It needs to
+gain 5 electrons or it can lose 1 electron to become like helium
+
+     -1e^-   +5e^-
+He <------Li -----> Ne
+<----------|
+
+        -        -
+     -2e      +4e
+He <------Be -----> Ne
+          Be^(2+)
+
+      2+
+    Be
+
+F 1s2 2s2 2p5
+  -            -
+-7           1e
+He <------- F -----> Ne
+     -
+    F
+
+ -2   -     +
+O    F    Na
+    //     <--angled =
+   Ne
+
+
+who is the best loser
+
+Na is a better loser than Li b/c it has a higher energy
+
+Metals are good losers
+
+Li, Na, K, Rb, Cs, Fr
+-------------------->
+least to most reactive metal
+
+

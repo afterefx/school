@@ -1,0 +1,11 @@
+Name	Games	Runs	Homers	Team
+Hill	158	103	36	Toronto Blue Jays
+Rollins	155	100	21	Philadelphia Phillies
+Cabrera	161	83	9	Oakland Athletics
+Markaki	161	94	18	Baltimore Orioles
+Suzuki	146	88	11	Seattle Mariners
+Cano	161	103	25	New York Yankees
+Braun	158	113	32	Milwaukee Brewers
+Tejada	158	83	14	Houston Astros
+Jeter	155	107	18	New York Yankees
+Roberts	158	110	16	Baltimore Orioles
