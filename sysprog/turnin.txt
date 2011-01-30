@@ -1,3 +1,6 @@
+  System Version:	Mac OS X 10.6.6 (10J567)
+  Kernel Version:	Darwin 10.6.0
+
 ===========
 ==   1   ==
 ===========
@@ -117,4 +120,33 @@ chris     7410   0.2  0.7   429944  29404   ??  S    12:38PM   0:29.39 /Applicat
 chris      587   0.1  0.2   410552   9396   ??  R    Thu09PM   1:04.75 /Applications/Flux.app/Contents/MacOS/Flux -psn_0_65552
 chris      599   0.1  0.5 11157712  19640   ??  S    Thu09PM   0:41.64 /Users/chris/Library/PreferencePanes/Clusters.prefPane/C
 
+
+===========
+==   3   ==
+===========
+
+-- a --
+macbook:sysprog chris$ egrep '161' hw1_data2.txt
+Cabrera 161     83      9       Oakland Athletics
+Markaki 161     94      18      Baltimore Orioles
+Cano    161     103     25      New York Yankees
+
+-- b --
+macbook:sysprog chris$ awk '$2==161' hw1_data2.txt
+Cabrera 161     83      9       Oakland Athletics
+Markaki 161     94      18      Baltimore Orioles
+Cano    161     103     25      New York Yankees
+
+-- c --
+[ccarlisle1@penguin ~]$ awk '{if($2 == 158) print $5,$6,$7}' hw1_data2.txt
+Toronto Blue Jays
+Milwaukee Brewers
+Houston Astros
+Baltimore Orioles
+
+-- d --
+macbook:sysprog chris$ awk '{if($3<90) print $1, $3}' hw1_data2.txt
+Cabrera 83
+Suzuki 88
+Tejada 83
 
