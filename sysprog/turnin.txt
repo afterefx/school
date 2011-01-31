@@ -1,5 +1,5 @@
-  System Version:	Mac OS X 10.6.6 (10J567)
-  Kernel Version:	Darwin 10.6.0
+System Version:	Mac OS X 10.6.6 (10J567)
+Kernel Version:	Darwin 10.6.0
 
 ===========
 ==   1   ==
@@ -105,7 +105,7 @@ macbook:sysprog chris$ ls -a | egrep '^\.'
 turnin.txt.swp
 
 -- b --
-macbook:sysprog chris$ sed '/^$/d' file.txt
+macbook:sysprog chris$ sed '/^$/d' file.txt > file.txt
 blank line below
 blank line above
 
@@ -126,27 +126,106 @@ chris      599   0.1  0.5 11157712  19640   ??  S    Thu09PM   0:41.64 /Users/ch
 ===========
 
 -- a --
-macbook:sysprog chris$ egrep '161' hw1_data2.txt
-Cabrera 161     83      9       Oakland Athletics
-Markaki 161     94      18      Baltimore Orioles
-Cano    161     103     25      New York Yankees
-
--- b --
 macbook:sysprog chris$ awk '$2==161' hw1_data2.txt
 Cabrera 161     83      9       Oakland Athletics
 Markaki 161     94      18      Baltimore Orioles
 Cano    161     103     25      New York Yankees
 
--- c --
+-- b --
 [ccarlisle1@penguin ~]$ awk '{if($2 == 158) print $5,$6,$7}' hw1_data2.txt
 Toronto Blue Jays
 Milwaukee Brewers
 Houston Astros
 Baltimore Orioles
 
--- d --
+-- c --
 macbook:sysprog chris$ awk '{if($3<90) print $1, $3}' hw1_data2.txt
 Cabrera 83
 Suzuki 88
 Tejada 83
 
+-- d --
+macbook:sysprog chris$ awk '{r+=$3} END {print "Total runs by all players:",r}' hw1_data2.txt
+Total runs by all players: 984
+
+-- e --
+#Below are contents of hw1_2e.awk
+
+BEGIN { print ""; print "    ------Home Runs Data:------";print ""}
+{ if($2==155) pf+=1;}
+{ if($2==158) pe+=1;}
+{ if($2==161) po+=1;}
+
+{ if($2==155) rf+=$4;}
+{ if($2==158) re+=$4;}
+{ if($2==161) ro+=$4;}
+
+END {print "Players who played 155 games:",pf;
+     print "Total Home Runs:             ",rf;
+     print "";
+     print "Players who played 158 games:",pe;
+     print "Total Home Runs:             ",re;
+     print "";
+     print "Players who played 161 games:",po;
+     print "Total Home Runs:             ",ro;
+     print "";}
+
+------------- output -------------
+
+
+    ------Home Runs Data:------
+
+Players who played 155 games: 2
+Total Home Runs:              39
+
+Players who played 158 games: 4
+Total Home Runs:              98
+
+Players who played 161 games: 3
+Total Home Runs:              52
+
+===========
+==   4   ==
+===========
+# Below are contents of hw1_3.sed
+
+/^ *\/\*/,/\*\//d
+/\/\/.*$/d
+
+------------- input -------------
+
+Text
+/**
+  some text
+  */
+Text2
+Space below
+
+// a comment
+Text3
+//*************** Text4
+//bob
+//bob
+//************
+     /**
+  some text
+  **/
+Space below
+
+Text5
+/* bob */
+    /* bob */
+ //basdflkj()&
+Text6
+------------- output -------------
+
+Text
+Text2
+Space below
+
+Text3
+Text4
+Space below
+
+Text5
+Text6
