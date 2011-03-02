@@ -1,0 +1,138 @@
+==========================
+  Exam a week from today
+==========================
+
+-----------------------------------------
+Mole
+
+1 mole = 6.02 * 10^23
+
+1 mole C = 6.02*10^23 = 12g
+                         |
+                    atomic mass
+
+12gC = 1 mole = 6.02*1-^23 C atom
+
+CO    1 mole CO  = 12 + (16*2)=44
+  2            2
+
+1 mole CO = 44g CO = 6.02*10^23 CO  molecule
+         2        2               2
+
+2.2g CO  ---> ? mole
+       2
+
+2.2g CO   *  (1 mole/44g) = 0.05 mole CO
+       2                                2
+
+
+-----------------------------------------
+0.9 g H O  ---> mole
+       2
+
+0.9g * (1mole/18g) = 0.05 mole
+
+0.5 mole of H2O ---> molecules
+
+0.05 mole H2O * (6.02*10^23 molecules/1mole) = 3.01*10^22 H2O molecules
+
+====================================
+====================================
+||  Balancing chemical Equations  ||
+====================================
+====================================
+
+Law of Conservation of mass - IN a chemical reaction, atoms are neither created
+nor destroyed
+
+Reactants ---> product
+
+Na + O2 --> Na2O    needs balancing
+
+2Na + O2 ---> Na2O
+
+4Na + O2 --> 2Na2O
+-------------------------------
+
+C + O2 --> CO2
+
+------------------------------
+CH4 + O2 ---> CO2 + H2O
+
+1) metals
+2) non-metals
+3) O2 + H2 last
+4) if an atom or a diatomic molecule is by itself then do it last
+
+CH4 + 2O2 --> CO2 + 2H2O
+
+-------------------------------
+Al(OH)3 + H2SO4  --> Al2(SO4)3 + H2O
+
+Al 2 = 2
+S 3 = 3
+O 18 =  18
+H 12 = 12
+
+2Al(OH)3 + 3H2SO4 --> Al2(SO4)3 + 6H2O
+
+-------------------------------
+
+
+====================================
+====================================
+||    Reaction Stoichiometry      ||
+====================================
+====================================
+
+CH4 + 2O2 --> CO2 + 2H2O
+
+1 molecule CH4 + 2 molecule O2 --> 1 molecule CO2 + 2 molecule H2O
+
+1 mole CH4 + 2 mole O2 --> 1 mole CO2 + 2 mole H2O
+
+----
+mole H2O --> mole CH4
+
+               1   mole CH4
+10 mole H2O * -------------- == 5 mole CH4
+               2   mole H2O
+
+               ||
+               ||
+               \/
+               balanced chemical reaction coefficient
+
+1 egg + 0.5 cup flour + (1/4) cup sugar --> 3 cupcake
+
+9 cupcakes --> 3 eggs, 1.5 cup flour, 3/4 cup sugar
+
+            1 mole CO2
+10 mole H2O ----------   == 5 mole CO2
+            2 mole H2O
+
+----
+?g CO2
+5 mole CO2 --> g CO2
+5 mole CO2 (44g / 1 mole) == 220 g CO2
+
+
+mole --> g periodic table
+mole --> mole reaction
+
+CH4 + 2O2 --> CO2 + 2H2O
+
+18g H2O ---> ? mole CH4
+1 mole H2O --> ? mole CH4
+1/2 mole CH4
+-------------------
+16 on blackboard
+C5H12 == 72g == 1 mole
+O2 == 32g == 1 mole
+18g C5H12 == 0.25mole
+for every mole of CH512 you need 8 moles of O2
+sole .25 mle * 8 mole == 2 mole of O2
+2 mole O2 == 64g
+
+
+

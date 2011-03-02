@@ -110,7 +110,7 @@ cation:
 
 Isotopes are atoms of an element with different number of neutrons
 
-Isotopes of an element have dientical chemical behavior
+Isotopes of an element have identical chemical behavior
 -------------------------------------------
 Periodic table of elements
 

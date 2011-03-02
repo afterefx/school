@@ -1,0 +1,129 @@
+===============
+= Atomic Size =
+===============
+
+atomic radius - the distance from the nucleus to the outer shell
+
+As you go down rows in the periodic table the atomic size gets larger b/c you
+have more shells
+
+Li has 2 shells
+Na has 3 shells
+K has 4 shells
+
+Now go across
+------------>
+Li Be same number of shells look at stronger nucleus
+2  2
+3p 4p
+
+who has stronger nucleus? 'Be' does.
+As you go from left to right the atomic size goes down
+
+Li 1s2 2s1
+Be 1s2 2s2
+
+Which one has more energy 1s of Li or 1s of Be? why?
+- Distance form the nucleus defines the energy. The farther away from the nucleus
+- the more energy there is. 1s of Lithium is going to have more energy than 1s of
+- Beryllium
+
+Which one has more energy Li 2s or Na 3s?
+- Na 3s has more energy b/c the third shell is further away from the nucleus
+- therefore giving it more energy
+
+Which has more energy Lithium 2s or Na 2s?
+Lithium has a small nucleus is weaker so it is not strong enough to bring the
+eletrons close. Sodium (Na) the nucleus is stronger brings the electrons in
+closer and therefore has less energy. Lithium has more energy
+
+????????????????????????????????????????????????????????????????????
+???????????????????????????? MORE PROTONS HOLDS IN CLOSER ??????????
+????????????????????????????????????????????????????????????????????
+
+=====================
+= Ionization Energy =
+=====================
+(IE)
+
+Ionization energy - Amount of energy spent to pull out one electron from an atom or an ion
+
+Li              Na
+2 rings/shells 3 rings/shells
+---------
+|  ---  |
+| | * | |
+|  ---  |
+---------
+
+Sodium is easier to ionize, has lower IE
+
+As you go across the IE goes up
+
+Exception
+Be > B
+N > O
+
+Be 1s2 2s2
+    7L  7L
+B  1s2 2s2 2p1
+   7L  7L   7- -- --
+N  1s2 2s2 2p3
+    7L  7L  7- 7- 7-
+O  1s2 2s2 2p4
+   7L  7L   7L 7- 7-
+
+============
+= Ion Size =
+============
+------ cations -----
+     -   +
+Li -e  Li
+---------->
+     -  +
+K  -e  K
+---------->
+      -    2+
+Ca -2e   Ca
+
+----- anions -------
+F   +e^- f^-
+o     +2e^-  o^2-
+
+
+----------electron configuration
+ -- who is bigger? --
+  +        +
+Li       Na
+1s2     1s2 2s2 2p6
+
+Sodium is bigger
+
+  +       2+
+Li   or Be
+1s2     1s2
+3p       4p
+
+Lithium is bigger b/c it has less protons to hold the electrons with a negative
+charge in closer
+
+      2-
+O or O
+1s2 2s2 2p4  1s2 2s2 2p6
+
+anions are bigger than original elements
+cations are smaller than their original elements
+
+ 2-  -       +   2+
+O   F  Ne  Na  Mg
+all have the same electron configuration
+
+Mg is the smallest b/c it has the most protons
+
+ 2-   -         +    2+
+O  > F > Ne > Na > Mg
+biggest            smallest
+
+
+
+

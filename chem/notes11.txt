@@ -1,0 +1,105 @@
+Gas Laws
+
+PV - nRT
+
+ideal gasses
+STP (standard temperature and pressure)
+ |
+ V
+1 mol of any gass = 22.4L
+
+2H2 + O2 -> 2H20
+
+
+Density -> molar mass
+
+Density = m/v == mass / volume
+
+
+n = mass/molarmass
+
+10g Na ---> ? mole
+
+10g Na   1 mole Na        mass Na
+------   ---------  =  ------------
+           23g Na     molar mass Na
+
+
+pv   m/M RT             DRT
+-- = ------   =   p =  -----
+v      M*v               M
+
+
+     MP
+D = ----
+     RT
+
+
+     m= proportionality RT /p
+
+     .082 R
+
+========================================
+Calculate the density of O2 gas at 1.22 atm at 25 degrees celsius
+298.15 K
+16 g/mol
+
+     MP
+D = ----
+     RT
+
+M = 32 g/mol
+P = 1.22 atm
+R - 0.082 Latm/molK
+T = 273+15 = 298 K
+D = (32g/mol*1.22atm)/(0.082 Latm/molK)(298K)
+D = (32g*1.22)/(0.082 L)(298)=1.6 g/L  <===answer
+==============================
+1atm = 760 torr
+R = 0.082 Latm/molk
+
+.397g occupies 275 mL 10 degrees celsius 265 torr molecular weight? in g/mol
+
+.397/.275 = 1.44363
+
+M = DRT/p = alpha RT/p
+
+
+D= 0.397g/275mL = .397g/0.275L = 1.44 g/L
+R = 0.082 Latm/molK
+T= 10 degrees celsius + 273 = 283 K
+P = 365 torr /700 torr = 0.48 atm
+
+(1.44g/l* 0.082Latm/molK*283K)/ .48 atm
+(1.44g* 0.082/mol*283K)/ .48
+
+69.7 g/mol
+===================
+Partial pressure of an ideal gas
+
+Dalton's Law of partial pressure in a mixture of unreacting gases, the total
+pressure is the sum of the partial pressures of the individual gases
+
+P1 = x_mole fratction P _total
+
+x_1 = n_1/n_total
+-----------------
+H2 O2 N2
+.3 .1 .1
+
+
+P_H2 = P_total * X_H2
+
+X_H2 = 0.3/(.3+.1+.1) = 0.6 m
+
+X_O2 = 0.1/0.5 = 0.2 m
+X N2 = 0.1/0.5 = 0.2 m
+X_total = 1
+X_total always == 1
+
+29.) pv=nRT
+10L flask contains .4 m He .5 mole Ne @ 35 celsius pressure of Ne
+(.5*.082*305)/10=1.26
+
+
+

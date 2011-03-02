@@ -1,0 +1,160 @@
+metals -> lose electrons
+non-metals -> gain electrons
+
+metal + non-metal --> ionic compound
+
+  +    -         1 1
+Li  + F   -->  Li F
+
+  + 2+      
+Li O     ->  Li  O
+               2
+
+  3+ +2
+Al  O    --> Al  O
+               2  3
+
+  2+ 2-
+Ca  O    -->> not Ca O   CaO
+                    2 2
+
+ionic compound -- metal and then non-metal
+
+  3+   2-
+Fe   O       -->  Fe  O
+                    2  3
+
+  2+  2-
+Fe   O  --> FeO
+
+
+----------------------------------------
+========================================
+========================================
+Nomenclature - Ionic Compound
+========================================
+========================================
+
+LiF
+
+Lithium Florine
+
+leave first name alone  on the non-metal drop end and add 'ide'
+
+
+Lithium floride
+cation   anion
+
+  3+  -
+Al   F   -->  Al F      Aluminum floride
+                  3
+
+Fe  O   iron(III)oxide
+  2  3
+
+FeO    iron(II)oxide
+
+
+polyatomic ions
+
+anions
+nitrate NO3^-
+sulfate SO4a^2-
+Phosphate PO4^3-
+Hydroxide - OH^-
+
+Na^+ NO3^-  == NaNO3  Sodium nitrate
+
+Na^+ SO4^2- == Na2SO4
+
+Al^3+ SO4^2- -> Al2 (SO4)3
+
+Calcium hydroxide
+Ca^2+ OH^- --> Ca(OH)2
+
+--------
+Cation
+NH4^+  ammonium ion
+NH4Cl
+ammonium sulfate (NH4)2SO4
+
+------------------------------------
+non-metal + non-metal --> covalent compound
+
+N2O
+| \_____
+N2      O
+|       |
+cation anion
+|         |
+dinitrogen monoxide       di is for 2     mono is for one
+
+never use monoxide at the beginning
+
+NO2
+nitrogen dioxide not mononitrogen dioxide
+
+Dihydrogen monoxide
+H2O  water
+
+Baking soda NaHCO3
+CO3^2-  Carbonate
+HCO3^- hydrogen carbonate
+SO4^2- sulfate
+HSO4^- hydrogen sulfate
+
+
+
+========================================
+========================================
+         Mole Concept
+========================================
+========================================
+
+dozen == 12
+mole == 6.02*10^(23)
+
+12   <--atomic mass
+  C
+ 6   <-- atomic number
+
+ 1 mole C = 12g = 6.02*10^(23) atoms
+ 1 mole Cl = 35.5g=6.02*10^(23) atoms
+
+ LiCl What is the mass of one mole of LiCl?
+ 1 mole LiCl= 7+35.5=42.5g
+
+ 1 mole LiNO3 = 7+14+(16*3)=69 = 6.02*10^23 molecules
+
+mole -> gram (g)
+mole -> # of atoms or molecules
+g -> mole
+
+````````````````````````````````
+1.2gC --> mole C
+
+
+1.2gC --> 1 mole/12gC = 0.1moleC
+12gc==1mole
+
+````````````````````````````````
+3.2g(O) --> mole (O)
+    1 mole == 16g
+3.2 --> 1 mole/16gO --> .20 mole(O)
+````````````````````````````````
+0.01 mole Au  --> ? Au atom
+
+0.01moleAu  -->  6.02*10^(23) atom Au/1 mole Au = 6.02*10^(21) Au atom
+
+==6*10^21 b/c of sig figs
+
+`````````````````````````````````
+convert 4.4g of CO2 to mole and # of molecules
+CO2 == 44
+4.4gCO2 == 1/44 == .1 mole
+
+.1mole CO2 --> 6.02*10^(23) / 1 mole CO2 = 6.02*10^(22) CO2 molecules
+6*10^(22) molecules
+for atoms 6*10^(22) * 3 = 1.8*10^23 atoms
+`````````````````````````````````
+

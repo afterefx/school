@@ -1,0 +1,166 @@
+========= Ionic compounds and stoichiometry ============
+
+                    +         2-
+Na2SO4(ag)  -->  2Na(aq) + SO4(aq)
+
+                   3+      2-
+Al2(SO4)3  ---> 2Al  + 3SO4
+
+----------------------------------------------------
+Acid-Base reactions
+
+              +        -
+HCl(aq) ---> H(aq) + Cl(aq)
+
+               +        -
+NaOH(aq) --> Na(aq) + OH(aq)
+
+HCl + NaOH --> H2O (l) + NaCl (aq)
+
+
+
+====================================================
+====================================================
+                        Gas Laws
+====================================================
+====================================================
+
+Pressure
+    atmosphere, torr (mmHg)
+
+Definition: Pressure = Force/area = f/a
+
+Gas
+-----
+Pressure = P
+Volume = V
+Temperature = T unit: Kelvin
+Number of moles/particles = n
+
+P
+V
+T
+N
+
+*******************
+decrease volume
+ ---    __
+|   |  |  |
+ ---    --
+ P1      P2 = 2P1
+ V1      V2 = (1/2)V1
+ T
+ N
+
+ P ∝  (1/V)
+    indirectly proportional
+
+*******************
+increase tempurature
+
+ ---    ---
+|   |  |   |
+ ---    ---
+ P1     P2 = 2*P1
+ V      V
+ T1     T2 = 2*T1
+ N
+
+ T ∝ P
+
+******************
+increase number of moles
+
+ ---    ---
+|   |  |   |
+ ---    ---
+ P1     P2 = 2*P1
+ V
+ T
+ N      N2 = 2*N1
+
+ P ∝ N
+
+
+******************
+keep p and n constant but double temperature
+
+ ---    ---
+|   |  |   |
+ ---    ---
+ P1     P
+ V      V2 = 2*V1
+ T      T2 = 2*T1
+ N      N
+
+ V ∝ T
+ volume and temperature are directly proportional
+
+******************
+??????????
+
+
+P     P ----?
+V     V -----?
+T     T
+N     N= 2*N1
+
+
+ p ∝ (1/v)
+ p ∝ T
+ V ∝ T
+ V ∝ n
+
+ p*v ∝ nT
+     |
+     |
+     V
+pv = nRt       <============ ideal gas law
+
+      ^
+      |
+      |
+      constant is R
+
+
+-----------------------
+↑V, n↑
+V ∝ n
+Avogadro's law - AT fixed T and P, equal volumes of any ideal gas contain equal
+number of paritcles
+
+(nitrogen)
+  N2                 O2
+ ---                ---
+|   |              |   |
+ ---                ---
+ P = 1atm          P = 1 atm
+ V  = 2L           V = 2L
+ T  = 273K         T = 273K
+ N                 N
+
+
+1 H2 (g) + 1Cl2(g) → 2HCl(g)  moles
+1 mol H2 (g) + 1 mol Cl2(g) → 2 mol HCl(g)  moles
+1 L H2 (g) + 1 L Cl2(g) → 2 L HCl(g)     liters
+
+
+
+
+-----------------------
+-----------------------
+-----------------------
+  Standard condition
+-----------------------
+-----------------------
+-----------------------
+
+standard condition for ideal gases
+standard temperature and pressure (STP)
+
+
+T = O°C, p=1atm=760torr
+Under STP conditions, the volume of 1 mol of an ideal gas is 22.4 liter
+this is called standard molar volume
+
+22.4L = standard molar volume
