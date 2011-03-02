@@ -1,0 +1,178 @@
+//*********************************************************************
+// Christopher Carlisle
+// Systems Programming
+// Programming Project #0: Project Title
+// January 1, 1970
+// Instructor: Dr. Ajay K. Katangur
+//
+//********************************************************************
+#define DEBUG
+#include <dirent.h>
+#include <fcntl.h>
+#include <iostream>
+#include <map>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string>
+#include "cliArgs.h";
+using namespace std;
+
+#define BUF_SIZE 1024
+
+enum { STDIN, STDOUT, STDERR };
+
+struct statinfo
+{
+    string fileName; /* File Name */
+    int	lastCycle, thisCycle;	/* To detect changes */
+    struct stat * status;		/* Information from stst() */
+};
+
+void loop(cliArgs*);
+void processDirectory(string);
+void processFile(string);
+map<string, statinfo*> files;
+map<string, statinfo*>::iterator it;
+
+int main(int argc, char **argv)
+{
+    cliArgs *args;
+    int numFiles,delay;
+
+    //take care of the command line arguments
+    try {
+        args = new cliArgs(argc, argv);
+    }
+    catch(string e) {
+        cout << e << endl;
+        return 1;
+    }
+
+#ifdef DEBUG
+    args->debug();//debug output
+#endif
+
+    //analyze files and folders
+    loop(args);
+
+    return 0;
+}
+
+void loop(cliArgs *args)
+{
+    int numFiles = args->getNumFiles();
+    int delay = args->getTimeDelay();
+    int scanCount = args->getScanCount();
+    int scan=0;
+    bool firstScan = true;
+
+    statinfo *current;
+
+    //if scanCount comes back zero for
+    //inifinite loop set to one so it will be infinite
+    if(!scanCount)
+        scanCount = 1;
+
+    //go through each scan
+    while( scan < scanCount)
+    {
+        /*///////////////////////////////////////////////
+        //so for each input file
+        //get stat
+        //check if dir
+        //if true then process dir
+        //and continue to next file
+        //makes it past that then process single file
+        //
+        //iterator
+        ***********************************************/
+
+        ///////////////////////////
+        //on first scan add files
+        ///////////////////////////
+        if(firstScan)
+        {
+#ifdef DEBUG
+            cout << "inside first scan if\n";
+#endif
+            //for each file do the following
+            for(int i=0; i < numFiles; i++)
+            {
+                current = new statinfo; //get a new pointer
+                (*current).fileName = args->getFilename(i); //get a filename
+
+                if(stat((*current).fileName.c_str(), (*current).status))
+                {
+
+#ifdef DEBUG
+                cout << stat((*current).fileName.c_str(), (*current).status);
+#endif
+                    cout << "monitor: Error " + (*current).fileName + " is causing problems\n";
+                    continue;
+                }
+
+                //add pointer to map for filename as key
+                files[(*current).fileName]=current;
+
+                //check to see if current filename is directory
+                if(S_ISDIR((*current).status->st_mode))
+                    processDirectory((*current).fileName);
+                else
+                    processFile((*current).fileName);
+            }
+
+        }
+        else
+        {
+            //iterate through each file and folder
+              for ( it=files.begin() ; it != files.end(); it++ )
+              {
+                // if folder processDirectory
+                current = (*it).second; //get the pointer from iterator
+
+                //check to see if it's a directory
+                if(S_ISDIR((*current).status->st_mode))
+                    processDirectory((*current).fileName);
+                else
+                    processFile((*current).fileName);
+              }
+        }
+
+
+        //if not set for infinite count
+        if(scanCount)//if scanCount is not equal to zero
+            scan++;
+
+        firstScan = false;//true only on first loop
+        sleep(delay);//delay between scans
+    }
+
+}
+
+void processDirectory(string key)
+{
+
+    DIR *fd;
+    struct dirent *dirp;
+
+    fd = opendir(key.c_str());
+    if(  fd == NULL)
+        cout << "Error opening " << key << endl;
+
+    while ((dirp = readdir(fd)) != NULL)
+    {
+        cout << string(dirp->d_name) << endl;
+
+    }
+
+}
+
+void processFile(string key)
+{
+    //get modification time
+    //compare to previous time
+    //if previoustime ==0 new file
+    //if previoustime is diff then current changed
+    //if stat returns -1 then file deleted
+
+}

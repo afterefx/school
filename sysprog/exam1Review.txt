@@ -1,0 +1,50 @@
+--chapters 1 - 4
+====== no true or false ======
+ch 1 greps and greps with piping  +++similar to homework +++++
+using grep with other utilites to receive output
+sed
+awk
+crontab
+tr
+ln
+find
+compare and sort with some options
+
+
+
+clearly understand concepts, not ask to write scripts except for small little
+ones. 
+
+=================shells
+
+how pipes work, sequencing, how to group commands, wht happens during a bg processing
+env variables local vars what do they mean
+quoting
+termination exit codes, where is it going to be stored
+shift eval and umask
+
+
+
+=====
+
+system
+fork how it works, parent pid, pid and .....
+and may give programs like on page 3 go over program and understand the conceptsGo
+what is the output of a program
+effective vs real user id
+zombies and orphan processes
+exec, what happens during exec and how ti actually works (successful exec never returns)
+???    chd
+nice 
+
+--- ch 4 --
+perror function
+lseek
+regular file commands write read lseek
+dup an dup2
+what idoes a stat function call do, plus all variants
+getDense???   (spelling)
+chown and permissions of a file
+look into redirection using dup
+
+

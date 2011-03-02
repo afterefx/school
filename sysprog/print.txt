@@ -1,0 +1,95 @@
+System Version:	Mac OS X 10.6.6 (10J567)
+Kernel Version:	Darwin 10.6.0
+
+===========
+==   1   ==
+===========
+
+-- a --
+grep San hw1_data1.txt
+
+-- b --
+egrep '^J' hw1_data1.txt
+
+-- c --
+egrep '700$' hw1_data1.txt
+
+-- d --
+egrep -v '834' hw1_data1.txt
+
+-- e --
+egrep ':12/' hw1_data1.txt
+
+-- f --
+egrep ':408-' hw1_data1.txt
+
+-- g --
+egrep '[A-Z][a-z]{4},\ [A-Z]' hw1_data1.txt
+
+-- h --
+egrep '\<[Kk][a-z]*:' hw1_data1.txt
+
+-- i --
+egrep ':[0-9]{6}$' hw1_data1.txt
+
+-- j --
+egrep -i 'lincoln' hw1_data1.txt
+
+===========
+==   2   ==
+===========
+
+-- a --
+ls -a | egrep '^\.'
+
+-- b --
+sed '/^$/d' file.txt > file.txt
+
+-- c --
+ps -aux | egrep '^chris'
+
+===========
+==   3   ==
+===========
+
+-- a --
+awk '$2==161' hw1_data2.txt
+
+-- b --
+awk '{if($2 == 158) print $5,$6,$7}' hw1_data2.txt
+
+-- c --
+awk '{if($3<90) print $1, $3}' hw1_data2.txt
+
+-- d --
+awk '{r+=$3} END {print "Total runs by all players:",r}' hw1_data2.txt
+
+-- e --
+#Below are contents of hw1_2e.awk
+
+BEGIN { print ""; print "    ------Home Runs Data:------";print ""}
+{ if($2==155) pf+=1;}
+{ if($2==158) pe+=1;}
+{ if($2==161) po+=1;}
+
+{ if($2==155) rf+=$4;}
+{ if($2==158) re+=$4;}
+{ if($2==161) ro+=$4;}
+
+END {print "Players who played 155 games:",pf;
+     print "Total Home Runs:             ",rf;
+     print "";
+     print "Players who played 158 games:",pe;
+     print "Total Home Runs:             ",re;
+     print "";
+     print "Players who played 161 games:",po;
+     print "Total Home Runs:             ",ro;
+     print "";}
+
+===========
+==   4   ==
+===========
+# Below are contents of hw1_3.sed
+
+/^ *\/\*/,/\*\//d
+/\/\/.*$/d
