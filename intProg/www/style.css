@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+}
+
+#title {
+	background-color: maroon;
+	width: 40em;
+	height: 4em;
+}
+
+#menu {
+	background-color: gray;
+	width: 60em;
+	height: 3em;
+	margin: 0;
+	padding: 0;
+}
+
+#gallery{
+	background-color: blue;
+	width: 30em;
+	height: 3em;
+	margin: 0;
+	padding: 0;
+}
+
+.row {
+	background-color: green;
+	width: 40em;
+	height: 3em;
+	margin: 0;
+	padding: 0;
+}
+
+#footer {
+    background-color: #dedeff;
+}
+
+.image {
+	background-color: black;
+	width: 70em;
+	height: 6em;
+	margin: 0;
+	padding: 0;
+    color: white;
+}
+
+

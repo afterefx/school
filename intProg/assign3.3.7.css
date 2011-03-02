@@ -1,0 +1,6 @@
+#compact { background-color: #ffaaaa; }
+#midsize { background-color: blue; }
+#sports { background-color: red; }
+body>ol { list-style-type: upper-roman; }
+body>ol ol { list-style-type: upper-alpha; }
+body>ol ol ol { list-style-type: decimal; }

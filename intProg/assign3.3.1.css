@@ -1,0 +1,72 @@
+body {
+    font-family: Garamond, "Times New Roman", serif;
+    color: #000;
+    background-color: #fff;
+    text-align: justify;
+    font-size: 12pt;
+    margin: 0;
+}
+
+a {
+	text-decoration: underline;
+	color: #0000ff;
+}
+
+h1, h2 {
+    font-weight: bold;
+    text-align: center;
+}
+
+h1 {
+	margin: .1em;
+}
+
+h2 {
+	margin: 2em 0 0;
+	text-transform: uppercase;
+}
+
+p {
+    line-height: 15pt;
+}
+
+div.section {
+    margin: 20px auto;
+    width: 40em;
+}
+
+div.section h2 {
+	text-align: left;
+	text-transform: none;
+}
+
+div.toc {
+	margin: 20px auto;
+	width: 40em;
+}
+
+div.toc ol {
+	padding: 0;
+	list-style-type: none;
+}
+
+div.toc ol li span.tocNum {
+	font-weight: bold;
+}
+
+.code {
+    font-family: monospace;
+}
+
+div.code {
+	padding: 22px 0 9px 0 ;
+}
+
+div.figTable {
+	text-align: center;
+	font-size: 1.15em;
+}
+
+span.figTableName {
+	font-weight: bold;
+}
