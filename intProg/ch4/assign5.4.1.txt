@@ -1,0 +1,18 @@
+var number=5;
+var stringOutput = "----------------\n";
+
+stringOutput += "|  N  | N^2 |  N^3 |\n";
+stringOutput += "----------------\n";
+for(number=5; number <= 15; number++)
+{
+    if(number < 10)
+    {
+    stringOutput = stringOutput + "| " + number + "   | " + number*number + "   | " + number*number*number + "   |\n";
+    }
+    else
+    {
+    stringOutput = stringOutput + "| " + number + " | " + number*number + " | " + number*number*number + " |\n";
+    }
+stringOutput += "----------------\n";
+}
+alert(stringOutput);

@@ -1,0 +1,38 @@
+function e_names(arrayStrings)
+{
+    var tester=new RegExp(/(ie|y)$/);
+    var count=0;
+    for(var i=0; i < arrayStrings.length; i++)
+    {
+        if(tester.test(arrayStrings[i]))
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+var nameArray1 = new Array("bobbie","janie","chris","billy","android","mary","cassie","sonya");
+var nameArray2 = new Array("jackie","lina","kim","matt","bradley","michael","blake","stefany");
+
+var count1 = e_names(nameArray1);
+var count2 = e_names(nameArray2);
+
+document.write("<p>");
+document.write("For the names: <br />");
+for(var i=0; i < nameArray1.length; i++)
+{
+    document.write(i+1 + ".) " + nameArray1[i] + "<br />");
+
+}
+document.write("Number of names that end in ie or y are: " + count1 + "<br />");
+document.write("</p>");
+
+document.write("<p>");
+document.write("For the names: <br />");
+for(var i=0; i < nameArray2.length; i++)
+{
+    document.write(i+1 + ".) " + nameArray2[i] + "<br />");
+}
+document.write("Number of names that end in ie or y are: " + count2 + "<br />");
+document.write("</p>");

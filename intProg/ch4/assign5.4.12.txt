@@ -1,0 +1,25 @@
+function tst_name(strings)
+{
+    var tester=new RegExp(/^[A-Za-z][a-z]+,\s[A-Za-z][a-z]+\s[A-Z]\s*$/);
+        if(tester.test(strings))
+            return true;
+        else
+            return false;
+}
+
+var string1 = new Array("Cskdkd, Boksksoekd L",
+                         "Cskdkd, Boksksoekd l",
+                         "lskdkd, Bksksjoekd L",
+                         "cskdkd, boksksoekd l",
+                         "Cskdkd,Boksksoekd L",
+                         "Kskdkd, Akdosksjkd L",
+                         "Cskdkd , Boksksoekd L",
+                         "Cskdkd, Boksksoekd, Bks L",
+                         "CSKDKD, BOKSKSOEKD L");
+
+document.write("<p>");
+for(var i=0; i < string1.length; i++)
+{
+    document.write(i+1 + ".) " + string1[i] + " returned: " + (tst_name(string1[i]) ? "<b>True</b>" : "<i>False</i>") +  "<br />");
+}
+document.write("</p>");

@@ -1,0 +1,77 @@
+....
+First law of thermodynamics:
+energy is neither destroyed nor created in any process.
+Energy can be converted from one form to another.
+
+According to the first law of thermodynamic, change in univer energy = delta E = 0
+
+
+    H
+    |
+H - C - H  + 0 = 0 -->  C=.....????
+    |
+    H
+
+
+delta E universe = delta E system + delta E surroundings
+
+
+defining the system is up to you
+
+system = universe - surroundings
+
+heat = q
+
+system which is a tea-pot q is going to the system
+
+---------------------
+|      system       |<--q
+---------------------
+
+delta E system = E final - Einitial
+^
+|
+change
+
+delta E of system will increase
+
+q = heat = envergy
+|
+V
+calorie
+Joule
+K Joule
+K Calorie
+
+q is measured in the lab and q is equal to mc delta t
+q= mc delta t
+
+m = mass, g
+delta t = t_final - t_initial = change in termperature
+C is specific heat capacity
+    the quantity of heat required to change the temperature of one gram of a
+    substance by one kelvin or one 1 degree celsius
+
+Element/compound  C J/gdegree celsius
+
+Al              0.9
+Graphite,C      0.7
+Fe              0.45
+Cu              0.39
+Au              0.13
+H2O             4.2
+wood            1.76
+steel           0.45
+glass           0.84
+
+Au will heat up water b/c it doesn't retain heat very well
+
+CH4 + 2O2  --> CO2 + 2H2O + q
+                        q= -880 KJ/mol
+
+CH4 + 4O2  --> CO2 + 4H2O + q
+                        q
+
+C)2 + 2H2O --> CH4 + 2O2
+                        q=_880 KJ/mol
+

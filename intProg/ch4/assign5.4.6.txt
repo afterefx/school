@@ -1,0 +1,9 @@
+var text = prompt("Enter some words to sort (separate words using a space)","");
+var stringArray = text.split(" ");
+stringArray.sort();
+document.write("<p>");
+for(var i=0; i < stringArray.length; i++)
+{
+    document.write(i+1 + ".) " + stringArray[i] + "<br />");
+}
+document.write("</p>");

@@ -1,0 +1,78 @@
+--------
+mostly like exam 1
+theory or short answer question
+majorly going to be small programs, what is output
+
+signals
+don't worry about all different signals, only typical ones, sigalarm
+how to handle signals
+how to ignore signals, using sigign
+sigstop
+sigcontinue
+how to pause/wait
+how to send signals using kill
+what happens when the children die and how to take care of problem, typically what the sigchild singal is
+sigstop sigcont
+
+setpgid and those things
+SIGTTIN and why it's generated
+
+IPC
+pipes, and named/unamed
+how they actuall work, terminology and background
+know rules on pipes
+what close on one side and other side
+go over programs on pipes
+hwo to create named pipes
+what are the differnet modes on named pipes, blocking/nonblocking
+programs on named pipes
+---
+
+sockets
+what are different sockets and what are the different domains of sockets
+go over functions of sockets
+function to create, function to give name (bind)
+may not be expecting complete syntax
+how to close a socket
+if given a server and client program should be able to know what is going on
+
+inet_addr
+gethostiname
+what function returns 32bit addr
+htonl  just know what those functiosn do
+
+shared memory know all functions
+hwo to allocate/deallocate
+ipcstat what does it do
+go over next program
+
+semaphores
+not complicated programs, very simple programs like on slides
+might directly give same program but may remove comments and ask what it does.
+last program on semaphores
+don't worry about SEM_UNDO with all the situations, just basic understanding
+go over last semaphore example and obtain a semaphore that is already created
+
+cat and variants buffering
+what happens with buffering for system calls, no diff b/c they are like library calls
+don't waste time on ch6
+
+log files
+how to generate them
+what the various options do when used inside an open function what is an atomic function
+what is the setuid bit
+
+ch5, 8 9 important for exam
+
+threads
+diff between process and thread
+what is multithreading
+what are kernel level threads, what are user level threads
+know all functions on threads know names and what they do
+dont' worry about solaris
+check out examples at bottom
+
+go over mutexes and condition variables
+
+
+

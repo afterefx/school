@@ -1,0 +1,60 @@
+Enthalpy; deltaH
+
+delta H = q_p
+
+CH4(g) + O2(g) -->  CO2(g) + 2H2O(g) + delta H
+
+1 way is bomb calorimeter
+
+delta H_f  means delta H formation
+
+delta H°_f
+
+
+standard
+for gas p=1atm
+pure substance --> must stable form at 25degree celsius
+
+aqueous --> 1 M concentration
+
+delta H°_f CO2
+
+C_(graphite) + O2(g) --> CO2 (g)
+
+    delta H°_f CO2 = -393 KJ/mol
+
+C(graphite) + H2(g) --> CH4 (g)
+
+    delta H°_f = -74 KJ/mol
+
+H2(g) + (1/2)O2(g) --> 1H2O(g)
+
+    delta H°_f = -242 KJ/mol
+
+delta H°_f = o  ....blah idk
+
+
+delta H reaction = delta H for H2O - [ (1/2) delta H°_fa O2 + deltaH°_f H2]
+
+delta H reaction = deltaH°_f H2O
+
+
+delta H°_f H2O(g) = -242 KJ/mol  gas
+delta H°_f CO2(g) = -393 KJ/mol  gas
+delta H°_f CH4(g) = -74 KJ/mol  gas
+
+All above come from Thermodynamic Table which comes from calorimeter
+
+CH4(g) + 2O2(g) --> CO2(g) + 2H2O(g)
+    delta H°_reaction
+
+    ((-393)+(2*-242)) -  (-74)= -803 KJ
+
+
+C4H10(g) + (13/2)O2(g) --> 4CO2(g) + 5H2O(g)
+
+delta H°_f C4H10(g) = -126 KJ/mol
+
+[(4*-393)+ (5*-242)] - [(-126) + 0]
+    -2782 - -126
+    -2782 + 126 = -2656 KJ

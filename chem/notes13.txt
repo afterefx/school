@@ -1,0 +1,108 @@
+=====================
+|| Thermochemistry ||
+=====================
+
+amount of heat released or absorbed by a substance can be calculated by
+q = mc delta t
+
+-------------------------------------
+How much heat do you need to warm up 10 g Fe from 10 degree celsius to 50 degree
+celsius?
+
+m = mass
+c = specific heat = 0.45 J/gc
+delta t = change in temperature
+
+q = 10g * .45 J/gc * 40 degree celsius
+q= 180 J
+-------------------------------------
+
+How much heat is given off when you cool 10 g Fe from 50 degree celsius to 10 degree
+celsius?
+
+q = mc delta t
+q = (10g)(.45 J/gc)(10-50 degree celsius)
+q= -180 J
+-------------------------------------
+
+How much ehat do you need to warm up 10g H20 from 10 degree celsius to 50 degree
+celsius?
+
+q = mc delta t
+m = 10g
+c = 4.2 J/gc
+delta t = 40 degrees celsius
+q = 1680 J
+-------------------------------------
+
+If you drop 10g iron at 50 degree celsius in a flask containing 10g water at 10
+degrees celsius, what is the final temperature of iron and water?
+
+q_water = m_water c_water delta t_water
+q_fe = m_fe c_fe delta t_fe
+
+q_w = (10g)4.2J/gc)(t_f - 10 degree celsius)
+q_fe = (10g)0.45J/gc)(t_f - 50 degree celsius)
+
+q_w + q_fe = 0
+q_w = -q_fe
+
+(10g)4.2J/gc)(t_f - 10 degree celsius) = - [(10g)0.45J/gc)(t_f - 50 degree celsius)]
+4.2J/gc)(t_f - 10 degree celsius) = - [0.45J/gc)(t_f - 50 degree celsius)]
+4.2J/c)(t_f - 10 degree celsius) = - [0.45J/c)(t_f - 50 degree celsius)]
+4.2 t_f - 42 = -(.45_tf + 22.5)
+4.2 t_f - 0.45 t_f = 42 + 22.5
+3.75 t_f = 19.5
+t_f = 19.5/3.75 = 13.9 degree celsius <<< final correct answer algebra is wrong
+somwhere
+
+-------------------------------------
+Bomb Calorimeter
+
+Burn 1g of chips in a bomb calorimeter. Temperature of water increases by 20
+degrees celsius. How much energy 1g of chips have?
+
+q=mc delta t
+q_water+q_chips=0
+q_water = mc delta t
+q_water = 100g * 4.2 J/gc * 20 degrees celsius
+q_water = 8400 J
+q_water = -8400 J
+8400 J * (1 kcal/ 4.2 KJ) = 2 Kc
+
+-------------------------------------
+
+===================================================
+End of topic
+===================================================
+
+delta E = q+w
+delta E_constant_pressure = q_constant_pressure
+                = delta H enthalpy
+
+----------------------------------
+which one is cooler ice at 0 degree celsius or
+water at 0 degree celsius
+
+which one is hotter, water at 100 degree celsius or
+steam at 100 degree celsius
+
+
+ice -10degree celsius ----> water 10 degree celsius
+
+ice -10 degree celsius  --- > ice 0 degree celsius --> water 0 degree celsius ---> water 10 degree celsius
+
+
+bonus question due on thursday  (worth 5 points)
+How much heat is required to warmup 500g ice at -5 degree celsius to steam at
+200 degree celsius?
+
+c_ice = 2.0 J/gc
+q aka delta H  for ice to water is = 2256 J/g
+C_water = 4.2 J/gc
+q_water -> steam  = 333J/g
+c_steam = 2 J/gc
+
+give answer in kilo J
+
+show work put square on final answer

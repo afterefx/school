@@ -1,0 +1,29 @@
+var text = prompt("Enter some words to sort (separate words using a space)","");
+var order = prompt("Which order would you like? (ascending or descending)","");
+var stringArray = text.split(" ");
+var showOutput = false;
+document.write("<p>");
+if(order === "ascending")
+{
+    stringArray.sort();
+    showOutput = true;
+}
+else if(order === "descending")
+{
+    stringArray.sort();
+    stringArray.reverse();
+    showOutput = true;
+}
+else
+{
+    document.write("Invalid sort option<br />");
+}
+
+if(showOutput)
+{
+    for(var i=0; i < stringArray.length; i++)
+    {
+        document.write(i+1 + ".) " + stringArray[i] + "<br />");
+    }
+}
+document.write("</p>");

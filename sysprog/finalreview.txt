@@ -1,0 +1,43 @@
+unix archiver and other utilities
+
+ar
+how everything works using the archive system
+hwo to delete extract create a file
+how to maintain an archive using make utility
+go over chapter
+
+device drivers
+mostly going to be short answer questions
+what is process mang
+memory mang
+device control
+what are character devices  and
+what is diff between  ... and ...
+diff printf
+diff kernel modules and applciations
+leave concurrency in the kernel - able to run mulitple modules
+io ports and memory
+various memory barriers
+how to use io ports
+what is inw inl insb insl all functions
+functions how to read and write to specific ports
+------
+ignore last topic of handler
+
+
+=======
+last chapter
+ins mod
+dep mod
+what is modprobe
+look into programs
+may give program and ask to explain each line does
+also need to know about kernel alerts
+how to compile kernel modules
+modprobe, modinfo
+
+programs from 2.5
+how can you give modules a different name rather than the original name like initialization
+how to declare data types in modules and licensing and module documentation
+
+how to pass cli args to a module

@@ -1,0 +1,119 @@
+
+   o
+o -s=o
+
+
+
+
+
+2 delocalized electrons
+
+o --- s  --- o
+  ...    ...
+      |.
+      |.
+      |.
+      o
+
+1(1/3) delocalized electrons are strong than single bonk and weaker than double
+bond
+
+o - s - o
+   ||
+   o
+
+
+==================================
+
+          O
+        //
+CH  - C                 O has 1(1/2)
+  3    \
+         O
+
+
+ O=O   O=O-O
+
+ 8+8
+ 6+6
+ 16-12=4
+4/2 = 2 bonds
+12-4=8/2=4 pairs
+
+
+8+8+8=24
+6+6+6=18
+24-18=6/2=3 bonds
+18-6=12/2=6 pairs
+
+----------------------------
+  -
+NO
+  3
+
+8+8+8+8 = 32
+5+6+6+6+1=24
+32-24=8/2=4 bonds
+24-8=16/2=8 pairs
+
+    O-N=O
+      |
+      O
+
+N-O 1(1/3)
+
+=======================
+    oxidation state
+========================
+H2SO3
+
+(2*+1)+S+(3*(-2))=0
+S = +4
+
+-----------------------
+   3-
+PO4
+
+P+(4*-2)=-3
+P= +5
+
+-----------------------
+   2-
+CO3
+
+C +(3*-2) = -2
+C=+4
+
+=================================================
+  oxidation reduction reactions > Redox reaction
+  electron transfer
+=================================================
+
+Fe + O  ---> Fe O
+      2        2 3
+ 0   0        +3  -2   << oxidation states
+
+ oxidation state:
+ Fe2O3 = 2Fe + (-2*3) = 0
+ Fe = +3
+
+      3e^- (down arrow)
+ Fe 0----> +3   lost electrons
+
+      2e^- (up arrow)
+ O  0----> -2   gain electrons
+
+ Fe is oxidized
+
+ Oxygen is reduced
+
+
+----------------------------------
+N  + 3H   -->  2NH
+ 2     2          3
+0    0         -3 +1 
+
+H is oxidized
+N is reduced causing H to be oxidized so N is oxidizing agent
+
+

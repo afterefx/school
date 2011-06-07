@@ -1,0 +1,26 @@
+$sql = sprintf("INSERT INTO session values ('%s', '%s', '%s', '%s')", $token, $_POST["user"], time(), time());
+
+$sql = sprintf("SELECT 1 FROM session WHERE token='%s'",
+mysql_real_escape_string($_SESSION["token"]));
+
+$sql = sprintf("SELECT 1 FROM session WHERE token='%s'",
+mysql_real_escape_string($_COOKIE["token"]));
+
+$sql = sprintf("UPDATE session SET lastSeen='%s' WHERE token='%s'", time(),
+mysql_real_escape_string($_SESSION["token"]));
+
+$sql = sprintf("DELETE FROM session WHERE token='%s'", 
+mysql_real_escape_string($_SESSION["token"]));
+
+$sql = sprintf("DELETE FROM session WHERE token='%s'", 
+mysql_real_escape_string($_COOKIE["token"]));
+
+$sql = sprintf("SELECT userid FROM users WHERE user='%s'", $user);
+
+$getUserSQL = sprintf("SELECT user FROM session WHERE token='%s'",
+mysql_real_escape_string($_SESSION["token"]));
+
+$getUserSQL = sprintf("SELECT user FROM session WHERE token='%s'",
+mysql_real_escape_string($_COOKIE["token"]));
+
+$sql = sprintf("SELECT key FROM apikeys WHERE username='%s'", $user);

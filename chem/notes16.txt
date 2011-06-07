@@ -1,0 +1,109 @@
+molecular shape
+water
+
+ .. ..
+   O
+  / \
+ H   H
+
+4 little circles around each
+bent molecular shape
+
+
+
+=========================================
+=========================================
+            molecular polarity
+=========================================
+=========================================
+
+H-H non-polar covalent
+
+There is no difference in electronegativity
+
+-------------------------------------------
+
+C-F    covalent
+        polar
+
+O-F
+
+C-F is more plar than O-F because of delta X_C-F > delta X_O-F
+
+
+....
+
+C-F has a dipole moment
+
+dipole moment of C-F is greater than O-F
+
+C-F       O-F
+-->       ->
+
+
+Molecular polarity
+
+  F                Cl
+  |                |
+F-C-F              B
+  |              /   \
+  F            Cl     Cl
+
+
+  <--->
+  O=C=O
+
+  |
+  V
+  C=O bond is polar but CO2 molecule is not polar
+
+
+   H         |
+   |         |
+ F-C-F       |
+   |         |
+   F         V
+
+   as soon as hydrogen is added it makes it polar
+
+   it is going to have a dipole
+
+
+  . .
+H--O--H     <-- wrong shape
+  . .
+
+
+ .. ..    ^
+   o      |      right shape
+  / \     |
+ H   H    |
+
+
+------
+
+  ..   ^
+H-N-H  |      polar
+  |    |
+  H    |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
