@@ -1,0 +1,33 @@
+
+1A.) There are different ways to perform do the same thing because people have different styles of performing the same thing. They may do it differently to be more explicit (x=x+1) or they may prefer to have a shorthand coding style of increment x (x++). Another reason may be readability.
+
+1B.) The syntax is x+=1 rather than x=+1 because of readability. The + symbol could have the meaning of addition or be used as a symbol of the value of the number (positive or negative). To prevent confusion of whether the + operator is being used for addition or to denote a positive number they put the equal sign between the + sign and the number.
+
+1C.) After reading from the book there was no difference noted in today's compilers. If I had to take a stab at it I would guess that the difference would be the linking of several programs. This is due to the fact that programs can be much larger today then they used to be and therefore require much more organization by modulization. In order to have the ability to modularize a program linkers had to be added into compilers.
+
+1D.)  I don't understand the question
+
+2.) In the versions of COBOL prior to 1985 in order to break out of the if block it was required that you would use NEXT SENTENCE or a period to break out of the if block. In 1985 the END-IF statement was introduced to denote the end of the block of code rather then having to jump out of it.
+
+3.) Java does not have operator overloading to simplify the language and prevent errors. When writing a program you will always know how an operator you are using will work and will not have to question whether or not someone overloaded it. The pros for adding operator overloading into the language would be to add functionality to the operator for classes where normal addition is not possible with the object. Say trying to combine two instances of a class.  The con of adding this feature in is that many programmers are already set in their ways and there is tons of code already out there trusting that operators cannot be overloaded in Java.
+
+4.)
+    11.) In C++ there is no buffer overflow checking and therefore makes the language more efficient because that is one less check that the program has to do. However, this is dangerous because the bounds of an array can be over stepped by the programmer and this is a security problem.
+
+    12.) In my perfect language there would be pretty orthonganal, it would have abstraction to help with organization of the code. It would also allow for expressivity because we all have preferences as to how things should be written. I'm iffy on the type checking because while it is helpful knowing what result you will get back all the time, it is also quite frustrating when trying to debug so that one could either be added or not. Exception handling is nice to have a program fail gracefully. Readability and Writability are both very important otherwise the language would not be successful. I would not want aliasing because that would make the language more confusing than neccesary. The language would be interpreted.
+
+    18.) The advantage of single line comments is that they are quick and easy to use. They are also denoted at the beginning of each line improving readability. The disadvantage is that they are not multiline comments. The advantage of multi-line comments is that they can be use on multiple lines. This gives you greater flexibility and more room to write comments or descriptions in the code. However, without syntax highlighting in your editor it can decrease readability.
+
+5.)
+    8.) The ALGOL 60 language did not succeed because it was trying to change to much too quickly. For one the language was being updated by a comittee and with it suddenly being presented in BNF didn't help much either. This was most likely the first time that many of the committee members had seen BNF and while it is meant to be very straight forward, we all have different interpretations of the simplest items and therefore it was bound to be misunderstood by one person if not more. Another reason that ALGOL 60 most likely failed was that it had too many options. They had so many switches, knobs, and buttons that they didn't know what to do with them.
+
+    11.) I believe that IBM's assumption about the two communities coming together and requiring a single computer type and a single programming language was correct. Scientific computing has become a crucial part of some businesses. One example of this is the Oil Industry. They have tons of scientific data while also trying to operate a business.
+
+    12.) Orthongality in programming language design is the simplicity of a language. When a language is orthongonal it has operators and operands that contain a single meaning. For example, you would only be able to increment a variable one way and not have three options. This removes the necessity for checking the context of a statment.
+
+    14.) Using a typeless language can make programming an easier task.  A variable can contain a numeric value and be used as both an integer and a string without having to cast a different data type. The problem with a typeless language is that your variables could always return something unexpected. For instance, when trying to concatenate two numeric values for a string together you may end up adding the values together. Or the other outcome may be you are trying to add the variables to find the sum and you end up appending one numeric value to the other.
+
+    18.) I think that restricting the removal of features is key to allowing a language to continually evolve. We should keep in mind that there is legacy code out there and that were we to remove a feature it could spell disaster for a programmer somewhere in the world. This does not mean that we cannot add features or update them. Changing the way that certain tasks are performed or the code is written is perfectly fine as long as the convention is clearly defined. Also, it should be noted that the changes should not happen all at once, as this would make current users of the language feel abandoned.
+
+
+    24.) Scripting languages appear more frequently than new compiled languages because people are looking for ways to push code out the door faster. When your boss is breathing down your neck to get a project done, you are going to find the quickest and easiest way to get it done. This is why scripting languages are welcome. A lot of the behind the scenes stuff is taken care of for you.  

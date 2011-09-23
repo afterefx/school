@@ -1,0 +1,10 @@
+program test1(in,out)begin
+procedure{garbage}function var:real integer;{more
+garbage and
+trash}array[123..456]of boolean;
+= <> <= >= < >
+A:=-3+40.00-5E6*6.0E+23/7.12345E-23
+B:=+8div-9mod-10E+C     11E-A   12Error
+F[13]+G(14)+H[15]-I(16)-J
+if true then A := 50else B  := 70;
+while false or true and not false do E := 80end.
