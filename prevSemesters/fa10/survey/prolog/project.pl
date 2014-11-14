@@ -1,3 +1,25 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Problem ====
+% One evening there was a murder in the 
+% home of married couple, their son and daughter. One of
+% these four people murdered one of the others. One 
+% of the members of the family witnessed the crime.
+%
+% Murderer sketch
+% The other one helped the murderer.
+% 
+% These are the things we know for sure:
+% 
+% 1. The witness and the one who helped the murderer were not of the same sex.
+% 2. The oldest person and the witness were not of the same sex.
+% 3. The youngest person and the victim were not of the same sex.
+% 4. The one who helped the murderer was older than the victim.
+% 5. The father was the oldest member of the family.
+% 6. The murderer was not the youngest member of the family.
+ 
+% Who was the murderer?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %-------- facts -----------
 position(mother).
 position(father).
